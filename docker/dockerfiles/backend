@@ -1,0 +1,28 @@
+# Base image
+FROM php:8.2-fpm-alpine3.17
+
+# Install dependencies
+RUN apk add --no-cache bash mysql-client libzip-dev unzip
+
+# Install PHP extensions
+RUN docker-php-ext-install pdo_mysql zip
+
+# Make working directory
+RUN mkdir /code
+
+# Set working directory
+WORKDIR /code
+
+# Copy Laravel files
+
+# ADD composer.json composer.lock /code/
+ADD composer.json /code/
+
+# Set permissions
+# RUN chown -R www-data:www-data /code/storage /code/bootstrap/cache
+
+# Install Composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+# Install dependencies with Composer
+RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader --no-scripts
