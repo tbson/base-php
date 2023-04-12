@@ -56,6 +56,10 @@ elif [ "$FIRST_ARG" == "php" ]; then
     docker compose exec "$NAME"_backend php $ARGS
 elif [ "$FIRST_ARG" == "artisan" ]; then
     docker compose exec "$NAME"_backend php artisan $ARGS
+elif [ "$FIRST_ARG" == "composer" ]; then
+    docker compose exec "$NAME"_backend composer $ARGS
+elif [ "$FIRST_ARG" == "dump-autoload" ]; then
+    docker compose exec "$NAME"_backend composer dump-autoload
 elif [ "$FIRST_ARG" == "makemigrations" ]; then
     docker compose exec "$NAME"_backend poetry run alembic revision -m $ARGS
 elif [ "$FIRST_ARG" == "migrate" ]; then

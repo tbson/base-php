@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\File;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -27,12 +28,25 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::middleware("api")
+            $routeConfig = Route::middleware("api")
                 ->prefix("api/v1")
                 ->group(base_path("routes/api.php"));
 
             # Route::middleware("web")->group(base_path("routes/web.php"));
+            $this->load_use_case_routes($routeConfig);
         });
+    }
+
+    private function load_use_case_routes($routeConfig)
+    {
+        $use_case_base_path = base_path("Src/UseCase");
+        $listUseCase = array_map("basename", File::directories($use_case_base_path));
+        foreach ($listUseCase as $useCase) {
+            $routePath = $use_case_base_path . "/" . $useCase . "/Route.php";
+            if (file_exists($routePath)) {
+                $routeConfig->group(base_path(ltrim($routePath, "/code/")));
+            }
+        }
     }
 
     /**
