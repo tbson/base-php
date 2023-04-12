@@ -67,6 +67,8 @@ elif [ "$FIRST_ARG" == "migrate" ]; then
 elif [ "$FIRST_ARG" == "bserver" ]; then
     # docker compose exec "$NAME"_backend poetry run uvicorn main:app --reload --host 0.0.0.0 --port 4000
     docker compose exec "$NAME"_backend php artisan serve --host=0.0.0.0 --port=8000
+elif [ "$FIRST_ARG" == "log" ]; then
+    docker compose exec "$NAME"_backend tail -f storage/logs/laravel.log
 elif [ "$FIRST_ARG" == "up" ]; then
     docker_up
 elif [ "$FIRST_ARG" == "down" ]; then
