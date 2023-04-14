@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Service\Account;
+namespace Prog\Srv\Account;
 
-use Src\Service\Account\Schema\UserSchema;
+use Prog\Srv\Account\Schema\UserSchema;
 
-class UserService
+class UserSrv
 {
     public static function getAllUsers()
     {

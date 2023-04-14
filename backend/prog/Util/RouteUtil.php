@@ -1,5 +1,5 @@
 <?php
-namespace Src\Util;
+namespace Prog\Util;
 
 use Illuminate\Support\Facades\Route;
 

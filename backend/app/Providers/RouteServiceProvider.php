@@ -39,7 +39,7 @@ class RouteServiceProvider extends ServiceProvider
 
     private function load_use_case_routes($routeConfig)
     {
-        $use_case_base_path = base_path("Src/UseCase");
+        $use_case_base_path = base_path("prog/UseCase");
         $listUseCase = array_map("basename", File::directories($use_case_base_path));
         foreach ($listUseCase as $useCase) {
             $routePath = $use_case_base_path . "/" . $useCase . "/Route.php";

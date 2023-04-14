@@ -1,17 +1,17 @@
 <?php
 
-namespace Src\Service\Account\Schema;
+namespace Prog\Srv\Account\Schema;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserSchema extends Model
+class GroupSchema extends Model
 {
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = ["uid", "value", "description", "type"];
+    protected $fillable = ["workspace_id", "profile_type", "title"];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -27,5 +27,15 @@ class UserSchema extends Model
      */
     protected $casts = [];
 
-    protected $table = "variables";
+    protected $table = "groups";
+
+    public function pem()
+    {
+        return $this->belongsToMany(
+            Prog\Srv\Account\Schema\PemSchema::class,
+            "groups_pems",
+            "group_id",
+            "pem_id"
+        );
+    }
 }

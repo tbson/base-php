@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Service\Account\Schema;
+namespace Prog\Srv\Account\Schema;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Model;
@@ -33,7 +33,7 @@ class PemSchema extends Model
     public function group()
     {
         return $this->belongsToMany(
-            Src\Service\Account\SchemaGroupSchema::class,
+            Prog\Srv\Account\SchemaGroupSchema::class,
             "groups_pems",
             "pem_id",
             "group_id"

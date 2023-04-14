@@ -12,9 +12,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \Src\Service\Account\Schema\UserSchema::factory(10)->create();
+        // \Prog\Srv\Account\Schema\UserSchema::factory(10)->create();
 
-        // \Src\Service\Account\Schema\UserSchema::factory()->create([
+        // \Prog\Srv\Account\Schema\UserSchema::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);

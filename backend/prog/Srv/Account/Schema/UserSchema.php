@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Service\Account\Schema;
+namespace Prog\Srv\Account\Schema;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 # use Illuminate\Database\Eloquent\Factories\HasFactory;

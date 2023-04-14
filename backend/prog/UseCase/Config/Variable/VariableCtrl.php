@@ -1,15 +1,15 @@
 <?php
 
-namespace Src\UseCase\Config\Variable;
+namespace Prog\UseCase\Config\Variable;
 
-use Src\Controller;
-use Src\Service\Account\UserService;
+use Prog\Controller;
+use Prog\Srv\Account\UserSrv;
 
 class VariableCtrl extends Controller
 {
     public function list()
     {
-        $items = UserService::getAllUsers();
+        $items = UserSrv::getAllUsers();
         return response()->json(["items" => $items]);
     }
 

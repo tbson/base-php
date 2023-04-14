@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Src\Util\RouteUtil;
-use Src\Util\StrUtil;
+use Prog\Util\RouteUtil;
+use Prog\Util\StrUtil;
 
 class CmdSyncAllPems extends Command
 {
