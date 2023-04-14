@@ -42,7 +42,7 @@ class RouteServiceProvider extends ServiceProvider
         $use_case_base_path = base_path("prog/UseCase");
         $listUseCase = array_map("basename", File::directories($use_case_base_path));
         foreach ($listUseCase as $useCase) {
-            $routePath = $use_case_base_path . "/" . $useCase . "/Route.php";
+            $routePath = $use_case_base_path . "/" . $useCase . "/Router.php";
             if (file_exists($routePath)) {
                 $routeConfig->group(base_path(ltrim($routePath, "/code/")));
             }

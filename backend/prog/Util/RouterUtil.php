@@ -3,15 +3,15 @@ namespace Prog\Util;
 
 use Illuminate\Support\Facades\Route;
 
-class RouteUtil
+class RouterUtil
 {
-    public static function getAllRouteInfo()
+    public static function getAllRouterInfo()
     {
         $routes = Route::getRoutes();
         return $routes;
     }
 
-    public static function formatRouteTitle($title)
+    public static function formatRouterTitle($title)
     {
         return ucfirst(strtolower(trim($title)));
     }

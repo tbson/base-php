@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Prog\Util\RouteUtil;
+use Prog\Util\RouterUtil;
 use Prog\Util\StrUtil;
 use Prog\Util\MapUtil;
 
@@ -28,7 +28,7 @@ class CmdSyncAllPems extends Command
      */
     public function handle()
     {
-        $routes = RouteUtil::getAllRouteInfo();
+        $routes = RouterUtil::getAllRouterInfo();
         $result = [];
         foreach ($routes as $route) {
             if (StrUtil::startsWith($route->uri, "api/v1/") === false) {
@@ -47,7 +47,7 @@ class CmdSyncAllPems extends Command
             }
             $result[] = [
                 "profile_types" => $profileTypes,
-                "title" => RouteUtil::formatRouteTitle(
+                "title" => RouterUtil::formatRouterTitle(
                     "{$titlePrefix} {$action} {$module}"
                 ),
                 "module" => $module,
