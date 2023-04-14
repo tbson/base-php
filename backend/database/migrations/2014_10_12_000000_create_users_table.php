@@ -14,6 +14,11 @@ return new class extends Migration {
         Schema::create("users", function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("workspace_id");
+            $table
+                ->foreign("workspace_id")
+                ->references("id")
+                ->on("workspaces");
+
             $table->integer("profile_type");
             $table->string("name");
             $table->string("email");
@@ -35,10 +40,6 @@ return new class extends Migration {
 
             $table->timestamps();
 
-            $table
-                ->foreign("workspace_id")
-                ->references("id")
-                ->on("workspaces");
             $table->unique(["workspace_id", "email"]);
             $table->unique(["workspace_id", "mobile"]);
         });
