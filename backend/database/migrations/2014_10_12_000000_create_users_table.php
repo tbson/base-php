@@ -27,8 +27,8 @@ return new class extends Migration {
             $table->boolean("is_owner")->default(false);
             $table->json("group_ids")->default(new Expression("(JSON_ARRAY())"));
 
-            $table->string("token_signature");
-            $table->dateTime("token_refresh_expired");
+            $table->string("token_signature")->default("");
+            $table->dateTime("token_refresh_expired")->nullable();
 
             $table->dateTime("email_verified_at")->nullable();
             $table->dateTime("mobile_verified_at")->nullable();

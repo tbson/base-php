@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Prog\Srv\Org\Seeder\WorkspaceSeeder;
+use Prog\Srv\Account\Seeder\UserSeeder;
 
 class CmdRandomCommand extends Command
 {
@@ -25,5 +27,7 @@ class CmdRandomCommand extends Command
      */
     public function handle()
     {
+        $workspace = WorkspaceSeeder::one(1);
+        $admin = UserSeeder::oneAdmin(1, $workspace->id);
     }
 }

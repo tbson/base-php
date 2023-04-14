@@ -1,6 +1,7 @@
 <?php
 
 namespace Prog\Srv\Account\Schema;
+use Illuminate\Support\Facades\Hash;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 # use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,7 +20,14 @@ class UserSchema extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = ["name", "email", "password"];
+    protected $fillable = [
+        "workspace_id",
+        "profile_type",
+        "name",
+        "email",
+        "mobile",
+        "password",
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -46,4 +54,9 @@ class UserSchema extends Authenticatable
     ];
 
     public static $messages = [];
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes["password"] = Hash::make($value);
+    }
 }
