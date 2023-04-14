@@ -46,6 +46,7 @@ class CmdSyncAllPems extends Command
                 $titlePrefix = "View";
             }
             $result[] = [
+                "profile_types" => [],
                 "title" => RouteUtil::formatRouteTitle(
                     "{$titlePrefix} {$action} {$module}"
                 ),
