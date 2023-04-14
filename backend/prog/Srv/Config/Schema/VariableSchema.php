@@ -4,6 +4,9 @@ namespace Prog\Srv\Config\Schema;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @module Prog\Srv\Config\Schema\VariableSchema;
+ */
 class VariableSchema extends Model
 {
     protected $table = "variables";
@@ -31,7 +34,7 @@ class VariableSchema extends Model
     protected $casts = [];
 
     public static $rules = [
-        "uid" => "required|string|unique",
+        "uid" => "required|string|unique:variables",
         "value" => "required|string",
         "description" => "required|string",
         "type" => "required|integer",

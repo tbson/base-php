@@ -3,7 +3,11 @@
 namespace Prog\UseCase\Config\Variable;
 use Illuminate\Support\Facades\Validator;
 use Prog\Srv\Config\Schema\VariableSchema;
+use Prog\Util\ErrorUtil;
 
+/*
+ * @module Prog\UseCase\Config\Variable\VariableValidator;
+ */
 class VariableValidator
 {
     public static function validate($attrs)
@@ -14,8 +18,9 @@ class VariableValidator
             VariableSchema::$messages
         );
         if ($validator->fails()) {
-            return [false, $validator->errors()->messages()];
+            $messages = $validator->errors()->messages();
+            return ["error", ErrorUtil::parse($messages)];
         }
-        return [true, null];
+        return ["ok", null];
     }
 }

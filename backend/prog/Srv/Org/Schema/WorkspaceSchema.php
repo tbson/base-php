@@ -1,6 +1,6 @@
 <?php
 
-namespace Prog\Srv\Config\Schema;
+namespace Prog\Srv\Org\Schema;
 
 use Illuminate\Database\Eloquent\Model;
 
