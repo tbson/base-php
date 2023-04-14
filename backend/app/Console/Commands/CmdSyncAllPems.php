@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Prog\Util\RouteUtil;
 use Prog\Util\StrUtil;
+use Prog\Util\MapUtil;
 
 class CmdSyncAllPems extends Command
 {
@@ -34,19 +35,18 @@ class CmdSyncAllPems extends Command
                 continue;
             }
             $ctrlStr = $route->action["controller"];
+            $profileTypes = MapUtil::get($route->action, "profile_types", []);
             $ctrlName = collect(explode("\\", $ctrlStr))->last();
             $ctrlName = str_replace("Ctrl", "", $ctrlName);
             $ctrlArr = explode("@", $ctrlName);
-            dump($ctrlArr);
             $module = StrUtil::camelToWords($ctrlArr[0]);
-            dump($module);
             $action = $ctrlArr[1];
             $titlePrefix = "";
             if (in_array($action, ["list"])) {
                 $titlePrefix = "View";
             }
             $result[] = [
-                "profile_types" => [],
+                "profile_types" => $profileTypes,
                 "title" => RouteUtil::formatRouteTitle(
                     "{$titlePrefix} {$action} {$module}"
                 ),

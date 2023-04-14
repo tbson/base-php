@@ -13,8 +13,6 @@ class RouteUtil
 
     public static function formatRouteTitle($title)
     {
-        dump($title);
-        dump(strtolower($title));
         return ucfirst(strtolower(trim($title)));
     }
 }
