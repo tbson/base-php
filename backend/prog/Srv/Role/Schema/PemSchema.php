@@ -1,12 +1,15 @@
 <?php
 
-namespace Prog\Srv\Account\Schema;
+namespace Prog\Srv\Role\Schema;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Model;
 
 class PemSchema extends Model
 {
+    protected $table = "pems";
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -26,9 +29,20 @@ class PemSchema extends Model
      *
      * @var array<string, string>
      */
-    protected $casts = [];
+    protected $casts = [
+        "profile_types" => "array",
+    ];
 
-    protected $table = "pems";
+    public static $rules = [
+        "profile_types" => "required|array",
+        "title" => "required|string",
+        "module" => "required|string",
+        "action" => "required|string",
+    ];
+
+    public static $messages = [
+        "profile_types.array" => "profile_types must be an array",
+    ];
 
     public function group()
     {

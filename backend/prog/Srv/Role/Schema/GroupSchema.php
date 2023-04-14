@@ -1,12 +1,12 @@
 <?php
 
-namespace Prog\Srv\Config\Schema;
+namespace Prog\Srv\Role\Schema;
 
 use Illuminate\Database\Eloquent\Model;
 
-class VariableSchema extends Model
+class GroupSchema extends Model
 {
-    protected $table = "variables";
+    protected $table = "groups";
     public $timestamps = false;
 
     /**
@@ -14,7 +14,7 @@ class VariableSchema extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ["uid", "value", "description", "type"];
+    protected $fillable = ["workspace_id", "profile_type", "title"];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -31,11 +31,20 @@ class VariableSchema extends Model
     protected $casts = [];
 
     public static $rules = [
-        "uid" => "required|string|unique",
-        "value" => "required|string",
-        "description" => "required|string",
-        "type" => "required|integer",
+        "workspace_id" => "required|integer",
+        "profile_type" => "required|integer",
+        "title" => "required|string",
     ];
 
     public static $messages = [];
+
+    public function pem()
+    {
+        return $this->belongsToMany(
+            Prog\Srv\Account\Schema\PemSchema::class,
+            "groups_pems",
+            "group_id",
+            "pem_id"
+        );
+    }
 }

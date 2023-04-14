@@ -4,8 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Prog\Util\RouterUtil;
-use Prog\Util\StrUtil;
-use Prog\Util\MapUtil;
+use Prog\Srv\Role\PemSrv;
 
 class CmdSyncAllPems extends Command
 {
@@ -29,32 +28,10 @@ class CmdSyncAllPems extends Command
     public function handle()
     {
         $routes = RouterUtil::getAllRouterInfo();
-        $result = [];
+
         foreach ($routes as $route) {
-            if (StrUtil::startsWith($route->uri, "api/v1/") === false) {
-                continue;
-            }
-            $ctrlStr = $route->action["controller"];
-            $profileTypes = MapUtil::get($route->action, "profile_types", []);
-            $ctrlName = collect(explode("\\", $ctrlStr))->last();
-            $ctrlName = str_replace("Ctrl", "", $ctrlName);
-            $ctrlArr = explode("@", $ctrlName);
-            $module = StrUtil::camelToWords($ctrlArr[0]);
-            $action = $ctrlArr[1];
-            $titlePrefix = "";
-            if (in_array($action, ["list"])) {
-                $titlePrefix = "View";
-            }
-            $result[] = [
-                "profile_types" => $profileTypes,
-                "title" => RouterUtil::formatRouterTitle(
-                    "{$titlePrefix} {$action} {$module}"
-                ),
-                "module" => $module,
-                "action" => $action,
-            ];
+            PemSrv::createPem($route);
         }
-        dump($result);
-        return $result;
+        return null;
     }
 }

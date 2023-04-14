@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class UserSchema extends Authenticatable
 {
+    protected $table = "users";
+
     # use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -35,5 +37,13 @@ class UserSchema extends Authenticatable
         "email_verified_at" => "datetime",
     ];
 
-    protected $table = "users";
+    public static $rules = [
+        "workspace_id" => "required|integer",
+        "profile_type" => "required|integer",
+        "name" => "required|string",
+        "email" => "required|string|email",
+        "mobile" => "string",
+    ];
+
+    public static $messages = [];
 }
