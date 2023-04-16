@@ -33,17 +33,12 @@ class CmdAccountSeeding extends Command
     public function handle()
     {
         DB::transaction(function () {
+            $adminProfile = GlobalConst::$PROFILE_TYPE["ADMIN"]["value"];
+            $staffProfile = GlobalConst::$PROFILE_TYPE["STAFF"]["value"];
             $workspace = WorkspaceSeeder::one(1);
-            $admin = UserSeeder::oneAdmin(1, $workspace->id);
-            $admin->email = "admin@localhost.dev";
-            $admin->password = CryptoUtil::hashPwd("Qwerty!@#456");
-            $admin->save();
 
-            $staff = UserSeeder::oneStaff(2, $workspace->id);
-            $staff->email = "staff@localhost.dev";
-            $staff->password = CryptoUtil::hashPwd("Qwerty!@#456");
-            $staff->save();
-
+            $admin_group_ids = [];
+            $staff_group_ids = [];
             foreach (GlobalConst::$PROFILE_TYPE as $profileType) {
                 $group = GroupSchema::create([
                     "workspace_id" => $workspace->id,
@@ -56,7 +51,31 @@ class CmdAccountSeeding extends Command
                     $group->profile_type
                 )->get();
                 $group->pem()->attach($pems);
+
+                if ($group->profile_type == $adminProfile) {
+                    $admin_group_ids = array_merge(
+                        $admin_group_ids,
+                        $pems->pluck("id")->toArray()
+                    );
+                } elseif ($group->profile_type == $staffProfile) {
+                    $staff_group_ids = array_merge(
+                        $staff_group_ids,
+                        $pems->pluck("id")->toArray()
+                    );
+                }
             }
+
+            $admin = UserSeeder::oneAdmin(1, $workspace->id);
+            $admin->email = "admin@localhost.dev";
+            $admin->password = CryptoUtil::hashPwd("Qwerty!@#456");
+            $admin->group_ids = $admin_group_ids;
+            $admin->save();
+
+            $staff = UserSeeder::oneStaff(2, $workspace->id);
+            $staff->email = "staff@localhost.dev";
+            $staff->password = CryptoUtil::hashPwd("Qwerty!@#456");
+            $staff->group_ids = $staff_group_ids;
+            $staff->save();
         });
     }
 }

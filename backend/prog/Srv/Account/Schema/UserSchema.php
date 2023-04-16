@@ -43,6 +43,7 @@ class UserSchema extends Authenticatable
      */
     protected $casts = [
         "email_verified_at" => "datetime",
+        "group_id" => "array",
     ];
 
     public static $rules = [

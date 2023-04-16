@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use Prog\Util\TimeUtil;
 
 /**
- * @module Prog\Util\CryptoUtil;
+ * Class CryptoUtil
+ * @package Prog\Util\CryptoUtil
  */
 class CryptoUtil
 {
@@ -32,7 +33,7 @@ class CryptoUtil
         return openssl_pkey_get_details($privateKey)["key"];
     }
 
-    public static function encode($userId, $pems = null)
+    public static function encodeJwt($userId, $pems = null)
     {
         try {
             if (is_null($pems)) {
@@ -59,7 +60,7 @@ class CryptoUtil
         }
     }
 
-    public static function decode($jwtToken)
+    public static function decodeJwt($jwtToken)
     {
         try {
             $publicKey = self::getJwtPublicKey();
@@ -73,7 +74,7 @@ class CryptoUtil
     {
         $message = "Can not decode JWT token";
         try {
-            [$status, $payload] = self::decode($jwtToken);
+            [$status, $payload] = self::decodeJwt($jwtToken);
             if ($status !== "ok") {
                 return ["error", $message];
             }
