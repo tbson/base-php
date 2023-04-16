@@ -1,13 +1,13 @@
 <?php
 
 namespace Prog\Srv\Account\Schema;
-use Illuminate\Support\Facades\Hash;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 # use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 # use Illuminate\Notifications\Notifiable;
 # use Laravel\Sanctum\HasApiTokens;
+use Prog\Util\CryptoUtil;
 
 class UserSchema extends Authenticatable
 {
@@ -57,6 +57,6 @@ class UserSchema extends Authenticatable
 
     public function setPasswordAttribute($value)
     {
-        $this->attributes["password"] = Hash::make($value);
+        $this->attributes["password"] = CryptoUtil::hashPwd($value);
     }
 }

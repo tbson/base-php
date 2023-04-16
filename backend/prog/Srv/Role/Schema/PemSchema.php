@@ -5,6 +5,9 @@ namespace Prog\Srv\Role\Schema;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @module Prog\Srv\Role\Schema\PemSchema;
+ */
 class PemSchema extends Model
 {
     protected $table = "pems";

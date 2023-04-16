@@ -19,6 +19,7 @@ return new class extends Migration {
                 ->on("workspaces");
             $table->integer("profile_type");
             $table->string("title", 128);
+            $table->boolean("default")->default(false);
 
             $table->unique(["workspace_id", "title"]);
         });

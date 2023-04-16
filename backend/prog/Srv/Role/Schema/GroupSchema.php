@@ -4,6 +4,9 @@ namespace Prog\Srv\Role\Schema;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @module Prog\Srv\Role\Schema\GroupSchema;
+ */
 class GroupSchema extends Model
 {
     protected $table = "groups";
@@ -14,7 +17,7 @@ class GroupSchema extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ["workspace_id", "profile_type", "title"];
+    protected $fillable = ["workspace_id", "profile_type", "title", "default"];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -34,6 +37,7 @@ class GroupSchema extends Model
         "workspace_id" => "required|integer",
         "profile_type" => "required|integer",
         "title" => "required|string",
+        "default" => "boolean",
     ];
 
     public static $messages = [];
@@ -41,7 +45,7 @@ class GroupSchema extends Model
     public function pem()
     {
         return $this->belongsToMany(
-            Prog\Srv\Account\Schema\PemSchema::class,
+            \Prog\Srv\Role\Schema\PemSchema::class,
             "groups_pems",
             "group_id",
             "pem_id"

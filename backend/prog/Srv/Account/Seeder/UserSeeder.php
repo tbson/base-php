@@ -20,7 +20,7 @@ class UserSeeder
             "password" => "password{$index}",
             "is_owner" => false,
         ];
-        if ($profileType == GlobalConst::$PROFILE_TYPE["ADMIN"]) {
+        if ($profileType == GlobalConst::$PROFILE_TYPE["ADMIN"]["value"]) {
             $result["is_owner"] = true;
         }
         return $result;
@@ -57,21 +57,37 @@ class UserSeeder
 
     public static function oneAdmin($index, $workspaceId)
     {
-        return self::one($index, $workspaceId, GlobalConst::$PROFILE_TYPE["ADMIN"]);
+        return self::one(
+            $index,
+            $workspaceId,
+            GlobalConst::$PROFILE_TYPE["ADMIN"]["value"]
+        );
     }
 
     public static function listAdmin($index, $workspaceId)
     {
-        return self::list($index, $workspaceId, GlobalConst::$PROFILE_TYPE["ADMIN"]);
+        return self::list(
+            $index,
+            $workspaceId,
+            GlobalConst::$PROFILE_TYPE["ADMIN"]["value"]
+        );
     }
 
     public static function oneStaff($index, $workspaceId)
     {
-        return self::one($index, $workspaceId, GlobalConst::$PROFILE_TYPE["STAFF"]);
+        return self::one(
+            $index,
+            $workspaceId,
+            GlobalConst::$PROFILE_TYPE["STAFF"]["value"]
+        );
     }
 
     public static function listStaff($index, $workspaceId)
     {
-        return self::list($index, $workspaceId, GlobalConst::$PROFILE_TYPE["STAFF"]);
+        return self::list(
+            $index,
+            $workspaceId,
+            GlobalConst::$PROFILE_TYPE["STAFF"]["value"]
+        );
     }
 }

@@ -7,7 +7,13 @@ namespace Prog\Business;
 class GlobalConst
 {
     public static $PROFILE_TYPE = [
-        "ADMIN" => 1,
-        "STAFF" => 2,
+        "ADMIN" => [
+            "value" => 1,
+            "label" => "Admin",
+        ],
+        "STAFF" => [
+            "value" => 2,
+            "label" => "Staff",
+        ],
     ];
 }
