@@ -34,30 +34,58 @@ class CryptoUtil
 
     public static function encode($userId, $pems = null)
     {
-        if (is_null($pems)) {
-            $pems = [0];
+        try {
+            if (is_null($pems)) {
+                $pems = [0];
+            }
+            $JWT_EXPIRATION_PERIOD = env("JWT_EXPIRATION_PERIOD");
+            $now = TimeUtil::now();
+            $expiry = TimeUtil::now()->modify("+{$JWT_EXPIRATION_PERIOD} seconds");
+            $privateKey = self::getJwtPrivateKey();
+
+            $payload = [
+                "iss" => env("APP_DOMAIN"),
+                "aud" => env("APP_DOMAIN"),
+                "iat" => $now->getTimestamp(),
+                "exp" => $expiry->getTimestamp(),
+                "user_id" => $userId,
+                "pems" => implode(",", $pems),
+            ];
+            dump($payload);
+
+            return ["ok", JWT::encode($payload, $privateKey, "RS256")];
+        } catch (\Exception $e) {
+            return ["error", "Can not encode JWT token"];
         }
-        $JWT_EXPIRATION_PERIOD = env("JWT_EXPIRATION_PERIOD");
-        $now = TimeUtil::now();
-        $expiry = TimeUtil::now()->modify("+{$JWT_EXPIRATION_PERIOD} seconds");
-        $privateKey = self::getJwtPrivateKey();
-
-        $payload = [
-            "iss" => env("APP_DOMAIN"),
-            "aud" => env("APP_DOMAIN"),
-            "iat" => $now->getTimestamp(),
-            "exp" => $expiry->getTimestamp(),
-            "user_id" => $userId,
-            "pems" => implode(",", $pems),
-        ];
-        dump($payload);
-
-        return JWT::encode($payload, $privateKey, "RS256");
     }
 
     public static function decode($jwtToken)
     {
-        $publicKey = self::getJwtPublicKey();
-        return JWT::decode($jwtToken, new Key($publicKey, "RS256"));
+        try {
+            $publicKey = self::getJwtPublicKey();
+            return ["ok", JWT::decode($jwtToken, new Key($publicKey, "RS256"))];
+        } catch (\Exception $e) {
+            return ["error", "Can not decode JWT token"];
+        }
+    }
+
+    public static function getJwtTerms($jwtToken)
+    {
+        $message = "Can not decode JWT token";
+        try {
+            [$status, $payload] = self::decode($jwtToken);
+            if ($status !== "ok") {
+                return ["error", $message];
+            }
+            return [
+                "ok",
+                [
+                    "user_id" => $payload->user_id,
+                    "pems" => array_map("intval", explode(",", $payload->pems)),
+                ],
+            ];
+        } catch (\Exception $e) {
+            return ["error", $message];
+        }
     }
 }
