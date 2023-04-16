@@ -6,9 +6,9 @@ use Prog\Srv\Org\Schema\WorkspaceSchema;
 use Prog\Util\ErrorUtil;
 
 /**
- * @module Prog\Srv\Role\WrokspaceSrv;
+ * @module Prog\Srv\Role\WorkspaceSrv;
  */
-class WrokspaceSrv
+class WorkspaceSrv
 {
     public static function createWrokspace($attrs)
     {
