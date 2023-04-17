@@ -10,7 +10,7 @@ $staff = GlobalConst::$PROFILE_TYPE["STAFF"]["value"];
 Route::group(
     [
         "prefix" => "config/variable",
-        "middleware" => ["api", "auth"],
+        "middleware" => ["api", "rbac"],
         "profile_types" => [$admin],
     ],
     function () {
