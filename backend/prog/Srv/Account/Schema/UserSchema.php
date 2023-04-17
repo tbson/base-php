@@ -20,14 +20,7 @@ class UserSchema extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        "workspace_id",
-        "profile_type",
-        "name",
-        "email",
-        "mobile",
-        "password",
-    ];
+    protected $fillable = ["profile_type", "name", "email", "mobile", "password"];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -47,7 +40,6 @@ class UserSchema extends Authenticatable
     ];
 
     public static $rules = [
-        "workspace_id" => "required|integer",
         "profile_type" => "required|integer",
         "name" => "required|string",
         "email" => "required|string|email",

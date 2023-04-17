@@ -17,7 +17,7 @@ class GroupSchema extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ["workspace_id", "profile_type", "title", "default"];
+    protected $fillable = ["profile_type", "title", "default"];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -34,7 +34,6 @@ class GroupSchema extends Model
     protected $casts = [];
 
     public static $rules = [
-        "workspace_id" => "required|integer",
         "profile_type" => "required|integer",
         "title" => "required|string",
         "default" => "boolean",

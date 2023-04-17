@@ -9,10 +9,9 @@ use Prog\Business\GlobalConst;
  */
 class UserSeeder
 {
-    private static function data($index, $workspaceId, $profileType)
+    private static function data($index, $profileType)
     {
         $result = [
-            "workspace_id" => $workspaceId,
             "profile_type" => $profileType,
             "name" => "name {$index}",
             "email" => "test{$index}@gmail.com",
@@ -36,9 +35,9 @@ class UserSeeder
         return UserSchema::create($attr);
     }
 
-    private static function one($index, $workspaceId, $profileType)
+    private static function one($index, $profileType)
     {
-        $data = self::data($index, $workspaceId, $profileType);
+        $data = self::data($index, $profileType);
         $existItem = self::get_by($data);
         if ($existItem) {
             return $existItem;
@@ -46,48 +45,32 @@ class UserSeeder
         return self::create($data);
     }
 
-    private static function list($index, $workspaceId, $profileType)
+    private static function list($index, $profileType)
     {
         $result = [];
         for ($i = 1; $i <= $index; $i++) {
-            array_push($result, self::one($i, $workspaceId, $profileType));
+            array_push($result, self::one($i, $profileType));
         }
         return $result;
     }
 
-    public static function oneAdmin($index, $workspaceId)
+    public static function oneAdmin($index)
     {
-        return self::one(
-            $index,
-            $workspaceId,
-            GlobalConst::$PROFILE_TYPE["ADMIN"]["value"]
-        );
+        return self::one($index, GlobalConst::$PROFILE_TYPE["ADMIN"]["value"]);
     }
 
-    public static function listAdmin($index, $workspaceId)
+    public static function listAdmin($index)
     {
-        return self::list(
-            $index,
-            $workspaceId,
-            GlobalConst::$PROFILE_TYPE["ADMIN"]["value"]
-        );
+        return self::list($index, GlobalConst::$PROFILE_TYPE["ADMIN"]["value"]);
     }
 
-    public static function oneStaff($index, $workspaceId)
+    public static function oneStaff($index)
     {
-        return self::one(
-            $index,
-            $workspaceId,
-            GlobalConst::$PROFILE_TYPE["STAFF"]["value"]
-        );
+        return self::one($index, GlobalConst::$PROFILE_TYPE["STAFF"]["value"]);
     }
 
-    public static function listStaff($index, $workspaceId)
+    public static function listStaff($index)
     {
-        return self::list(
-            $index,
-            $workspaceId,
-            GlobalConst::$PROFILE_TYPE["STAFF"]["value"]
-        );
+        return self::list($index, GlobalConst::$PROFILE_TYPE["STAFF"]["value"]);
     }
 }

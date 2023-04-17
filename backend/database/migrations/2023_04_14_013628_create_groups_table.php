@@ -12,16 +12,11 @@ return new class extends Migration {
     {
         Schema::create("groups", function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("workspace_id");
-            $table
-                ->foreign("workspace_id")
-                ->references("id")
-                ->on("workspaces");
             $table->integer("profile_type");
             $table->string("title", 128);
             $table->boolean("default")->default(false);
 
-            $table->unique(["workspace_id", "title"]);
+            $table->unique(["title"]);
         });
     }
 
