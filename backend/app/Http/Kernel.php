@@ -44,6 +44,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
         "rbac" => [\App\Http\Middleware\RbacMiddeware::class],
+        "auth" => [\App\Http\Middleware\AuthMiddeware::class],
     ];
 
     /**
