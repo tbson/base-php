@@ -10,6 +10,11 @@ use Prog\Util\ErrorUtil;
  */
 class PemSrv
 {
+    public static function getPem($conditions)
+    {
+        return PemSchema::where($conditions)->first();
+    }
+
     public static function createPem($attrs)
     {
         try {

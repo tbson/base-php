@@ -3,8 +3,10 @@
 namespace Prog\Srv\Account;
 
 use Prog\Srv\Account\Schema\UserSchema;
-use Prog\Util\CryptoUtil;
 
+/**
+ * @module Prog\Srv\Account\UserSrv;
+ */
 class UserSrv
 {
     public static function getAllUsers()
@@ -12,13 +14,8 @@ class UserSrv
         return UserSchema::all();
     }
 
-    public static function generateUserToken($userId)
+    public static function getUser($conditions)
     {
-        $user = UserSchema::find($userId);
-        if (is_null($user)) {
-            return ["error", "User not found"];
-        }
-        $pems = $user->pems->pluck("id")->toArray();
-        return CryptoUtil::encode($userId, $pems);
+        return UserSchema::where($conditions)->first();
     }
 }
