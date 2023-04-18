@@ -1,5 +1,9 @@
 version: "2.1"
 
+networks:
+  shared_network:
+    external: true
+
 services:
     base_db:
         container_name: base_db
@@ -16,6 +20,8 @@ services:
             # - ./db.sql:/docker-entrypoint-initdb.d/db.sql
             - ./mysql.conf:/etc/mysql/conf.d
             - ./dbdata:/var/lib/mysql/:delegated
+        networks:
+            - shared_network
         healthcheck:
             test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
             interval: 5s
@@ -31,6 +37,8 @@ services:
             - ../backend:/code:delegated
             - ./php.conf:/usr/local/etc/php/conf.d
               # - /code/vendor
+        networks:
+            - shared_network
         environment:
             - TZ=Asia/Ho_Chi_Minh
             - PYTHONPATH=/code/
@@ -68,6 +76,10 @@ services:
       volumes:
         - ../frontend:/code:delegated
         - /code/node_modules
+      networks:
+            - shared_network
+      ports:
+        - "3000:3000"
       tty: ${DOCKER_TTY}
 
     base_nginx:
@@ -80,6 +92,8 @@ services:
             - ./nginx.conf:/etc/nginx/conf.d
             - ${SSL_PATH}:/resource/ssl
             - ../backend/public/:/resource/public
+        networks:
+            - shared_network
         ports:
             - "443:443"
         depends_on:
