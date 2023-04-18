@@ -23,5 +23,13 @@ export default defineConfig({
             clientPort: 443,
             protocol: "wss"
         }
+    },
+    resolve: {
+        alias: {
+            src: "/src",
+            component: "/src/component",
+            style: "/src/style",
+            util: "/src/util"
+        }
     }
 });
