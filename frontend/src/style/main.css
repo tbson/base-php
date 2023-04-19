@@ -3,3 +3,55 @@ body {
     font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
         "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
+
+.relative {
+    position: relative;
+}
+
+.content {
+    padding: 5px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.right {
+    text-align: right;
+}
+
+.flex-right {
+    justify-content: flex-end;
+}
+
+.float-right {
+    float: right;
+}
+
+.strong {
+    front-weight: 400;
+}
+
+.center {
+    text-align: center;
+}
+
+.left {
+    text-align: left;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+.blue {
+    color: blue;
+}
+
+.full-width {
+    width: 100%;
+}
