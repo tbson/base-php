@@ -1,6 +1,5 @@
 <script setup>
 import { reactive, ref } from "vue";
-import { Unlock } from "@element-plus/icons-vue";
 
 const formRef = ref();
 
@@ -35,17 +34,19 @@ const rules = reactive({
     ]
 });
 
-const submitForm = async (formEl) => {
-    if (!formEl) return;
-    console.log(formEl);
-    await formEl.validate((valid, fields) => {
+function submitForm() {
+    const form = formRef.value;
+    form.validate((valid, fields) => {
         if (valid) {
             console.log("submit!");
         } else {
             console.log("error submit!", fields);
         }
     });
-};
+}
+defineExpose({
+    submitForm
+});
 </script>
 
 <template>
@@ -54,7 +55,7 @@ const submitForm = async (formEl) => {
         :model="form"
         :rules="rules"
         label-width="120px"
-        @submit.prevent="submitForm(formRef)"
+        @submit.prevent="submitForm"
     >
         <!--
         <el-form-item
@@ -76,11 +77,6 @@ const submitForm = async (formEl) => {
                 placeholder="Password..."
             />
         </el-form-item>
-
-        <div class="right">
-            <el-button type="primary" native-type="submit" :icon="Unlock">
-                Login
-            </el-button>
-        </div>
+        <button type="submit" class="hidden"></button>
     </el-form>
 </template>
