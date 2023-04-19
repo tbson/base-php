@@ -1,5 +1,6 @@
 <script setup>
 import { reactive, ref } from "vue";
+import { Unlock } from "@element-plus/icons-vue";
 
 const formRef = ref();
 
@@ -8,6 +9,12 @@ const form = reactive({
     email: "",
     password: ""
 });
+/*
+const errors = reactive({
+    email: "hello",
+    password: ""
+});
+*/
 
 const rules = reactive({
     email: [
@@ -30,6 +37,7 @@ const rules = reactive({
 
 const submitForm = async (formEl) => {
     if (!formEl) return;
+    console.log(formEl);
     await formEl.validate((valid, fields) => {
         if (valid) {
             console.log("submit!");
@@ -48,10 +56,19 @@ const submitForm = async (formEl) => {
         label-width="120px"
         @submit.prevent="submitForm(formRef)"
     >
+        <!--
+        <el-form-item
+            label="Email"
+            prop="email"
+            :validate-status="errors.email ? 'error' : ''"
+            :error="errors.email || ''"
+        >
+            <el-input v-model="form.email" type="email" placeholder="Email..." />
+        </el-form-item>
+        -->
         <el-form-item label="Email" prop="email">
             <el-input v-model="form.email" type="email" placeholder="Email..." />
         </el-form-item>
-
         <el-form-item label="Password" prop="password">
             <el-input
                 v-model="form.password"
@@ -60,8 +77,10 @@ const submitForm = async (formEl) => {
             />
         </el-form-item>
 
-        <el-form-item>
-            <el-button type="primary" native-type="submit">Create</el-button>
-        </el-form-item>
+        <div class="right">
+            <el-button type="primary" native-type="submit" :icon="Unlock">
+                Login
+            </el-button>
+        </div>
     </el-form>
 </template>
