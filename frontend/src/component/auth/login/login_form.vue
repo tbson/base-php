@@ -34,7 +34,7 @@ const rules = reactive({
     ]
 });
 
-function submitForm() {
+function handleSubmit() {
     const form = formRef.value;
     form.validate((valid, fields) => {
         if (valid) {
@@ -45,7 +45,7 @@ function submitForm() {
     });
 }
 defineExpose({
-    submitForm
+    handleSubmit
 });
 </script>
 
@@ -55,7 +55,7 @@ defineExpose({
         :model="form"
         :rules="rules"
         label-width="120px"
-        @submit.prevent="submitForm"
+        @submit.prevent="handleSubmit"
     >
         <!--
         <el-form-item

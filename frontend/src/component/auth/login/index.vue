@@ -1,12 +1,18 @@
 <script setup>
 import { ref } from "vue";
-import LoginForm from "component/auth/login/LoginForm.vue";
 import { Unlock } from "@element-plus/icons-vue";
+import LoginForm from "component/auth/login/login_form.vue";
+import ResetPwdDialog from "component/auth/reset_pwd/dialog.vue";
 
 const loginForm = ref();
+const resetPwdDialog = ref();
 
-function submitForm() {
-    loginForm.value.submitForm();
+function handleSubmit() {
+    loginForm.value.handleSubmit();
+}
+
+function openResetPwdDialog() {
+    resetPwdDialog.value.toggle(true);
 }
 </script>
 
@@ -23,14 +29,20 @@ function submitForm() {
                     <LoginForm id="login-form" ref="loginForm" />
                     <el-row>
                         <el-col :span="12">
-                            <el-button type="primary" link> Forgot password </el-button>
+                            <el-button
+                                type="primary"
+                                link
+                                @click="openResetPwdDialog()"
+                            >
+                                Forgot password
+                            </el-button>
                         </el-col>
                         <el-col :span="12" class="right">
                             <el-button
                                 type="primary"
                                 native-type="submit"
                                 :icon="Unlock"
-                                @click="submitForm"
+                                @click="handleSubmit"
                             >
                                 Login
                             </el-button>
@@ -40,4 +52,5 @@ function submitForm() {
             </el-card>
         </el-col>
     </el-row>
+    <ResetPwdDialog ref="resetPwdDialog" />
 </template>
