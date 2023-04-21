@@ -4,11 +4,11 @@ namespace App\Console\Commands;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Command;
-use Prog\Util\CryptoUtil;
-use Prog\Srv\Account\Seeder\UserSeeder;
-use Prog\Srv\Role\Schema\GroupSchema;
-use Prog\Srv\Role\Schema\PemSchema;
-use Prog\Business\GlobalConst;
+use Src\Util\CryptoUtil;
+use Src\Service\Account\Seeder\UserSeeder;
+use Src\Service\Role\Schema\GroupSchema;
+use Src\Service\Role\Schema\PemSchema;
+use Src\Business\GlobalConst;
 
 class CmdAccountSeeding extends Command
 {

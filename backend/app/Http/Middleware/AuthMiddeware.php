@@ -3,8 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Prog\Util\CryptoUtil;
-use Prog\Srv\Account\UserSrv;
+use Src\Util\CryptoUtil;
+use Src\Service\Account\UserSrv;
 
 /**
  * Class AuthMiddeware

@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Prog\UseCase\Auth\CommonAuth\CommonAuthFlow;
+use Src\UseCase\Auth\CommonAuth\CommonAuthFlow;
 
 class CmdGenerateUserToken extends Command
 {

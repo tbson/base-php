@@ -3,10 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Prog\Util\CryptoUtil;
-use Prog\Util\RouterUtil;
-use Prog\Srv\Role\PemSrv;
-use Prog\Srv\Account\UserSrv;
+use Src\Util\CryptoUtil;
+use Src\Util\RouterUtil;
+use Src\Service\Role\PemSrv;
+use Src\Service\Account\UserSrv;
 
 /**
  * Class RbacMiddeware

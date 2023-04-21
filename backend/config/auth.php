@@ -61,7 +61,7 @@ return [
     "providers" => [
         "users" => [
             "driver" => "eloquent",
-            "model" => Prog\Srv\Account\Schema\UserSchema::class,
+            "model" => Src\Service\Account\Schema\UserSchema::class,
         ],
 
         // 'users' => [
