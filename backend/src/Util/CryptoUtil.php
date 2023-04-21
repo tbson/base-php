@@ -96,9 +96,6 @@ class CryptoUtil
 
     public static function getJwtTokenFromHeader($headers)
     {
-        /*
-            ["authorization" => "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6Iis4NDkwMTExMTExMS1odGtkX2hvQGdtYWlsLmNvbSIsImV4cCI6MTY1NjA2NzcyMSwiZW1haWwiOiJodGtkX2hvQGdtYWlsLmNvbSIsIm9yaWdfaWF0IjoxNjU2MDY2ODIxfQ.FJJLjaoIisyzNQN3ysYyK7w-gzyZ414Rjc48rz2KwQ8"]
-        */
         $authHeader = $headers->get("authorization");
         if (is_null($authHeader)) {
             return "";
