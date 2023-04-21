@@ -1,66 +1,85 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Overview
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This code base mostly located in `src` folder, except configurations , service provider and composer config.
 
-## About Laravel
+In data model, we will separate big data model into small services, each service comprised by some tables. For example:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Account Service:
+ - users
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Role Service:
+- groups
+- pems
+- groups_pems
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Config Service:
+- variables
 
-## Learning Laravel
+Verify Service:
+- otps
+- whitelist_otps
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+# Folder explains
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Business
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Store global configuration and business rules
 
-## Laravel Sponsors
+## Interface
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Interface for services
 
-### Premium Partners
+## Service
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Communicate with DB or external services (Email/SMS...)
 
-## Contributing
+## UseCase
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Most of customer's interactions with the system identified as use cases.
+The heart of use case is the flow, the main logic of use case.
 
-## Code of Conduct
+In UseCase folder, we grouping use cases in 3 levels:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+*Use case cluster*: Most abstract concepts that sharing between use case belongs to it. `Use case clusters` are no thing but folders that contains `use case groups` are folder too.
 
-## Security Vulnerabilities
+*Use case group*: Contains source code that actual implement use cases includes `controller`, `validator`, `flow` and `presenter`.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+For example:
 
-## License
+```
+├── Auth
+│   ├── BasicAuth
+│   │   ├── BasicAuthCtrl.php
+│   │   ├── BasicAuthValidator.php
+│   │   ├── BasicAuthFlow.php
+│   │   └── BasicAuthPresenter.php
+│   └── Router.php
+```
+In above example:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+*Auth*: Use case cluster (every use cases related with authentication / authorization)
+
+*BasicAuth*: Use case group (on ly use cases that related with traditional authentication such as login, change password, reset password)
+
+Logic flow: Controller -> Validator -> Flow -> Presenter
+
+### UseCase Controller
+
+*Controller*: Receive request, extract data from request, use validator to validate them. Put data and dependency services in to flow. Modify flow's result by presenter and return it.
+
+### UseCase Validator
+
+*Validator*: Ensure data in good shape and value.
+
+### UseCase Flow
+
+*Flow*: Main logic of use case. Do not import service, inject them to ensure flow is not depend to specific service/class. That way we can test and change source code easier.
+
+### UseCase Presenter
+
+*Presenter*: Prepare data for clients.
+
+## Util
+
+Utility function that reuse many place in code base such as date, string processing.
+Do not interact with DB or external service, that's service's job.
