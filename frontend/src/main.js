@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 import "style/main.css";
 import Home from "component/home/index.vue";
-import Login from "component/auth/login/index.vue";
+import Login from "component/auth/login/login_page.vue";
 import App from "src/App.vue";
 
 const routes = [

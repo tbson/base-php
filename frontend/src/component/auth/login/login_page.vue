@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { Unlock } from "@element-plus/icons-vue";
 import LoginForm from "component/auth/login/login_form.vue";
-import ResetPwdDialog from "component/auth/reset_pwd/dialog.vue";
+import ResetPwdDialog from "component/auth/reset_pwd/reset_pwd_dialog.vue";
 
 const loginForm = ref();
 const resetPwdDialog = ref();

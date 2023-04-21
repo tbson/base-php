@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
 import EventUtil from "util/event_util.js";
-import ResetPwdForm from "component/auth/reset_pwd/form.vue";
+import ResetPwdForm from "component/auth/reset_pwd/reset_pwd_form.vue";
 
 const open = ref(false);
 const form = ref();
@@ -37,7 +37,7 @@ defineExpose({
 </script>
 
 <template>
-    <el-dialog destroy-on-close v-model="open" title="Reset password" width="70%">
+    <el-dialog destroy-on-close v-model="open" title="Reset password" width="60%">
         <ResetPwdForm ref="form" />
         <template #footer>
             <span class="dialog-footer">
