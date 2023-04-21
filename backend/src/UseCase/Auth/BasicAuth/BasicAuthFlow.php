@@ -6,7 +6,6 @@ use Src\Interface\Account\UserServiceInterface;
 use Src\Util\CryptoUtil;
 use Src\Util\ErrorUtil;
 use Src\Util\TimeUtil;
-use Src\UseCase\Auth\AuthHelper;
 
 /*
  * @module Src\UseCase\Auth\BasicAuth\BasicAuthFlow;
@@ -40,7 +39,7 @@ class BasicAuthFlow
         }
 
         # Generate token
-        [$status, $result] = AuthHelper::generateUserToken($user->id);
+        [$status, $result] = $this->userService::generateUserToken($user->id);
         if ($status === "error") {
             return response()->json($result, 400);
         }

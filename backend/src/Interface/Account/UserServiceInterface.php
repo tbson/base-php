@@ -9,4 +9,5 @@ interface UserServiceInterface
 {
     public static function getAllUsers();
     public static function getUser($conditions);
+    public static function generateUserToken($userId);
 }
