@@ -15,12 +15,24 @@ class UserSchema extends Authenticatable
 
     # use HasApiTokens, HasFactory, Notifiable;
 
+    protected $attributes = [
+        "token_signature" => "",
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = ["profile_type", "name", "email", "mobile", "password"];
+    protected $fillable = [
+        "profile_type",
+        "name",
+        "email",
+        "mobile",
+        "password",
+        "is_owner",
+        "enabled",
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -44,6 +56,8 @@ class UserSchema extends Authenticatable
         "name" => "required|string",
         "email" => "required|string|email",
         "mobile" => "string",
+        "is_owner" => "boolean",
+        "enabled" => "boolean",
     ];
 
     public static $messages = [];

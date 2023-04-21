@@ -112,4 +112,13 @@ class CryptoUtil
         }
         return $authHeader[1];
     }
+
+    public static function getTokenSignature($token)
+    {
+        $token = explode(".", $token);
+        if (count($token) !== 3) {
+            return "";
+        }
+        return $token[2];
+    }
 }

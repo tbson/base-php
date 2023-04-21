@@ -20,9 +20,10 @@ return new class extends Migration {
             $table->string("mobile");
             $table->string("password");
             $table->boolean("is_owner")->default(false);
+            $table->boolean("enabled")->default(false);
             $table->json("group_ids")->default(new Expression("(JSON_ARRAY())"));
 
-            $table->string("token_signature")->default("");
+            $table->text("token_signature");
             $table->dateTime("token_refresh_expired")->nullable();
 
             $table->dateTime("email_verified_at")->nullable();
@@ -30,7 +31,7 @@ return new class extends Migration {
 
             $table->rememberToken();
 
-            $table->dateTime("last_login_at")->nullable();
+            $table->dateTime("last_login")->nullable();
             $table->dateTime("last_change_pwd")->nullable();
 
             $table->timestamps();

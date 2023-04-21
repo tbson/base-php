@@ -65,12 +65,16 @@ class CmdAccountSeeding extends Command
             $admin->email = "admin@localhost.dev";
             $admin->password = "Qwerty!@#456";
             $admin->group_ids = $admin_group_ids;
+            $admin->is_owner = true;
+            $admin->enabled = true;
             $admin->save();
 
             $staff = UserSeeder::oneStaff(2);
             $staff->email = "staff@localhost.dev";
             $staff->password = "Qwerty!@#456";
             $staff->group_ids = $staff_group_ids;
+            $admin->is_owner = false;
+            $admin->enabled = true;
             $staff->save();
         });
     }
