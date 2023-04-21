@@ -6,9 +6,9 @@ use Src\Service\Config\Schema\VariableSchema;
 use Src\Util\ErrorUtil;
 
 /**
- * @module Src\Service\Config\VariableSrv;
+ * @module Src\Service\Config\VariableService;
  */
-class VariableSrv
+class VariableService
 {
     public static function createVariable($attrs)
     {

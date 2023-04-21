@@ -17,6 +17,11 @@ class CryptoUtil
         return Hash::make($rawPwd);
     }
 
+    public static function checkPwd($rawPwd, $hashedPwd)
+    {
+        return Hash::check($rawPwd, $hashedPwd);
+    }
+
     private static function getJwtPrivateKey()
     {
         $passphrase = env("JWT_PASSPHASE");
@@ -52,7 +57,6 @@ class CryptoUtil
                 "user_id" => $userId,
                 "pems" => implode(",", $pems),
             ];
-            dump($payload);
 
             return ["ok", JWT::encode($payload, $privateKey, "RS256")];
         } catch (\Exception $e) {

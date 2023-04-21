@@ -1,6 +1,7 @@
 <?php
 namespace Src\UseCase\Auth;
 
+use Src\Util\CryptoUtil;
 use Src\Service\Role\Schema\GroupSchema;
 use Src\Service\Account\Schema\UserSchema;
 
@@ -30,5 +31,11 @@ class AuthHelper
             );
         }
         return $pems;
+    }
+
+    public static function generateUserToken($userId)
+    {
+        $pems = self::getUserPemIds($userId);
+        return CryptoUtil::encodeJwt($userId, $pems);
     }
 }

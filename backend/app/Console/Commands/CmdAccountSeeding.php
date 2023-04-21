@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Command;
-use Src\Util\CryptoUtil;
 use Src\Service\Account\Seeder\UserSeeder;
 use Src\Service\Role\Schema\GroupSchema;
 use Src\Service\Role\Schema\PemSchema;
@@ -64,13 +63,13 @@ class CmdAccountSeeding extends Command
 
             $admin = UserSeeder::oneAdmin(1);
             $admin->email = "admin@localhost.dev";
-            $admin->password = CryptoUtil::hashPwd("Qwerty!@#456");
+            $admin->password = "Qwerty!@#456";
             $admin->group_ids = $admin_group_ids;
             $admin->save();
 
             $staff = UserSeeder::oneStaff(2);
             $staff->email = "staff@localhost.dev";
-            $staff->password = CryptoUtil::hashPwd("Qwerty!@#456");
+            $staff->password = "Qwerty!@#456";
             $staff->group_ids = $staff_group_ids;
             $staff->save();
         });

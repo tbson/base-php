@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Src\UseCase\Auth\CommonAuth\CommonAuthFlow;
+use Src\UseCase\Auth\AuthHelper;
 
 class CmdGenerateUserToken extends Command
 {
@@ -27,8 +27,7 @@ class CmdGenerateUserToken extends Command
     public function handle()
     {
         $userId = $this->argument("userId");
-        $commonAuthFlow = new CommonAuthFlow();
-        $result = $commonAuthFlow->generateUserToken($userId);
+        $result = AuthHelper::generateUserToken($userId);
         dump($result);
     }
 }

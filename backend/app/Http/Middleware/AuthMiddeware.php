@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Src\Util\CryptoUtil;
-use Src\Service\Account\UserSrv;
+use Src\Service\Account\UserService;
 
 /**
  * Class AuthMiddeware
@@ -30,7 +30,7 @@ class AuthMiddeware
 
         $userId = $result["user_id"];
 
-        $user = UserSrv::getUser(["id" => $userId]);
+        $user = UserService::getUser(["id" => $userId]);
         if ($user === null) {
             return self::onDeny(401);
         }

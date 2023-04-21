@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Src\Util\RouterUtil;
-use Src\Service\Role\PemSrv;
+use Src\Service\Role\PemService;
 
 class CmdSyncAllPems extends Command
 {
@@ -30,7 +30,7 @@ class CmdSyncAllPems extends Command
         $routes = RouterUtil::getAllRouterInfo();
 
         foreach ($routes as $route) {
-            PemSrv::createPem($route);
+            PemService::createPem($route);
         }
         return null;
     }

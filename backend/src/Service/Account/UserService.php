@@ -3,11 +3,12 @@
 namespace Src\Service\Account;
 
 use Src\Service\Account\Schema\UserSchema;
+use Src\Interface\Account\UserServiceInterface;
 
 /**
- * @module Src\Service\Account\UserSrv;
+ * @module Src\Service\Account\UserService;
  */
-class UserSrv
+class UserService implements UserServiceInterface
 {
     public static function getAllUsers()
     {

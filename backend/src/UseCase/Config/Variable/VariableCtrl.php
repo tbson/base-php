@@ -4,7 +4,7 @@ namespace Src\UseCase\Config\Variable;
 
 use Illuminate\Http\Request;
 use Src\Controller;
-use Src\Service\Account\UserSrv;
+use Src\Service\Account\UserService;
 
 /**
  * Class VariableCtrl
@@ -15,7 +15,7 @@ class VariableCtrl extends Controller
     public function list(Request $request)
     {
         # dump($request->get("user"));
-        $items = UserSrv::getAllUsers();
+        $items = UserService::getAllUsers();
         return response()->json(["items" => $items]);
     }
 

@@ -5,8 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Src\Util\CryptoUtil;
 use Src\Util\RouterUtil;
-use Src\Service\Role\PemSrv;
-use Src\Service\Account\UserSrv;
+use Src\Service\Role\PemService;
+use Src\Service\Account\UserService;
 
 /**
  * Class RbacMiddeware
@@ -35,7 +35,7 @@ class RbacMiddeware
 
         $pemData = RouterUtil::getPemData($request->route());
         $conditions = ["module" => $pemData["module"], "action" => $pemData["action"]];
-        $pem = PemSrv::getPem($conditions);
+        $pem = PemService::getPem($conditions);
         if ($pem === null) {
             return self::onDeny(403);
         }
@@ -44,7 +44,7 @@ class RbacMiddeware
             return self::onDeny(401);
         }
 
-        $user = UserSrv::getUser(["id" => $userId]);
+        $user = UserService::getUser(["id" => $userId]);
         if ($user === null) {
             return self::onDeny(403);
         }

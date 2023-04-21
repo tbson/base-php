@@ -6,9 +6,9 @@ use Src\Service\Role\Schema\PemSchema;
 use Src\Util\ErrorUtil;
 
 /**
- * @module Src\Service\Role\PemSrv;
+ * @module Src\Service\Role\PemService;
  */
-class PemSrv
+class PemService
 {
     public static function getPem($conditions)
     {
