@@ -4,6 +4,7 @@ namespace Src\UseCase\Auth;
 use Src\Util\CryptoUtil;
 use Src\Service\Role\Schema\GroupSchema;
 use Src\Service\Account\Schema\UserSchema;
+use Src\Util\ErrorUtil;
 
 /**
  * Class AuthHelper
@@ -15,7 +16,7 @@ class AuthHelper
     {
         $user = UserSchema::find($userId);
         if (is_null($user)) {
-            return ["error", "User not found"];
+            return ["error", ErrorUtil::parse("User not found")];
         }
         $groupIds = json_decode($user->group_ids);
         $groups = GroupSchema::whereIn("id", $groupIds)->get();
@@ -30,12 +31,16 @@ class AuthHelper
                     ->toArray()
             );
         }
-        return $pems;
+        return ["ok", $pems];
     }
 
     public static function generateUserToken($userId)
     {
-        $pems = self::getUserPemIds($userId);
+        [$status, $result] = self::getUserPemIds($userId);
+        if ($status === "error") {
+            return $result;
+        }
+        $pems = $result;
         return CryptoUtil::encodeJwt($userId, $pems);
     }
 }
