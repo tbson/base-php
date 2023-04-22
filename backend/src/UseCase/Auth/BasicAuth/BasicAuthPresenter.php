@@ -10,7 +10,7 @@ class BasicAuthPresenter
     public static function presentLogin($user, $token)
     {
         return [
-            "token" => $token,
+            "access_token" => $token,
             "user" => [
                 "id" => $user->id,
                 "name" => $user->name,

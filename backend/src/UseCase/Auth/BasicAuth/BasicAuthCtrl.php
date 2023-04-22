@@ -8,6 +8,10 @@ use Src\UseCase\Auth\BasicAuth\BasicAuthPresenter;
 use Src\Service\Account\UserService;
 use Src\UseCase\Auth\BasicAuth\BasicAuthFlow;
 
+/**
+ * Class BasicAuthCtrl
+ * @package Src\UseCase\Auth\BasicAuth\BasicAuthCtrl
+ */
 class BasicAuthCtrl
 {
     public function login(Request $request)
