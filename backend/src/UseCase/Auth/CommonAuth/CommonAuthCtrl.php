@@ -20,4 +20,14 @@ class CommonAuthCtrl
         $flow->logout($jwtToken);
         return response()->json([]);
     }
+
+    public function refreshToken()
+    {
+        return response()->json([]);
+    }
+
+    public function refreshCheck()
+    {
+        return response()->json([]);
+    }
 }

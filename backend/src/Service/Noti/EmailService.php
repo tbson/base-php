@@ -2,6 +2,7 @@
 namespace Src\Service\Noti;
 
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Queue;
 
 /**
  * Class EmailService
@@ -17,6 +18,13 @@ class EmailService
                 ->to($recipients)
                 ->subject($subject)
                 ->html($body);
+        });
+    }
+
+    public static function sendEmailAsync($recipients, $subject, $body)
+    {
+        Queue::push(function () use ($recipients, $subject, $body) {
+            self::sendEmail($recipients, $subject, $body);
         });
     }
 }

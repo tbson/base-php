@@ -17,5 +17,13 @@ Route::group(
     function () {
         Route::post("/basic-auth/login", [BasicAuthCtrl::class, "login"]);
         Route::post("/common-auth/logout", [CommonAuthCtrl::class, "logout"]);
+        Route::get("/common-auth/refresh-token", [
+            CommonAuthCtrl::class,
+            "refreshToken",
+        ]);
+        Route::get("/common-auth/refresh-check", [
+            CommonAuthCtrl::class,
+            "refreshCheck",
+        ]);
     }
 );
