@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\UseCase\Auth\BasicAuth;
+namespace Src\UseCase\Auth\BasicAuth\Login;
 
 use Src\Interface\Account\UserServiceInterface;
 use Src\Util\CryptoUtil;
@@ -8,9 +8,9 @@ use Src\Util\ErrorUtil;
 use Src\Util\TimeUtil;
 
 /*
- * @module Src\UseCase\Auth\BasicAuth\BasicAuthFlow;
+ * @module Src\UseCase\Auth\BasicAuthLogin\BasicAuthLoginFlow;
  */
-class BasicAuthFlow
+class BasicAuthLoginFlow
 {
     private $userService;
     public function __construct(UserServiceInterface $userService)

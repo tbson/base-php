@@ -1,16 +1,16 @@
 <?php
 
-namespace Src\UseCase\Config\Variable;
+namespace Src\UseCase\Config\Variable\Crud;
 
 use Illuminate\Http\Request;
 use Src\Controller;
 use Src\Service\Account\UserService;
 
 /**
- * Class VariableCtrl
- * @package Src\UseCase\Config\Variable\VariableCtrl
+ * Class VariableCrudCtrl
+ * @package Src\UseCase\Config\Variable\VariableCrudCtrl
  */
-class VariableCtrl extends Controller
+class VariableCrudCtrl extends Controller
 {
     public function list(Request $request)
     {

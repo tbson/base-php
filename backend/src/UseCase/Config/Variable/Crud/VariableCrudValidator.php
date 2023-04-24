@@ -1,14 +1,15 @@
 <?php
 
-namespace Src\UseCase\Config\Variable;
+namespace Src\UseCase\Config\Variable\Crud;
+
 use Illuminate\Support\Facades\Validator;
 use Src\Service\Config\Schema\VariableSchema;
 use Src\Util\ErrorUtil;
 
 /*
- * @module Src\UseCase\Config\Variable\VariableValidator;
+ * @module Src\UseCase\Config\Variable\VariableCrudValidator;
  */
-class VariableValidator
+class VariableCrudValidator
 {
     public static function validate($attrs)
     {

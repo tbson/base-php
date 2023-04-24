@@ -10,6 +10,17 @@ use Src\Util\ErrorUtil;
  */
 class VariableService
 {
+    private static $notFoundMsg = __("Variable not found");
+
+    public static function getVariable($conditions)
+    {
+        $result = VariableSchema::where($conditions)->first();
+        if ($result === null) {
+            return ["error", ErrorUtil::parse(self::$notFoundMsg)];
+        }
+        return ["ok", $result];
+    }
+
     public static function createVariable($attrs)
     {
         try {

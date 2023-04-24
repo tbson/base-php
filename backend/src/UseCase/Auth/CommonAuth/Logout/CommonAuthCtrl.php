@@ -1,22 +1,22 @@
 <?php
 
-namespace Src\UseCase\Auth\CommonAuth;
+namespace Src\UseCase\Auth\CommonAuth\Logout;
 
 use Illuminate\Http\Request;
 use Src\Util\CryptoUtil;
 use Src\Service\Account\UserService;
-use Src\UseCase\Auth\CommonAuth\CommonAuthFlow;
+use Src\UseCase\Auth\CommonAuthLogout\CommonAuthLogoutFlow;
 
 /**
- * Class CommonAuthCtrl
- * @package Src\UseCase\Auth\CommonAuth\CommonAuthCtrl
+ * Class CommonAuthLogoutCtrl
+ * @package Src\UseCase\Auth\CommonAuthLogout\CommonAuthLogoutCtrl
  */
-class CommonAuthCtrl
+class CommonAuthLogoutCtrl
 {
     public function logout(Request $request)
     {
         $jwtToken = CryptoUtil::getJwtTokenFromHeader($request->headers);
-        $flow = new CommonAuthFlow(new UserService());
+        $flow = new CommonAuthLogoutFlow(new UserService());
         $flow->logout($jwtToken);
         return response()->json([]);
     }

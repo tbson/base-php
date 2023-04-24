@@ -1,11 +1,11 @@
 <?php
 
-namespace Src\UseCase\Auth\BasicAuth;
+namespace Src\UseCase\Auth\BasicAuth\Login;
 
 /*
- * @module Src\UseCase\Auth\BasicAuth\BasicAuthPresenter;
+ * @module Src\UseCase\Auth\BasicAuthLogin\BasicAuthLoginPresenter;
  */
-class BasicAuthPresenter
+class BasicAuthLoginPresenter
 {
     public static function presentLogin($user, $token)
     {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Src\UseCase\Auth\BasicAuth;
+namespace Src\UseCase\Auth\BasicAuth\Login;
 
 use Illuminate\Support\Facades\Validator;
 use Src\Util\ErrorUtil;
 
 /*
- * @module Src\UseCase\Auth\BasicAuth\BasicAuthValidator;
+ * @module Src\UseCase\Auth\BasicAuthLogin\BasicAuthLoginValidator;
  */
-class BasicAuthValidator
+class BasicAuthLoginValidator
 {
     public static function validateLogin($attrs)
     {

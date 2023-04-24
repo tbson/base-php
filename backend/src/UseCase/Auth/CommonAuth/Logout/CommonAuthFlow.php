@@ -1,15 +1,15 @@
 <?php
 
-namespace Src\UseCase\Auth\CommonAuth;
+namespace Src\UseCase\Auth\CommonAuth\Logout;
 
 use Src\Interface\Account\UserServiceInterface;
 use Src\Util\CryptoUtil;
 use Src\Util\ErrorUtil;
 
 /*
- * @module Src\UseCase\Auth\CommonAuth\CommonAuthFlow;
+ * @module Src\UseCase\Auth\CommonAuthLogout\CommonAuthLogoutFlow;
  */
-class CommonAuthFlow
+class CommonAuthLogoutFlow
 {
     private $userService;
     public function __construct(UserServiceInterface $userService)
