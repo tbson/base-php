@@ -2,9 +2,9 @@
 namespace Src\Business;
 
 /**
- * @module Src\Business\GlobalConst;
+ * @module Src\Business\BusinessConst;
  */
-class GlobalConst
+class BusinessConst
 {
     public static $PROFILE_TYPE = [
         "ADMIN" => [

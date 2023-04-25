@@ -3,7 +3,7 @@
 namespace Src\UseCase\Auth\BasicAuth\Login;
 
 /*
- * @module Src\UseCase\Auth\BasicAuthLogin\BasicAuthLoginPresenter;
+ * @module Src\UseCase\Auth\BasicAuth\Login\BasicAuthLoginPresenter;
  */
 class BasicAuthLoginPresenter
 {

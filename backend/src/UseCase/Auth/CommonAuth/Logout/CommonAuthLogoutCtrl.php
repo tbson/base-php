@@ -5,11 +5,11 @@ namespace Src\UseCase\Auth\CommonAuth\Logout;
 use Illuminate\Http\Request;
 use Src\Util\CryptoUtil;
 use Src\Service\Account\UserService;
-use Src\UseCase\Auth\CommonAuthLogout\CommonAuthLogoutFlow;
+use Src\UseCase\Auth\CommonAuth\Logout\CommonAuthLogoutFlow;
 
 /**
  * Class CommonAuthLogoutCtrl
- * @package Src\UseCase\Auth\CommonAuthLogout\CommonAuthLogoutCtrl
+ * @package Src\UseCase\Auth\CommonAuth\Logout\CommonAuthLogoutCtrl
  */
 class CommonAuthLogoutCtrl
 {

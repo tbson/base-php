@@ -7,7 +7,7 @@ use Src\Util\CryptoUtil;
 use Src\Util\ErrorUtil;
 
 /*
- * @module Src\UseCase\Auth\CommonAuthLogout\CommonAuthLogoutFlow;
+ * @module Src\UseCase\Auth\CommonAuth\Logout\CommonAuthLogoutFlow;
  */
 class CommonAuthLogoutFlow
 {

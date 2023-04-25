@@ -1,18 +1,19 @@
 <?php
 
-namespace Src\UseCase\Auth\BasicAuthLogin\Login;
+namespace Src\UseCase\Auth\BasicAuth\Login;
 
 use Illuminate\Http\Request;
 use Src\UseCase\Auth\BasicAuth\Login\BasicAuthLoginValidator;
 use Src\UseCase\Auth\BasicAuth\Login\BasicAuthLoginPresenter;
+use Src\Service\Account\AccountService;
 use Src\Service\Account\UserService;
 use Src\UseCase\Auth\BasicAuth\Login\BasicAuthLoginFlow;
 
 /**
- * Class BasicAuthLoginLoginCtrl
- * @package Src\UseCase\Auth\BasicAuthLogin\BasicAuthLoginLoginCtrl
+ * Class BasicAuthLoginCtrl
+ * @package Src\UseCase\Auth\BasicAuth\Login\BasicAuthLoginCtrl
  */
-class BasicAuthLoginLoginCtrl
+class BasicAuthLoginCtrl
 {
     public function login(Request $request)
     {
@@ -23,7 +24,7 @@ class BasicAuthLoginLoginCtrl
         }
         $username = $result["username"];
         $password = $result["password"];
-        $flow = new BasicAuthLoginFlow(new UserService());
+        $flow = new BasicAuthLoginFlow(new AccountService(), new UserService());
 
         [$status, $result] = $flow->login($username, $password);
         if ($status === "error") {

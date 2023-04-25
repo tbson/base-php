@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Src\UseCase\Config\Variable\Crud\VariableCrudCtrl;
-use Src\Business\GlobalConst;
+use Src\Business\BusinessConst;
 
-$admin = GlobalConst::$PROFILE_TYPE["ADMIN"]["value"];
-$staff = GlobalConst::$PROFILE_TYPE["STAFF"]["value"];
+$admin = BusinessConst::$PROFILE_TYPE["ADMIN"]["value"];
+$staff = BusinessConst::$PROFILE_TYPE["STAFF"]["value"];
 
 Route::group(
     [

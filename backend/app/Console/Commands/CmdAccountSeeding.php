@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 use Src\Service\Account\Seeder\UserSeeder;
 use Src\Service\Role\Schema\GroupSchema;
 use Src\Service\Role\Schema\PemSchema;
-use Src\Business\GlobalConst;
+use Src\Business\BusinessConst;
 
 class CmdAccountSeeding extends Command
 {
@@ -31,12 +31,12 @@ class CmdAccountSeeding extends Command
     public function handle()
     {
         DB::transaction(function () {
-            $adminProfile = GlobalConst::$PROFILE_TYPE["ADMIN"]["value"];
-            $staffProfile = GlobalConst::$PROFILE_TYPE["STAFF"]["value"];
+            $adminProfile = BusinessConst::$PROFILE_TYPE["ADMIN"]["value"];
+            $staffProfile = BusinessConst::$PROFILE_TYPE["STAFF"]["value"];
 
             $admin_group_ids = [];
             $staff_group_ids = [];
-            foreach (GlobalConst::$PROFILE_TYPE as $profileType) {
+            foreach (BusinessConst::$PROFILE_TYPE as $profileType) {
                 $group = GroupSchema::create([
                     "profile_type" => $profileType["value"],
                     "title" => $profileType["label"],

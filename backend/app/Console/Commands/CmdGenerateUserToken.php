@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Src\Service\Account\UserService;
+use Src\Service\Account\AccountService;
 
 class CmdGenerateUserToken extends Command
 {
@@ -27,7 +27,7 @@ class CmdGenerateUserToken extends Command
     public function handle()
     {
         $userId = $this->argument("userId");
-        $result = UserService::generateUserToken($userId);
+        $result = AccountService::generateUserToken($userId);
         dump($result);
     }
 }

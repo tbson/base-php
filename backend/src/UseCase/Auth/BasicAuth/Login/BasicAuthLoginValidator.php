@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use Src\Util\ErrorUtil;
 
 /*
- * @module Src\UseCase\Auth\BasicAuthLogin\BasicAuthLoginValidator;
+ * @module Src\UseCase\Auth\BasicAuth\Login\BasicAuthLoginValidator;
  */
 class BasicAuthLoginValidator
 {

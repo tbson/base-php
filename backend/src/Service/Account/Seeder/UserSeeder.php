@@ -2,7 +2,7 @@
 
 namespace Src\Service\Account\Seeder;
 use Src\Service\Account\Schema\UserSchema;
-use Src\Business\GlobalConst;
+use Src\Business\BusinessConst;
 
 /**
  * @module Src\Service\Account\Seeder\UserSeeder;
@@ -19,7 +19,7 @@ class UserSeeder
             "password" => "password{$index}",
             "is_owner" => false,
         ];
-        if ($profileType == GlobalConst::$PROFILE_TYPE["ADMIN"]["value"]) {
+        if ($profileType == BusinessConst::$PROFILE_TYPE["ADMIN"]["value"]) {
             $result["is_owner"] = true;
         }
         return $result;
@@ -56,21 +56,21 @@ class UserSeeder
 
     public static function oneAdmin($index)
     {
-        return self::one($index, GlobalConst::$PROFILE_TYPE["ADMIN"]["value"]);
+        return self::one($index, BusinessConst::$PROFILE_TYPE["ADMIN"]["value"]);
     }
 
     public static function listAdmin($index)
     {
-        return self::list($index, GlobalConst::$PROFILE_TYPE["ADMIN"]["value"]);
+        return self::list($index, BusinessConst::$PROFILE_TYPE["ADMIN"]["value"]);
     }
 
     public static function oneStaff($index)
     {
-        return self::one($index, GlobalConst::$PROFILE_TYPE["STAFF"]["value"]);
+        return self::one($index, BusinessConst::$PROFILE_TYPE["STAFF"]["value"]);
     }
 
     public static function listStaff($index)
     {
-        return self::list($index, GlobalConst::$PROFILE_TYPE["STAFF"]["value"]);
+        return self::list($index, BusinessConst::$PROFILE_TYPE["STAFF"]["value"]);
     }
 }
