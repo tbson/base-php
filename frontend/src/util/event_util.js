@@ -1,3 +1,5 @@
+import { ElLoading } from "element-plus";
+
 export default class EventUtil {
     static get event() {
         return {
@@ -44,6 +46,14 @@ export default class EventUtil {
      * @returns {void}
      */
     static toggleGlobalLoading(spinning = true) {
-        EventUtil.event.dispatch("TOGGLE_SPINNER", spinning);
+        // EventUtil.event.dispatch("TOGGLE_SPINNER", spinning);
+        const loading = ElLoading.service({
+            lock: true,
+            text: "Loading...",
+            background: "rgba(0, 0, 0, 0.1)"
+        });
+        if (!spinning) {
+            loading.close();
+        }
     }
 }

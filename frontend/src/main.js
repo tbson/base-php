@@ -1,5 +1,6 @@
 import { createApp } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
+import "element-plus/dist/index.css";
 import "style/main.css";
 import Home from "component/home/index.vue";
 import Login from "component/auth/login/login_page.vue";

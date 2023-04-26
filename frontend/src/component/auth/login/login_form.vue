@@ -1,44 +1,52 @@
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, defineProps, toRaw } from "vue";
+import FormUtil from "util/form_util.js";
+import EventUtil from "util/event_util.js";
+import { urls } from "component/auth/config.js";
+
+const props = defineProps({
+    onChange: Function
+});
 
 const formRef = ref();
 
 // do not use same name with ref
 const form = reactive({
-    email: "",
-    password: ""
+    username: "admin@localhost.dev",
+    password: "Qwerty!@#456"
 });
 /*
 const errors = reactive({
-    email: "hello",
+    username: "hello",
     password: ""
 });
 */
 
 const rules = reactive({
-    email: [
-        { required: true, message: "Please input your email", trigger: "blur" },
+    username: [
+        { required: true, message: "Please input your username", trigger: "blur" },
         {
-            type: "email",
-            message: "Please input correct email address",
+            message: "Please input username",
             trigger: ["blur", "change"]
         }
     ],
     password: [
         { required: true, message: "Please input your password", trigger: "blur" },
         {
-            min: 6,
-            message: "Password must be at least 6 characters",
+            message: "Please input password",
             trigger: ["blur", "change"]
         }
     ]
 });
 
 function handleSubmit() {
-    const form = formRef.value;
-    form.validate((valid, fields) => {
+    const formRefInstance = formRef.value;
+    formRefInstance.validate((valid, fields) => {
         if (valid) {
-            console.log("submit!");
+            const payload = toRaw(form);
+            FormUtil.submit(urls.login, payload)
+                .then(props.onChange)
+                .catch(FormUtil.setFormErrors(form));
         } else {
             console.log("error submit!", fields);
         }
@@ -60,15 +68,15 @@ defineExpose({
         <!--
         <el-form-item
             label="Email"
-            prop="email"
-            :validate-status="errors.email ? 'error' : ''"
-            :error="errors.email || ''"
+            prop="username"
+            :validate-status="errors.username ? 'error' : ''"
+            :error="errors.username || ''"
         >
-            <el-input v-model="form.email" type="email" placeholder="Email..." />
+            <el-input v-model="form.username" type="username" placeholder="Email..." />
         </el-form-item>
         -->
-        <el-form-item label="Email" prop="email">
-            <el-input v-model="form.email" type="email" placeholder="Email..." />
+        <el-form-item label="Username" prop="username">
+            <el-input v-model="form.username" type="username" placeholder="Email..." />
         </el-form-item>
         <el-form-item label="Password" prop="password">
             <el-input

@@ -7,12 +7,16 @@ import ResetPwdDialog from "component/auth/reset_pwd/reset_pwd_dialog.vue";
 const loginForm = ref();
 const resetPwdDialog = ref();
 
-function handleSubmit() {
+function triggerSubmit() {
     loginForm.value.handleSubmit();
 }
 
 function openResetPwdDialog() {
     resetPwdDialog.value.toggle(true);
+}
+
+function handleSubmit(data) {
+    console.log(data);
 }
 </script>
 
@@ -26,7 +30,11 @@ function openResetPwdDialog() {
                     </div>
                 </template>
                 <template #default>
-                    <LoginForm id="login-form" ref="loginForm" />
+                    <LoginForm
+                        id="login-form"
+                        ref="loginForm"
+                        :on-change="handleSubmit"
+                    />
                     <el-row>
                         <el-col :span="12">
                             <el-button
@@ -37,12 +45,12 @@ function openResetPwdDialog() {
                                 Forgot password
                             </el-button>
                         </el-col>
-                        <el-col :span="12" class="right">
+                        <el-col :span="12" class="right-align">
                             <el-button
                                 type="primary"
                                 native-type="submit"
                                 :icon="Unlock"
-                                @click="handleSubmit"
+                                @click="triggerSubmit"
                             >
                                 Login
                             </el-button>
