@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @module Src\Service\Verify\Schema\OtpSchema;
  */
-class OtpSchema extends Model
-{
+class OtpSchema extends Model {
     protected $table = "otps";
 
     /**

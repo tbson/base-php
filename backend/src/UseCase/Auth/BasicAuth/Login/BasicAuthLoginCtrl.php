@@ -13,10 +13,8 @@ use Src\UseCase\Auth\BasicAuth\Login\BasicAuthLoginFlow;
  * Class BasicAuthLoginCtrl
  * @package Src\UseCase\Auth\BasicAuth\Login\BasicAuthLoginCtrl
  */
-class BasicAuthLoginCtrl
-{
-    public function login(Request $request)
-    {
+class BasicAuthLoginCtrl {
+    public function login(Request $request) {
         $data = $request->all();
         [$status, $result] = BasicAuthLoginValidator::validateLogin($data);
         if ($status === "error") {

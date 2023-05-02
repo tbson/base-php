@@ -6,10 +6,8 @@ use Illuminate\Database\QueryException;
 /**
  * @module Src\Util\ErrorUtil;
  */
-class ErrorUtil
-{
-    public static function parse($error)
-    {
+class ErrorUtil {
+    public static function parse($error) {
         # on QueryException
         if ($error instanceof QueryException) {
             return ErrorUtil::parseQueryException($error);
@@ -25,8 +23,7 @@ class ErrorUtil
         return ["detail" => ["unknown error"]];
     }
 
-    private static function parseQueryException($error)
-    {
+    private static function parseQueryException($error) {
         $errorMessage = $error->getMessage();
         return ["detail" => [$errorMessage]];
     }

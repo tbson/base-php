@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @module Src\Service\Role\Schema\PemSchema;
  */
-class PemSchema extends Model
-{
+class PemSchema extends Model {
     protected $table = "pems";
     public $timestamps = false;
 
@@ -47,13 +46,12 @@ class PemSchema extends Model
         "profile_types.array" => "profile_types must be an array",
     ];
 
-    public function group()
-    {
+    public function group() {
         return $this->belongsToMany(
             Src\Service\Account\SchemaGroupSchema::class,
             "groups_pems",
             "pem_id",
-            "group_id"
+            "group_id",
         );
     }
 }

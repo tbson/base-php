@@ -9,16 +9,13 @@ use Src\Util\ErrorUtil;
 /*
  * @module Src\UseCase\Auth\CommonAuth\Logout\CommonAuthLogoutFlow;
  */
-class CommonAuthLogoutFlow
-{
+class CommonAuthLogoutFlow {
     private $userService;
-    public function __construct(UserServiceInterface $userService)
-    {
+    public function __construct(UserServiceInterface $userService) {
         $this->userService = $userService;
     }
 
-    public function logout($jwtToken)
-    {
+    public function logout($jwtToken) {
         $error = ErrorUtil::parse("Can not logout properly");
         [$status, $result] = CryptoUtil::getJwtTerms($jwtToken);
 

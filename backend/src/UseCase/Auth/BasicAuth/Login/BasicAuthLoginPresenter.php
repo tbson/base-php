@@ -5,10 +5,8 @@ namespace Src\UseCase\Auth\BasicAuth\Login;
 /*
  * @module Src\UseCase\Auth\BasicAuth\Login\BasicAuthLoginPresenter;
  */
-class BasicAuthLoginPresenter
-{
-    public static function presentLogin($user, $token)
-    {
+class BasicAuthLoginPresenter {
+    public static function presentLogin($user, $token) {
         return [
             "access_token" => $token,
             "user" => [

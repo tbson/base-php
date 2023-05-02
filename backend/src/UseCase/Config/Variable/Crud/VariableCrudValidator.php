@@ -9,14 +9,12 @@ use Src\Util\ErrorUtil;
 /*
  * @module Src\UseCase\Config\Variable\VariableCrudValidator;
  */
-class VariableCrudValidator
-{
-    public static function validate($attrs)
-    {
+class VariableCrudValidator {
+    public static function validate($attrs) {
         $validator = Validator::make(
             $attrs,
             VariableSchema::$rules,
-            VariableSchema::$messages
+            VariableSchema::$messages,
         );
         if ($validator->fails()) {
             $messages = $validator->errors()->messages();

@@ -7,10 +7,8 @@ use Illuminate\Support\Facades\Route;
  * Class RouterUtil
  * @package Src\Util\RouterUtil
  */
-class RouterUtil
-{
-    public static function getAllRouterInfo()
-    {
+class RouterUtil {
+    public static function getAllRouterInfo() {
         $routes = Route::getRoutes();
         $result = [];
         foreach ($routes as $route) {
@@ -22,8 +20,7 @@ class RouterUtil
         return $result;
     }
 
-    public static function getPemData($route)
-    {
+    public static function getPemData($route) {
         $ctrlStr = $route->action["controller"];
         $profileTypes = MapUtil::get($route->action, "profile_types", []);
         $ctrlName = collect(explode("\\", $ctrlStr))->last();
@@ -38,15 +35,14 @@ class RouterUtil
         return [
             "profile_types" => $profileTypes,
             "title" => RouterUtil::formatRouterTitle(
-                "{$titlePrefix} {$action} {$module}"
+                "{$titlePrefix} {$action} {$module}",
             ),
             "module" => $module,
             "action" => $action,
         ];
     }
 
-    public static function formatRouterTitle($title)
-    {
+    public static function formatRouterTitle($title) {
         return ucfirst(strtolower(trim($title)));
     }
 }

@@ -1,6 +1,5 @@
 <?php
 namespace Src\Util;
 
-class EnumUtil
-{
+class EnumUtil {
 }

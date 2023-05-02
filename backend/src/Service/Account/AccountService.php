@@ -11,10 +11,8 @@ use Src\Service\Account\UserService;
 /**
  * @module Src\Service\Account\AccountService;
  */
-class AccountService implements AccountServiceInterface
-{
-    private static function getUserPemIds($userId)
-    {
+class AccountService implements AccountServiceInterface {
+    private static function getUserPemIds($userId) {
         $user = UserService::getUser(["id" => $userId]);
         if (is_null($user)) {
             return ["error", ErrorUtil::parse("User not found")];
@@ -29,14 +27,13 @@ class AccountService implements AccountServiceInterface
                     ->pem()
                     ->get()
                     ->pluck("id")
-                    ->toArray()
+                    ->toArray(),
             );
         }
         return ["ok", $pems];
     }
 
-    public static function generateUserToken($userId)
-    {
+    public static function generateUserToken($userId) {
         [$status, $result] = self::getUserPemIds($userId);
         if ($status === "error") {
             return $result;

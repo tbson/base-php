@@ -11,23 +11,19 @@ use Src\UseCase\Auth\CommonAuth\Logout\CommonAuthLogoutFlow;
  * Class CommonAuthLogoutCtrl
  * @package Src\UseCase\Auth\CommonAuth\Logout\CommonAuthLogoutCtrl
  */
-class CommonAuthLogoutCtrl
-{
-    public function logout(Request $request)
-    {
+class CommonAuthLogoutCtrl {
+    public function logout(Request $request) {
         $jwtToken = CryptoUtil::getJwtTokenFromHeader($request->headers);
         $flow = new CommonAuthLogoutFlow(new UserService());
         $flow->logout($jwtToken);
         return response()->json([]);
     }
 
-    public function refreshToken()
-    {
+    public function refreshToken() {
         return response()->json([]);
     }
 
-    public function refreshCheck()
-    {
+    public function refreshCheck() {
         return response()->json([]);
     }
 }

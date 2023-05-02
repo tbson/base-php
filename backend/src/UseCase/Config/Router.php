@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Src\UseCase\Config\Variable\Crud\VariableCrudCtrl;
-use Src\Business\BusinessConst;
+use Src\Setting;
 
-$admin = BusinessConst::$PROFILE_TYPE["ADMIN"]["value"];
-$staff = BusinessConst::$PROFILE_TYPE["STAFF"]["value"];
+$admin = Setting::PROFILE_TYPE["ADMIN"];
+$staff = Setting::PROFILE_TYPE["STAFF"];
 
 Route::group(
     [
@@ -16,5 +16,5 @@ Route::group(
     function () {
         Route::get("/", [VariableCrudCtrl::class, "list"]);
         Route::get("/{id}", [VariableCrudCtrl::class, "retrieve"]);
-    }
+    },
 );

@@ -11,20 +11,18 @@ use Src\Util\TimeUtil;
 /*
  * @module Src\UseCase\Auth\BasicAuth\Login\BasicAuthLoginFlow;
  */
-class BasicAuthLoginFlow
-{
+class BasicAuthLoginFlow {
     private $accountService;
     private $userService;
     public function __construct(
         AccountServiceInterface $accountService,
-        UserServiceInterface $userService
+        UserServiceInterface $userService,
     ) {
         $this->accountService = $accountService;
         $this->userService = $userService;
     }
 
-    public function login($username, $password)
-    {
+    public function login($username, $password) {
         $error = ErrorUtil::parse("Invalid username or password");
 
         # Check user exist
@@ -44,7 +42,9 @@ class BasicAuthLoginFlow
         }
 
         # Generate token
-        [$status, $result] = $this->accountService::generateUserToken($user->id);
+        [$status, $result] = $this->accountService::generateUserToken(
+            $user->id,
+        );
         if ($status === "error") {
             return response()->json($result, 400);
         }
@@ -57,7 +57,7 @@ class BasicAuthLoginFlow
         $user->token_signature = $tokenSignature;
         $JWT_REFRESH_PERIOD = env("JWT_REFRESH_PERIOD");
         $user->token_refresh_expired = TimeUtil::now()->modify(
-            "+{$JWT_REFRESH_PERIOD} seconds"
+            "+{$JWT_REFRESH_PERIOD} seconds",
         );
         $user->last_login = TimeUtil::now();
         $user->save();

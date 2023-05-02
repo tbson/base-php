@@ -7,15 +7,12 @@ use DateTime;
 /**
  * @module Src\Util\TimeUtil;
  */
-class TimeUtil
-{
-    public static function now()
-    {
+class TimeUtil {
+    public static function now() {
         return new DateTime();
     }
 
-    public static function today()
-    {
+    public static function today() {
         return new DateTime("today");
     }
 }

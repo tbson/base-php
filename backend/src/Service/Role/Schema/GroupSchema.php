@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @module Src\Service\Role\Schema\GroupSchema;
  */
-class GroupSchema extends Model
-{
+class GroupSchema extends Model {
     protected $table = "groups";
     public $timestamps = false;
 
@@ -41,13 +40,12 @@ class GroupSchema extends Model
 
     public static $messages = [];
 
-    public function pem()
-    {
+    public function pem() {
         return $this->belongsToMany(
             \Src\Service\Role\Schema\PemSchema::class,
             "groups_pems",
             "group_id",
-            "pem_id"
+            "pem_id",
         );
     }
 }

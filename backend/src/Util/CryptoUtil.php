@@ -10,43 +10,39 @@ use Src\Util\TimeUtil;
  * Class CryptoUtil
  * @package Src\Util\CryptoUtil
  */
-class CryptoUtil
-{
-    public static function hashPwd($rawPwd)
-    {
+class CryptoUtil {
+    public static function hashPwd($rawPwd) {
         return Hash::make($rawPwd);
     }
 
-    public static function checkPwd($rawPwd, $hashedPwd)
-    {
+    public static function checkPwd($rawPwd, $hashedPwd) {
         return Hash::check($rawPwd, $hashedPwd);
     }
 
-    private static function getJwtPrivateKey()
-    {
+    private static function getJwtPrivateKey() {
         $passphrase = env("JWT_PASSPHASE");
         $privateKeyFile = base_path(env("JWT_PRIVATE_KEY"));
         return openssl_pkey_get_private(
             file_get_contents($privateKeyFile),
-            $passphrase
+            $passphrase,
         );
     }
 
-    private static function getJwtPublicKey()
-    {
+    private static function getJwtPublicKey() {
         $privateKey = self::getJwtPrivateKey();
         return openssl_pkey_get_details($privateKey)["key"];
     }
 
-    public static function encodeJwt($userId, $pems = null)
-    {
+    public static function encodeJwt($userId, $pems = null) {
         try {
             if (is_null($pems)) {
                 $pems = [0];
             }
             $JWT_EXPIRATION_PERIOD = env("JWT_EXPIRATION_PERIOD");
             $now = TimeUtil::now();
-            $expiry = TimeUtil::now()->modify("+{$JWT_EXPIRATION_PERIOD} seconds");
+            $expiry = TimeUtil::now()->modify(
+                "+{$JWT_EXPIRATION_PERIOD} seconds",
+            );
             $privateKey = self::getJwtPrivateKey();
 
             $payload = [
@@ -64,8 +60,7 @@ class CryptoUtil
         }
     }
 
-    public static function decodeJwt($jwtToken)
-    {
+    public static function decodeJwt($jwtToken) {
         try {
             $publicKey = self::getJwtPublicKey();
             return ["ok", JWT::decode($jwtToken, new Key($publicKey, "RS256"))];
@@ -74,8 +69,7 @@ class CryptoUtil
         }
     }
 
-    public static function getJwtTerms($jwtToken)
-    {
+    public static function getJwtTerms($jwtToken) {
         $message = "Can not decode JWT token";
         try {
             [$status, $payload] = self::decodeJwt($jwtToken);
@@ -94,8 +88,7 @@ class CryptoUtil
         }
     }
 
-    public static function getJwtTokenFromHeader($headers)
-    {
+    public static function getJwtTokenFromHeader($headers) {
         $authHeader = $headers->get("authorization");
         if (is_null($authHeader)) {
             return "";
@@ -110,8 +103,7 @@ class CryptoUtil
         return $authHeader[1];
     }
 
-    public static function getTokenSignature($token)
-    {
+    public static function getTokenSignature($token) {
         $token = explode(".", $token);
         if (count($token) !== 3) {
             return "";

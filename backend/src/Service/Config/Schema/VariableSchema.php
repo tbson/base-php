@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @module Src\Service\Config\Schema\VariableSchema;
  */
-class VariableSchema extends Model
-{
+class VariableSchema extends Model {
     protected $table = "variables";
     public $timestamps = false;
 

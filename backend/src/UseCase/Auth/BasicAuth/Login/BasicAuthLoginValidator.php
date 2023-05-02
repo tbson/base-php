@@ -8,10 +8,8 @@ use Src\Util\ErrorUtil;
 /*
  * @module Src\UseCase\Auth\BasicAuth\Login\BasicAuthLoginValidator;
  */
-class BasicAuthLoginValidator
-{
-    public static function validateLogin($attrs)
-    {
+class BasicAuthLoginValidator {
+    public static function validateLogin($attrs) {
         $rules = [
             "username" => "required",
             "password" => "required|string|min:8",

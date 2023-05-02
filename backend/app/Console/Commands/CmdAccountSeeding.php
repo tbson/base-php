@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 use Src\Service\Account\Seeder\UserSeeder;
 use Src\Service\Role\Schema\GroupSchema;
 use Src\Service\Role\Schema\PemSchema;
-use Src\Business\BusinessConst;
+use Src\Setting;
 
 class CmdAccountSeeding extends Command
 {
@@ -31,15 +31,15 @@ class CmdAccountSeeding extends Command
     public function handle()
     {
         DB::transaction(function () {
-            $adminProfile = BusinessConst::$PROFILE_TYPE["ADMIN"]["value"];
-            $staffProfile = BusinessConst::$PROFILE_TYPE["STAFF"]["value"];
+            $adminProfile = Setting::PROFILE_TYPE["ADMIN"];
+            $staffProfile = Setting::PROFILE_TYPE["STAFF"];
 
             $admin_group_ids = [];
             $staff_group_ids = [];
-            foreach (BusinessConst::$PROFILE_TYPE as $profileType) {
+            foreach (Setting::PROFILE_TYPE_LABEL as $value => $label) {
                 $group = GroupSchema::create([
-                    "profile_type" => $profileType["value"],
-                    "title" => $profileType["label"],
+                    "profile_type" => $value,
+                    "title" => $label,
                     "default" => true,
                 ]);
                 $pems = PemSchema::whereJsonContains(

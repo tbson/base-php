@@ -9,8 +9,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 # use Laravel\Sanctum\HasApiTokens;
 use Src\Util\CryptoUtil;
 
-class UserSchema extends Authenticatable
-{
+/**
+ * @module Src\Service\Account\Schema\UserSchema;
+ */
+class UserSchema extends Authenticatable {
     protected $table = "users";
 
     # use HasApiTokens, HasFactory, Notifiable;
@@ -62,8 +64,7 @@ class UserSchema extends Authenticatable
 
     public static $messages = [];
 
-    public function setPasswordAttribute($value)
-    {
+    public function setPasswordAttribute($value) {
         $this->attributes["password"] = CryptoUtil::hashPwd($value);
     }
 }

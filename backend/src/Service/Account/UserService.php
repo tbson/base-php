@@ -8,15 +8,12 @@ use Src\Service\Account\Schema\UserSchema;
 /**
  * @module Src\Service\Account\UserService;
  */
-class UserService implements UserServiceInterface
-{
-    public static function getAllUsers()
-    {
+class UserService implements UserServiceInterface {
+    public static function getAllUsers() {
         return UserSchema::all();
     }
 
-    public static function getUser($conditions)
-    {
+    public static function getUser($conditions) {
         return UserSchema::where($conditions)->first();
     }
 }

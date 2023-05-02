@@ -19,6 +19,10 @@ Verify Service:
 - otps
 - whitelist_otps
 
+# Rules
+
+- There only place to get static settings: `Src/Setting`, for example: `Setting::JWT_EXPIRATION_PERIOD`
+
 # Folder explains
 
 ## Business
