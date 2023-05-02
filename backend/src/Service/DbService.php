@@ -20,20 +20,12 @@ class DbService {
         return ["ok", null];
     }
 
-    public static function getListItem(
-        $query,
-        $conditions,
-        $orderBy = ["id", "desc"],
-    ) {
+    public static function getListItem($query, $conditions, $orderBy = ["id", "desc"]) {
         $query = $query->where($conditions);
         return $query->orderBy(...$orderBy)->get();
     }
 
-    public static function getItem(
-        $schema,
-        $conditions,
-        $msg = "Item not found",
-    ) {
+    public static function getItem($schema, $conditions, $msg = "Item not found") {
         $query = $schema::where($conditions);
         $result = $query->first();
 
@@ -43,7 +35,7 @@ class DbService {
         return ["ok", $result];
     }
 
-    public static function insertItem($schema, $attrs) {
+    public static function createItem($schema, $attrs) {
         try {
             return [true, $schema::create($attrs)];
         } catch (QueryException $e) {
@@ -64,5 +56,23 @@ class DbService {
         } catch (QueryException $e) {
             return ["error", ErrorUtil::parse($e->getMessage())];
         }
+    }
+
+    public static function deleteItem($schema, $conditions, $id) {
+        $query = $schema::where("id", $id);
+        if (!is_null($conditions) && !empty($conditions)) {
+            $query = $query->where($conditions);
+        }
+        $query->delete();
+        return ["ok", null];
+    }
+
+    public static function deleteItems($schema, $conditions, $ids) {
+        $query = $schema::whereIn("id", $ids);
+        if (!is_null($conditions) && !empty($conditions)) {
+            $query = $query->where($conditions);
+        }
+        $query->delete();
+        return ["ok", null];
     }
 }

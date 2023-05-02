@@ -1,38 +1,38 @@
 <?php
 namespace Src\Service\Config;
 
-use Illuminate\Database\QueryException;
 use Src\Service\Config\Schema\VariableSchema;
-use Src\Util\ErrorUtil;
+use Src\Service\DbService;
 
 /**
  * @module Src\Service\Config\VariableService;
  */
 class VariableService {
-    private static $notFoundMsg = __("Variable not found");
+    private static function getNotFoundMsg() {
+        return __("Variable not found");
+    }
 
     public static function getVariable($conditions) {
-        $result = VariableSchema::where($conditions)->first();
-        if ($result === null) {
-            return ["error", ErrorUtil::parse(self::$notFoundMsg)];
-        }
-        return ["ok", $result];
+        return DbService::getItem(
+            VariableSchema::class,
+            $conditions,
+            self::getNotFoundMsg(),
+        );
     }
 
     public static function createVariable($attrs) {
-        try {
-            return [true, VariableSchema::create($attrs)];
-        } catch (QueryException $e) {
-            return ["error", ErrorUtil::parse($e->getMessage())];
-        }
+        return DbService::createItem(VariableSchema::class, $attrs);
     }
 
     public static function updateVariable($conditions, $attrs) {
+        return DbService::updateItem(VariableSchema::class, $conditions, $attrs);
     }
 
     public static function deleteVariable($conditions, $id) {
+        return DbService::deleteItem(VariableSchema::class, $conditions, $id);
     }
 
     public static function deleteVariables($conditions, $ids) {
+        return DbService::deleteItems(VariableSchema::class, $conditions, $ids);
     }
 }

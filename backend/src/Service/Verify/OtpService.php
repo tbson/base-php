@@ -1,22 +1,23 @@
 <?php
 namespace Src\Service\Verify;
 
-use Illuminate\Database\QueryException;
 use Src\Service\Verify\Schema\OtpSchema;
-use Src\Util\ErrorUtil;
+use Src\Service\DbService;
 
 /**
  * @module Src\Service\Verify\OtpService;
  */
 class OtpService {
-    private static $notFoundMsg = __("OTP not found");
+    private static function getNotFoundMsg() {
+        return __("OTP not found");
+    }
 
     public static function getOtp($conditions) {
-        $result = OtpSchema::where($conditions)->first();
-        if ($result === null) {
-            return ["error", ErrorUtil::parse(self::$notFoundMsg)];
-        }
-        return ["ok", $result];
+        return DbService::getItem(
+            OtpSchema::class,
+            $conditions,
+            self::getNotFoundMsg(),
+        );
     }
 
     public static function createOtp($target, $extra_data, $ips) {
