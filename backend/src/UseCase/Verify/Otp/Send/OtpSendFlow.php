@@ -46,6 +46,6 @@ class OtpSendFlow {
         [$recipients, $subject, $body] = $this->otpService::getOtpEmailInput($otp);
         $this->emailService::sendEmailAsync($recipients, $subject, $body);
 
-        return ["success", $otp->id];
+        return ["success", $otp];
     }
 }

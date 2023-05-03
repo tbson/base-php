@@ -4,10 +4,11 @@ namespace Src\UseCase\Verify\Otp\Send;
 
 use Illuminate\Http\Request;
 use Src\Controller;
-use Src\UseCase\Verify\Otp\Send\OtpSendFlow;
 use Src\Service\Account\UserService;
 use Src\Service\Verify\OtpService;
 use Src\Service\Noti\EmailService;
+use Src\UseCase\Verify\Otp\Send\OtpSendFlow;
+use Src\UseCase\Verify\Otp\Send\OtpSendPresenter;
 
 /**
  * @module Src\UseCase\Verify\Otp\Send\OtpSendCtrl;
@@ -26,8 +27,9 @@ class OtpSendCtrl extends Controller {
             return response()->json(["error" => $result]);
         }
 
-        $otpId = $result;
+        $otp = $result;
+        $response = OtpSendPresenter::presentOtpSend($otp);
 
-        return response()->json(["id" => $otpId]);
+        return response()->json($response);
     }
 }
