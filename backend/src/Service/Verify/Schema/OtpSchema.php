@@ -2,12 +2,14 @@
 
 namespace Src\Service\Verify\Schema;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @module Src\Service\Verify\Schema\OtpSchema;
  */
 class OtpSchema extends Model {
+    use HasUuids;
     protected $table = "otps";
 
     /**
@@ -15,13 +17,7 @@ class OtpSchema extends Model {
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        "target",
-        "code",
-        "requested_ips",
-        "expired_time",
-        "extra_data",
-    ];
+    protected $fillable = ["target", "code", "ips", "expired_at", "extra_data"];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -35,13 +31,16 @@ class OtpSchema extends Model {
      *
      * @var array<string, string>
      */
-    protected $casts = [];
+    protected $casts = [
+        "ips" => "array",
+        "extra_data" => "array",
+    ];
 
     public static $rules = [
         "target" => "required|string",
         "code" => "required|string",
-        "requested_ips" => "required|string",
-        "expired_time" => "required|date",
+        "ips" => "required|array",
+        "expired_at" => "required|date",
     ];
 
     public static $messages = [];

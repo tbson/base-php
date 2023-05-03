@@ -9,14 +9,14 @@ return new class extends Migration {
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
+    public function up(): void {
         Schema::create("otps", function (Blueprint $table) {
-            $table->id();
+            $table->uuid("id")->primary();
             $table->string("target");
             $table->string("code");
-            $table->string("requested_ips");
-            $table->dateTime("expired_time");
+            $table->string("ips");
+            $table->dateTime("expired_at");
+            $table->integer("attems")->default(0);
             $table->json("extra_data")->default(new Expression("(JSON_ARRAY())"));
             $table->timestamps();
         });
@@ -25,8 +25,7 @@ return new class extends Migration {
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
+    public function down(): void {
         Schema::dropIfExists("otps");
     }
 };

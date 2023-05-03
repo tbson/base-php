@@ -5,13 +5,13 @@ namespace Src\Service\Account;
 use Src\Util\ErrorUtil;
 use Src\Util\CryptoUtil;
 use Src\Service\Role\Schema\GroupSchema;
-use Src\Interface\Account\AccountServiceInterface;
+use Src\Interface\Account\Account;
 use Src\Service\Account\UserService;
 
 /**
  * @module Src\Service\Account\AccountService;
  */
-class AccountService implements AccountServiceInterface {
+class AccountService implements Account {
     private static function getUserPemIds($userId) {
         $user = UserService::getUser(["id" => $userId]);
         if (is_null($user)) {

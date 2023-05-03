@@ -2,8 +2,8 @@
 
 namespace Src\UseCase\Auth\BasicAuth\Login;
 
-use Src\Interface\Account\AccountServiceInterface;
-use Src\Interface\Account\UserServiceInterface;
+use Src\Interface\Account\Account;
+use Src\Interface\Account\User;
 use Src\Util\CryptoUtil;
 use Src\Util\ErrorUtil;
 use Src\Util\TimeUtil;
@@ -14,10 +14,7 @@ use Src\Util\TimeUtil;
 class BasicAuthLoginFlow {
     private $accountService;
     private $userService;
-    public function __construct(
-        AccountServiceInterface $accountService,
-        UserServiceInterface $userService,
-    ) {
+    public function __construct(Account $accountService, User $userService) {
         $this->accountService = $accountService;
         $this->userService = $userService;
     }
@@ -42,9 +39,7 @@ class BasicAuthLoginFlow {
         }
 
         # Generate token
-        [$status, $result] = $this->accountService::generateUserToken(
-            $user->id,
-        );
+        [$status, $result] = $this->accountService::generateUserToken($user->id);
         if ($status === "error") {
             return response()->json($result, 400);
         }

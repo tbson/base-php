@@ -13,8 +13,7 @@ use Src\Service\Account\UserService;
 class VariableCrudCtrl extends Controller {
     public function list(Request $request) {
         # dump($request->get("user"));
-        $items = UserService::getAllUsers();
-        return response()->json(["items" => $items]);
+        return response()->json(["items" => []]);
     }
 
     public function retrieve(int $id) {

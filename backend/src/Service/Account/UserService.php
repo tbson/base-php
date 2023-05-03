@@ -2,18 +2,23 @@
 
 namespace Src\Service\Account;
 
-use Src\Interface\Account\UserServiceInterface;
+use Src\Interface\Account\User;
 use Src\Service\Account\Schema\UserSchema;
+use Src\Service\DbService;
 
 /**
  * @module Src\Service\Account\UserService;
  */
-class UserService implements UserServiceInterface {
-    public static function getAllUsers() {
-        return UserSchema::all();
+class UserService implements User {
+    private static function getNotFoundMsg() {
+        return __("User not found");
     }
 
     public static function getUser($conditions) {
-        return UserSchema::where($conditions)->first();
+        return DbService::getItem(
+            UserSchema::class,
+            $conditions,
+            self::getNotFoundMsg(),
+        );
     }
 }

@@ -4,6 +4,7 @@ namespace Src\Util;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Src\Util\TimeUtil;
 
 /**
@@ -40,9 +41,7 @@ class CryptoUtil {
             }
             $JWT_EXPIRATION_PERIOD = env("JWT_EXPIRATION_PERIOD");
             $now = TimeUtil::now();
-            $expiry = TimeUtil::now()->modify(
-                "+{$JWT_EXPIRATION_PERIOD} seconds",
-            );
+            $expiry = TimeUtil::now()->modify("+{$JWT_EXPIRATION_PERIOD} seconds");
             $privateKey = self::getJwtPrivateKey();
 
             $payload = [
@@ -109,5 +108,9 @@ class CryptoUtil {
             return "";
         }
         return $token[2];
+    }
+
+    public static function generateUuid() {
+        return Str::uuid()->toString();
     }
 }

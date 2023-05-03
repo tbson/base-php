@@ -2,7 +2,7 @@
 
 namespace Src\UseCase\Auth\CommonAuth\Logout;
 
-use Src\Interface\Account\UserServiceInterface;
+use Src\Interface\Account\User;
 use Src\Util\CryptoUtil;
 use Src\Util\ErrorUtil;
 
@@ -11,7 +11,7 @@ use Src\Util\ErrorUtil;
  */
 class CommonAuthLogoutFlow {
     private $userService;
-    public function __construct(UserServiceInterface $userService) {
+    public function __construct(User $userService) {
         $this->userService = $userService;
     }
 
