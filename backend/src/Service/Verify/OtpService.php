@@ -40,7 +40,11 @@ class OtpService implements Otp {
         $item = OtpSchema::where(["id" => $id, "code" => $code])
             ->where("expired_at", ">", TimeUtil::now())
             ->first();
-        return $item !== null;
+        if ($item == null) {
+            return ["error", __("Can not verify OTP")];
+        }
+        $item->delete();
+        return ["ok", null];
     }
 
     public static function isAllowToCreateOtp($target, $ips) {

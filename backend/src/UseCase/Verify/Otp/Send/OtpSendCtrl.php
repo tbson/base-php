@@ -9,13 +9,18 @@ use Src\Service\Verify\OtpService;
 use Src\Service\Noti\EmailService;
 use Src\UseCase\Verify\Otp\Send\OtpSendFlow;
 use Src\UseCase\Verify\Otp\Send\OtpSendPresenter;
+use Src\UseCase\Verify\Otp\Send\OtpSendValidator;
 
 /**
  * @module Src\UseCase\Verify\Otp\Send\OtpSendCtrl;
  */
 class OtpSendCtrl extends Controller {
     public function send(Request $request) {
-        $target = $request->input("username");
+        [$status, $result] = OtpSendValidator::validateOtpSend($request->all());
+        if ($status === "error") {
+            return response()->json(["error" => $result], 400);
+        }
+        $target = $result["username"];
         $ips = [$request->ip()];
         $flow = new OtpSendFlow(
             new OtpService(),
@@ -24,7 +29,7 @@ class OtpSendCtrl extends Controller {
         );
         [$status, $result] = $flow->send($target, $ips);
         if ($status === "error") {
-            return response()->json(["error" => $result]);
+            return response()->json(["error" => $result], 400);
         }
 
         $otp = $result;
