@@ -3,6 +3,7 @@
 namespace Src\UseCase\Verify\Otp\SendOtp;
 
 use Illuminate\Http\Request;
+use Src\Util\ResUtil;
 use Src\Controller;
 use Src\Service\Account\UserService;
 use Src\Service\Verify\OtpService;
@@ -18,7 +19,7 @@ class SendOtpCtrl extends Controller {
     public function sendOtp(Request $request) {
         [$status, $result] = SendOtpValidator::validateSendOtp($request->all());
         if ($status === "error") {
-            return response()->json(["error" => $result], 400);
+            return ResUtil::err($result);
         }
         $target = $result["username"];
         $ips = [$request->ip()];
@@ -29,12 +30,12 @@ class SendOtpCtrl extends Controller {
         );
         [$status, $result] = $flow->sendOtp($target, $ips);
         if ($status === "error") {
-            return response()->json(["error" => $result], 400);
+            return ResUtil::err($result);
         }
 
         $otp = $result;
         $response = SendOtpPresenter::presentSendOtp($otp);
 
-        return response()->json($response);
+        return ResUtil::res($response);
     }
 }

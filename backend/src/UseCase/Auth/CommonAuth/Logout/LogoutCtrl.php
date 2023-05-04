@@ -3,6 +3,7 @@
 namespace Src\UseCase\Auth\CommonAuth\Logout;
 
 use Illuminate\Http\Request;
+use Src\Util\ResUtil;
 use Src\Util\CryptoUtil;
 use Src\Service\Account\UserService;
 use Src\UseCase\Auth\CommonAuth\Logout\LogoutFlow;
@@ -16,14 +17,6 @@ class LogoutCtrl {
         $jwtToken = CryptoUtil::getJwtTokenFromHeader($request->headers);
         $flow = new LogoutFlow(new UserService());
         $flow->logout($jwtToken);
-        return response()->json([]);
-    }
-
-    public function refreshToken() {
-        return response()->json([]);
-    }
-
-    public function refreshCheck() {
-        return response()->json([]);
+        return ResUtil::res([]);
     }
 }

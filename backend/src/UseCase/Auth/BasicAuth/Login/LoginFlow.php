@@ -40,7 +40,7 @@ class LoginFlow {
         # Generate token
         [$status, $result] = $this->accountService::generateUserToken($user->id);
         if ($status === "error") {
-            return response()->json($result, 400);
+            return ["error", $error];
         }
         $token = $result;
 

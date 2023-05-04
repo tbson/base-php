@@ -10,8 +10,7 @@ use Src\Service\Account\UserService;
  * Class AuthMiddeware
  * @package App\Http\Middleware\AuthMiddeware
  */
-class AuthMiddeware
-{
+class AuthMiddeware {
     /**
      * Handle an incoming request.
      *
@@ -19,8 +18,7 @@ class AuthMiddeware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {
+    public function handle($request, Closure $next) {
         $jwtToken = CryptoUtil::getJwtTokenFromHeader($request->headers);
         [$status, $result] = CryptoUtil::getJwtTerms($jwtToken);
 
@@ -38,18 +36,16 @@ class AuthMiddeware
         return self::onAllow($request, $next);
     }
 
-    private static function onAllow($request, Closure $next)
-    {
+    private static function onAllow($request, Closure $next) {
         return $next($request);
     }
 
-    private static function onDeny($statusCode)
-    {
+    private static function onDeny($statusCode) {
         return response()->json(
             [
                 "detail" => $statusCode === 403 ? "Forbidden" : "Unauthorized",
             ],
-            $statusCode
+            $statusCode,
         );
     }
 }

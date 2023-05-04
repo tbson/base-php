@@ -3,6 +3,7 @@
 namespace Src\UseCase\Config\Variable\Crud;
 
 use Illuminate\Http\Request;
+use Src\Util\ResUtil;
 use Src\Controller;
 use Src\Service\Account\UserService;
 
@@ -13,10 +14,10 @@ use Src\Service\Account\UserService;
 class CrudVariableCtrl extends Controller {
     public function list(Request $request) {
         # dump($request->get("user"));
-        return response()->json(["items" => []]);
+        return ResUtil::res(["items" => []]);
     }
 
     public function retrieve(int $id) {
-        return response()->json(["key" => $id]);
+        return ResUtil::res(["key" => $id]);
     }
 }

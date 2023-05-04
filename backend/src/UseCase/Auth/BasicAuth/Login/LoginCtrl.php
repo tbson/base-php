@@ -3,6 +3,7 @@
 namespace Src\UseCase\Auth\BasicAuth\Login;
 
 use Illuminate\Http\Request;
+use Src\Util\ResUtil;
 use Src\Service\Account\AccountService;
 use Src\Service\Account\UserService;
 use Src\UseCase\Auth\BasicAuth\Login\LoginFlow;
@@ -18,7 +19,7 @@ class LoginCtrl {
         $data = $request->all();
         [$status, $result] = LoginValidator::validateLogin($data);
         if ($status === "error") {
-            return response()->json($result, 400);
+            return ResUtil::err($result);
         }
         $username = $result["username"];
         $password = $result["password"];
@@ -26,11 +27,11 @@ class LoginCtrl {
 
         [$status, $result] = $flow->login($username, $password);
         if ($status === "error") {
-            return response()->json($result, 400);
+            return ResUtil::err($result);
         }
         [$user, $token] = $result;
         $response = LoginPresenter::presentLogin($user, $token);
 
-        return response()->json($response);
+        return ResUtil::res($response);
     }
 }

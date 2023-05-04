@@ -3,7 +3,7 @@
 namespace Src\UseCase\Auth\CommonAuth\RefreshToken;
 
 use Illuminate\Http\Request;
-
+use Src\Util\ResUtil;
 use Src\Service\Account\AccountService;
 use Src\Service\Account\UserService;
 use Src\UseCase\Auth\CommonAuth\RefreshToken\RefreshTokenFlow;
@@ -15,18 +15,18 @@ class RefreshTokenCtrl {
         $data = $request->all();
         [$status, $result] = RefreshTokenValidator::validateRefreshToken($data);
         if ($status === "error") {
-            return response()->json($result, 400);
+            return ResUtil::err($result);
         }
         $token = $result["token"];
         $flow = new RefreshTokenFlow(new AccountService(), new UserService());
 
         [$status, $result] = $flow->refreshToken($token);
         if ($status === "error") {
-            return response()->json($result, 400);
+            return ResUtil::err($result);
         }
         [$user, $token] = $result;
         $response = RefreshTokenPresenter::presentRefreshToken($user, $token);
 
-        return response()->json($response);
+        return ResUtil::res($response);
     }
 }

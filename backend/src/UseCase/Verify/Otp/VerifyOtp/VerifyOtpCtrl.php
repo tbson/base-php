@@ -3,6 +3,7 @@
 namespace Src\UseCase\Verify\Otp\VerifyOtp;
 
 use Illuminate\Http\Request;
+use Src\Util\ResUtil;
 use Src\Controller;
 use Src\Service\Verify\OtpService;
 use Src\UseCase\Verify\Otp\VerifyOtp\VerifyOtpFlow;
@@ -16,7 +17,7 @@ class VerifyOtpCtrl extends Controller {
     public function verifyOtp(Request $request) {
         [$status, $result] = VerifyOtpValidator::validateVerifyOtp($request->all());
         if ($status === "error") {
-            return response()->json(["error" => $result], 400);
+            return ResUtil::err($result);
         }
 
         $id = $result["id"];
@@ -24,13 +25,13 @@ class VerifyOtpCtrl extends Controller {
         $flow = new VerifyOtpFlow(new OtpService());
         [$status, $result] = $flow->verifyOtp($id, $code);
         if ($status === "error") {
-            return response()->json(["error" => $result], 400);
+            return ResUtil::err($result);
         }
 
         $otp = $result;
 
         $response = VerifyOtpPresenter::presentVerifyOtp($otp);
 
-        return response()->json($response);
+        return ResUtil::res($response);
     }
 }
