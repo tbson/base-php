@@ -44,7 +44,7 @@ class OtpService implements Otp {
             return ["error", __("Can not verify OTP")];
         }
         $item->delete();
-        return ["ok", null];
+        return ["ok", $item];
     }
 
     public static function isAllowToCreateOtp($target, $ips) {

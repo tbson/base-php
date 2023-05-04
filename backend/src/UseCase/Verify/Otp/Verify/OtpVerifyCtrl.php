@@ -7,12 +7,13 @@ use Src\Controller;
 use Src\Service\Verify\OtpService;
 use Src\UseCase\Verify\Otp\Verify\OtpVerifyFlow;
 use Src\UseCase\Verify\Otp\Verify\OtpVerifyValidator;
+use Src\UseCase\Verify\Otp\Verify\OtpVerifyPresenter;
 
 /**
  * @module Src\UseCase\Verify\Otp\Verify\OtpVerifyCtrl;
  */
 class OtpVerifyCtrl extends Controller {
-    public function send(Request $request) {
+    public function verify(Request $request) {
         [$status, $result] = OtpVerifyValidator::validateOtpVerify($request->all());
         if ($status === "error") {
             return response()->json(["error" => $result], 400);
@@ -26,7 +27,9 @@ class OtpVerifyCtrl extends Controller {
             return response()->json(["error" => $result], 400);
         }
 
-        $response = ["ok" => true];
+        $otp = $result;
+
+        $response = OtpVerifyPresenter::presentOtpVerify($otp);
 
         return response()->json($response);
     }

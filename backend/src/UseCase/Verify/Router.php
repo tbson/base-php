@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Src\UseCase\Verify\Otp\Send\OtpSendCtrl;
+use Src\UseCase\Verify\Otp\Verify\OtpVerifyCtrl;
 use Src\Setting;
 
 $admin = Setting::PROFILE_TYPE["ADMIN"];
@@ -13,5 +14,6 @@ Route::group(
     ],
     function () {
         Route::post("/send", [OtpSendCtrl::class, "send"]);
+        Route::post("/verify", [OtpVerifyCtrl::class, "verify"]);
     },
 );

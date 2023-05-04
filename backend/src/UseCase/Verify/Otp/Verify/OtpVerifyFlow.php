@@ -18,6 +18,7 @@ class OtpVerifyFlow {
         if ($status === "error") {
             return ["error", $result];
         }
-        return ["success", null];
+        $otp = $result;
+        return ["success", $otp];
     }
 }
