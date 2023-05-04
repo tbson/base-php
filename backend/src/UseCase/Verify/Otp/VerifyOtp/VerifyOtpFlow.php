@@ -5,7 +5,7 @@ namespace Src\UseCase\Verify\Otp\VerifyOtp;
 use Src\Interface\Verify\Otp;
 
 /**
- * @module Src\UseCase\Verify\Otp\Verify\VerifyOtpFlow;
+ * @module Src\UseCase\Verify\Otp\VerifyOtp\VerifyOtpFlow;
  */
 class VerifyOtpFlow {
     private $otpService;

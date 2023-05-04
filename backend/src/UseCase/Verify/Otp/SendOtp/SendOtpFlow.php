@@ -8,7 +8,7 @@ use Src\Util\ErrorUtil;
 use Src\Util\CryptoUtil;
 
 /**
- * @module Src\UseCase\Verify\Otp\Send\SendOtpFlow;
+ * @module Src\UseCase\Verify\Otp\SendOtp\SendOtpFlow;
  */
 class SendOtpFlow {
     private $otpService;

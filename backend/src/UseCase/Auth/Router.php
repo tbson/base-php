@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Src\Setting;
 use Src\UseCase\Auth\BasicAuth\Login\LoginCtrl;
+use Src\UseCase\Auth\BasicAuth\ResetPwd\ResetPwdCtrl;
 use Src\UseCase\Auth\CommonAuth\Logout\LogoutCtrl;
 use Src\UseCase\Auth\CommonAuth\RefreshToken\RefreshTokenCtrl;
 use Src\UseCase\Auth\CommonAuth\RefreshCheck\RefreshCheckCtrl;
@@ -18,6 +19,14 @@ Route::group(
     function () {
         Route::post("/basic-auth/login", [LoginCtrl::class, "login"]);
         Route::post("/common-auth/logout", [LogoutCtrl::class, "logout"]);
+        Route::post("/basic-auth/request-reset-pwd", [
+            ResetPwdCtrl::class,
+            "requestResetPwd",
+        ]);
+        Route::post("/basic-auth/confirm-reset-pwd", [
+            ResetPwdCtrl::class,
+            "confirmResetPwd",
+        ]);
         Route::post("/common-auth/refresh-token", [
             RefreshTokenCtrl::class,
             "refreshToken",
