@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\UseCase\Verify\Otp\Send;
+namespace Src\UseCase\Verify\Otp\SendOtp;
 use Src\Interface\Account\User;
 use Src\Interface\Verify\Otp;
 use Src\Interface\Noti\Email;

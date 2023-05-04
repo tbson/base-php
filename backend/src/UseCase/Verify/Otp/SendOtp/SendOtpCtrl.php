@@ -1,15 +1,15 @@
 <?php
 
-namespace Src\UseCase\Verify\Otp\Send;
+namespace Src\UseCase\Verify\Otp\SendOtp;
 
 use Illuminate\Http\Request;
 use Src\Controller;
 use Src\Service\Account\UserService;
 use Src\Service\Verify\OtpService;
 use Src\Service\Noti\EmailService;
-use Src\UseCase\Verify\Otp\Send\SendOtpFlow;
-use Src\UseCase\Verify\Otp\Send\SendOtpPresenter;
-use Src\UseCase\Verify\Otp\Send\SendOtpValidator;
+use Src\UseCase\Verify\Otp\SendOtp\SendOtpFlow;
+use Src\UseCase\Verify\Otp\SendOtp\SendOtpPresenter;
+use Src\UseCase\Verify\Otp\SendOtp\SendOtpValidator;
 
 /**
  * @module Src\UseCase\Verify\Otp\Send\SendOtpCtrl;

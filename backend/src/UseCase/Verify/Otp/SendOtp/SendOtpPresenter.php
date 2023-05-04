@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\UseCase\Verify\Otp\Send;
+namespace Src\UseCase\Verify\Otp\SendOtp;
 
 /**
  * @module Src\UseCase\Verify\Otp\Send\SendOtpPresenter;

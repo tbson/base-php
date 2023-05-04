@@ -1,13 +1,13 @@
 <?php
 
-namespace Src\UseCase\Verify\Otp\Verify;
+namespace Src\UseCase\Verify\Otp\VerifyOtp;
 
 use Illuminate\Http\Request;
 use Src\Controller;
 use Src\Service\Verify\OtpService;
-use Src\UseCase\Verify\Otp\Verify\VerifyOtpFlow;
-use Src\UseCase\Verify\Otp\Verify\VerifyOtpValidator;
-use Src\UseCase\Verify\Otp\Verify\VerifyOtpPresenter;
+use Src\UseCase\Verify\Otp\VerifyOtp\VerifyOtpFlow;
+use Src\UseCase\Verify\Otp\VerifyOtp\VerifyOtpValidator;
+use Src\UseCase\Verify\Otp\VerifyOtp\VerifyOtpPresenter;
 
 /**
  * @module Src\UseCase\Verify\Otp\Verify\VerifyOtpCtrl;
