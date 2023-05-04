@@ -15,4 +15,12 @@ class TimeUtil {
     public static function today() {
         return new DateTime("today");
     }
+
+    public static function strToDatetime($str) {
+        return new DateTime($str);
+    }
+
+    public static function isExpired($datetime) {
+        return $datetime < self::now();
+    }
 }

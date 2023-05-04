@@ -2,9 +2,10 @@
 
 namespace Src\Service\Account;
 
+use Illuminate\Database\Eloquent\Builder;
 use Src\Util\ErrorUtil;
 use Src\Util\CryptoUtil;
-use Src\Service\Role\Schema\GroupSchema;
+use Src\Service\Role\Schema\PemSchema;
 use Src\Interface\Account\Account;
 use Src\Service\Account\UserService;
 
@@ -13,23 +14,20 @@ use Src\Service\Account\UserService;
  */
 class AccountService implements Account {
     private static function getUserPemIds($userId) {
-        $user = UserService::getUser(["id" => $userId]);
-        if (is_null($user)) {
+        [$status, $user] = UserService::getUser(["id" => $userId]);
+        if ($status === "error") {
             return ["error", ErrorUtil::parse("User not found")];
         }
-        $groupIds = json_decode($user->group_ids);
-        $groups = GroupSchema::whereIn("id", $groupIds)->get();
-        $pems = [];
-        foreach ($groups as $group) {
-            $pems = array_merge(
-                $pems,
-                $group
-                    ->pem()
-                    ->get()
-                    ->pluck("id")
-                    ->toArray(),
-            );
-        }
+        $groupIds = $user->group_ids;
+        $pems = PemSchema::whereHas("groups", function (Builder $query) use (
+            $groupIds,
+        ) {
+            $query->whereIn("group_id", $groupIds);
+        })
+            ->pluck("id")
+            ->unique()
+            ->toArray();
+
         return ["ok", $pems];
     }
 

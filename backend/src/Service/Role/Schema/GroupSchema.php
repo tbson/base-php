@@ -40,7 +40,7 @@ class GroupSchema extends Model {
 
     public static $messages = [];
 
-    public function pem() {
+    public function pems() {
         return $this->belongsToMany(
             \Src\Service\Role\Schema\PemSchema::class,
             "groups_pems",

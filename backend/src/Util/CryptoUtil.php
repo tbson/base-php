@@ -43,7 +43,6 @@ class CryptoUtil {
             $now = TimeUtil::now();
             $expiry = TimeUtil::now()->modify("+{$JWT_EXPIRATION_PERIOD} seconds");
             $privateKey = self::getJwtPrivateKey();
-
             $payload = [
                 "iss" => env("APP_DOMAIN"),
                 "aud" => env("APP_DOMAIN"),
@@ -54,7 +53,7 @@ class CryptoUtil {
             ];
 
             return ["ok", JWT::encode($payload, $privateKey, "RS256")];
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             return ["error", "Can not encode JWT token"];
         }
     }

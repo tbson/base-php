@@ -46,9 +46,9 @@ class PemSchema extends Model {
         "profile_types.array" => "profile_types must be an array",
     ];
 
-    public function group() {
+    public function groups() {
         return $this->belongsToMany(
-            Src\Service\Account\SchemaGroupSchema::class,
+            \Src\Service\Role\Schema\GroupSchema::class,
             "groups_pems",
             "pem_id",
             "group_id",

@@ -23,8 +23,8 @@ class BasicAuthLoginFlow {
         $error = ErrorUtil::parse("Invalid username or password");
 
         # Check user exist
-        $user = $this->userService::getUser(["email" => $username]);
-        if (!$user) {
+        [$status, $user] = $this->userService::getUser(["email" => $username]);
+        if ($status === "error") {
             return ["error", $error];
         }
 
@@ -45,17 +45,7 @@ class BasicAuthLoginFlow {
         }
         $token = $result;
 
-        # Write token_signature
-        # Write token_refresh_expired -> now + JWT_REFRESH_PERIOD
-        # Write last_login
-        $tokenSignature = CryptoUtil::getTokenSignature($token);
-        $user->token_signature = $tokenSignature;
-        $JWT_REFRESH_PERIOD = env("JWT_REFRESH_PERIOD");
-        $user->token_refresh_expired = TimeUtil::now()->modify(
-            "+{$JWT_REFRESH_PERIOD} seconds",
-        );
-        $user->last_login = TimeUtil::now();
-        $user->save();
+        $user = $this->userService::updateAfterAuth($user, $token);
 
         return ["ok", [$user, $token]];
     }

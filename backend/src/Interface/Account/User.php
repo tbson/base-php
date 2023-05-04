@@ -7,4 +7,5 @@ namespace Src\Interface\Account;
  */
 interface User {
     public static function getUser($conditions);
+    public static function updateAfterAuth($user, $token);
 }
