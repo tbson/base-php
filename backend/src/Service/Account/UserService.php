@@ -25,6 +25,22 @@ class UserService implements User {
         );
     }
 
+    public static function createUser($attrs) {
+        return DbService::createItem(UserSchema::class, $attrs);
+    }
+
+    public static function updateUser($conditions, $attrs) {
+        return DbService::updateItem(UserSchema::class, $conditions, $attrs);
+    }
+
+    public static function deleteUser($conditions, $id) {
+        return DbService::deleteItem(UserSchema::class, $conditions, $id);
+    }
+
+    public static function deleteUsers($conditions, $ids) {
+        return DbService::deleteItems(UserSchema::class, $conditions, $ids);
+    }
+
     public static function updateAfterAuth($user, $token, $updateLastLogin = true) {
         $tokenSignature = CryptoUtil::getTokenSignature($token);
         $user->token_signature = $tokenSignature;
