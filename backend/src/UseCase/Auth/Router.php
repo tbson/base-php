@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Src\Setting;
 use Src\UseCase\Auth\BasicAuth\Login\LoginCtrl;
 use Src\UseCase\Auth\BasicAuth\ResetPwd\ResetPwdCtrl;
+use Src\UseCase\Auth\BasicAuth\ChangePwd\ChangePwdCtrl;
 use Src\UseCase\Auth\CommonAuth\Logout\LogoutCtrl;
 use Src\UseCase\Auth\CommonAuth\RefreshToken\RefreshTokenCtrl;
 use Src\UseCase\Auth\CommonAuth\RefreshCheck\RefreshCheckCtrl;
@@ -44,5 +45,6 @@ Route::group(
             RefreshCheckCtrl::class,
             "refreshCheck",
         ]);
+        Route::post("/basic-auth/change-pwd", [ChangePwdCtrl::class, "changePwd"]);
     },
 );

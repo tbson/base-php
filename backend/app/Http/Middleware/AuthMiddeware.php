@@ -21,18 +21,17 @@ class AuthMiddeware {
     public function handle($request, Closure $next) {
         $jwtToken = CryptoUtil::getJwtTokenFromHeader($request->headers);
         [$status, $result] = CryptoUtil::getJwtTerms($jwtToken);
-
         if ($status !== "ok") {
             return self::onDeny(403);
         }
 
         $userId = $result["user_id"];
 
-        $user = UserService::getUser(["id" => $userId]);
-        if ($user === null) {
+        [$status, $user] = UserService::getUser(["id" => $userId]);
+        if ($status === "error") {
             return self::onDeny(401);
         }
-        $request->merge(["user" => $user]);
+        $request = $request->merge(["user" => $user]);
         return self::onAllow($request, $next);
     }
 

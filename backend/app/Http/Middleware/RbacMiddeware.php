@@ -12,8 +12,7 @@ use Src\Service\Account\UserService;
  * Class RbacMiddeware
  * @package App\Http\Middleware\RbacMiddeware
  */
-class RbacMiddeware
-{
+class RbacMiddeware {
     /**
      * Handle an incoming request.
      *
@@ -21,8 +20,7 @@ class RbacMiddeware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {
+    public function handle($request, Closure $next) {
         $jwtToken = CryptoUtil::getJwtTokenFromHeader($request->headers);
         [$status, $result] = CryptoUtil::getJwtTerms($jwtToken);
 
@@ -35,8 +33,8 @@ class RbacMiddeware
 
         $pemData = RouterUtil::getPemData($request->route());
         $conditions = ["module" => $pemData["module"], "action" => $pemData["action"]];
-        $pem = PemService::getPem($conditions);
-        if ($pem === null) {
+        [$status, $pem] = PemService::getPem($conditions);
+        if ($status === "error") {
             return self::onDeny(403);
         }
 
@@ -44,26 +42,24 @@ class RbacMiddeware
             return self::onDeny(401);
         }
 
-        $user = UserService::getUser(["id" => $userId]);
-        if ($user === null) {
+        [$status, $user] = UserService::getUser(["id" => $userId]);
+        if ($status === "error") {
             return self::onDeny(403);
         }
         $request->merge(["user" => $user]);
         return self::onAllow($request, $next);
     }
 
-    private static function onAllow($request, Closure $next)
-    {
+    private static function onAllow($request, Closure $next) {
         return $next($request);
     }
 
-    private static function onDeny($statusCode)
-    {
+    private static function onDeny($statusCode) {
         return response()->json(
             [
                 "detail" => $statusCode === 403 ? "Forbidden" : "Unauthorized",
             ],
-            $statusCode
+            $statusCode,
         );
     }
 }
