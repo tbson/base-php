@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Validator;
 use Src\Util\ErrorUtil;
 
 /*
- * @module Src\UseCase\Auth\BasicAuth\Login\BasicAuthLoginValidator;
+ * @module Src\UseCase\Auth\BasicAuth\Login\LoginValidator;
  */
-class BasicAuthLoginValidator {
+class LoginValidator {
     public static function validateLogin($attrs) {
         $rules = [
             "username" => "required",

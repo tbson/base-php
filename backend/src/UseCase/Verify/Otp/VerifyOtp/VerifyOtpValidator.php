@@ -1,17 +1,18 @@
 <?php
 
-namespace Src\UseCase\Verify\Otp\Send;
+namespace Src\UseCase\Verify\Otp\Verify;
 
 use Illuminate\Support\Facades\Validator;
 use Src\Util\ErrorUtil;
 
 /**
- * @module Src\UseCase\Verify\Otp\Send\OtpSendValidator;
+ * @module Src\UseCase\Verify\Otp\Verify\VerifyOtpValidator;
  */
-class OtpSendValidator {
-    public static function validateOtpSend($attrs) {
+class VerifyOtpValidator {
+    public static function validateVerifyOtp($attrs) {
         $rules = [
-            "username" => "required",
+            "id" => "required|string",
+            "code" => "required|string",
         ];
         $ruleMessages = [];
 

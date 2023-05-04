@@ -6,12 +6,11 @@ use Src\Interface\Account\Account;
 use Src\Interface\Account\User;
 use Src\Util\CryptoUtil;
 use Src\Util\ErrorUtil;
-use Src\Util\TimeUtil;
 
 /*
- * @module Src\UseCase\Auth\BasicAuth\Login\BasicAuthLoginFlow;
+ * @module Src\UseCase\Auth\BasicAuth\Login\LoginFlow;
  */
-class BasicAuthLoginFlow {
+class LoginFlow {
     private $accountService;
     private $userService;
     public function __construct(Account $accountService, User $userService) {

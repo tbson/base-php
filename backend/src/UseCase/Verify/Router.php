@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\UseCase\Verify\Otp\Send\OtpSendCtrl;
-use Src\UseCase\Verify\Otp\Verify\OtpVerifyCtrl;
+use Src\UseCase\Verify\Otp\Send\SendOtpCtrl;
+use Src\UseCase\Verify\Otp\Verify\VerifyOtpCtrl;
 use Src\Setting;
 
 $admin = Setting::PROFILE_TYPE["ADMIN"];
@@ -13,7 +13,7 @@ Route::group(
         "prefix" => "verify/otp",
     ],
     function () {
-        Route::post("/send", [OtpSendCtrl::class, "send"]);
-        Route::post("/verify", [OtpVerifyCtrl::class, "verify"]);
+        Route::post("/send", [SendOtpCtrl::class, "sendOtp"]);
+        Route::post("/verify", [VerifyOtpCtrl::class, "verifyOtp"]);
     },
 );

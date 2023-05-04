@@ -1,18 +1,18 @@
 <?php
 
-namespace Src\UseCase\Verify\Otp\Verify;
+namespace Src\UseCase\Auth\CommonAuth\RefreshToken;
 
 use Illuminate\Support\Facades\Validator;
 use Src\Util\ErrorUtil;
 
 /**
- * @module Src\UseCase\Verify\Otp\Verify\OtpVerifyValidator;
+ * Class RefreshTokenValidator
+ * @package Src\UseCase\Auth\CommonAuth\RefreshToken
  */
-class OtpVerifyValidator {
-    public static function validateOtpVerify($attrs) {
+class RefreshTokenValidator {
+    public static function validateRefreshToken($attrs) {
         $rules = [
-            "id" => "required|string",
-            "code" => "required|string",
+            "token" => "required|string",
         ];
         $ruleMessages = [];
 

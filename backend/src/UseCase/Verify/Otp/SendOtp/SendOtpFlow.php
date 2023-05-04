@@ -8,9 +8,9 @@ use Src\Util\ErrorUtil;
 use Src\Util\CryptoUtil;
 
 /**
- * @module Src\UseCase\Verify\Otp\Send\OtpSendFlow;
+ * @module Src\UseCase\Verify\Otp\Send\SendOtpFlow;
  */
-class OtpSendFlow {
+class SendOtpFlow {
     private $otpService;
     private $userService;
     private $emailService;
@@ -24,8 +24,8 @@ class OtpSendFlow {
         $this->emailService = $emailService;
     }
 
-    public function send($target, $ips, $extraData = []) {
-        $error = ErrorUtil::parse("Fail to send OTP");
+    public function sendOtp($target, $ips, $extraData = []) {
+        $error = ErrorUtil::parse(__("Fail to send OTP"));
 
         [$status, $_user] = $this->userService::getUser(["email" => $target]);
         if (!$status) {

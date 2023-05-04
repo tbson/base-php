@@ -7,9 +7,9 @@ use Src\Service\Config\Schema\VariableSchema;
 use Src\Util\ErrorUtil;
 
 /*
- * @module Src\UseCase\Config\Variable\VariableCrudValidator;
+ * @module Src\UseCase\Config\Variable\CrudVariableValidator;
  */
-class VariableCrudValidator {
+class CrudVariableValidator {
     public static function validate($attrs) {
         $validator = Validator::make(
             $attrs,

@@ -3,6 +3,7 @@ namespace Src\Service\Verify;
 
 use Src\Util\TimeUtil;
 use Src\Interface\Verify\Otp;
+use Src\Util\ErrorUtil;
 use Src\Service\DbService;
 use Src\Service\Verify\Schema\OtpSchema;
 use Src\Setting;
@@ -41,7 +42,7 @@ class OtpService implements Otp {
             ->where("expired_at", ">", TimeUtil::now())
             ->first();
         if ($item == null) {
-            return ["error", __("Can not verify OTP")];
+            return ["error", ErrorUtil::parse(__("Can not verify OTP"))];
         }
         $item->delete();
         return ["ok", $item];

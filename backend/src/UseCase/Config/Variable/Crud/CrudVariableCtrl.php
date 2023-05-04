@@ -7,10 +7,10 @@ use Src\Controller;
 use Src\Service\Account\UserService;
 
 /**
- * Class VariableCrudCtrl
- * @package Src\UseCase\Config\Variable\VariableCrudCtrl
+ * Class CrudVariableCtrl
+ * @package Src\UseCase\Config\Variable\CrudVariableCtrl
  */
-class VariableCrudCtrl extends Controller {
+class CrudVariableCtrl extends Controller {
     public function list(Request $request) {
         # dump($request->get("user"));
         return response()->json(["items" => []]);

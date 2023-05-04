@@ -7,33 +7,33 @@ use Src\Controller;
 use Src\Service\Account\UserService;
 use Src\Service\Verify\OtpService;
 use Src\Service\Noti\EmailService;
-use Src\UseCase\Verify\Otp\Send\OtpSendFlow;
-use Src\UseCase\Verify\Otp\Send\OtpSendPresenter;
-use Src\UseCase\Verify\Otp\Send\OtpSendValidator;
+use Src\UseCase\Verify\Otp\Send\SendOtpFlow;
+use Src\UseCase\Verify\Otp\Send\SendOtpPresenter;
+use Src\UseCase\Verify\Otp\Send\SendOtpValidator;
 
 /**
- * @module Src\UseCase\Verify\Otp\Send\OtpSendCtrl;
+ * @module Src\UseCase\Verify\Otp\Send\SendOtpCtrl;
  */
-class OtpSendCtrl extends Controller {
-    public function send(Request $request) {
-        [$status, $result] = OtpSendValidator::validateOtpSend($request->all());
+class SendOtpCtrl extends Controller {
+    public function sendOtp(Request $request) {
+        [$status, $result] = SendOtpValidator::validateSendOtp($request->all());
         if ($status === "error") {
             return response()->json(["error" => $result], 400);
         }
         $target = $result["username"];
         $ips = [$request->ip()];
-        $flow = new OtpSendFlow(
+        $flow = new SendOtpFlow(
             new OtpService(),
             new UserService(),
             new EmailService(),
         );
-        [$status, $result] = $flow->send($target, $ips);
+        [$status, $result] = $flow->sendOtp($target, $ips);
         if ($status === "error") {
             return response()->json(["error" => $result], 400);
         }
 
         $otp = $result;
-        $response = OtpSendPresenter::presentOtpSend($otp);
+        $response = SendOtpPresenter::presentSendOtp($otp);
 
         return response()->json($response);
     }

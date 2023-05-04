@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Src\Setting;
-use Src\UseCase\Auth\BasicAuth\Login\BasicAuthLoginCtrl;
-use Src\UseCase\Auth\CommonAuth\Logout\CommonAuthLogoutCtrl;
+use Src\UseCase\Auth\BasicAuth\Login\LoginCtrl;
+use Src\UseCase\Auth\CommonAuth\Logout\LogoutCtrl;
+use Src\UseCase\Auth\CommonAuth\RefreshToken\RefreshTokenCtrl;
+use Src\UseCase\Auth\CommonAuth\RefreshCheck\RefreshCheckCtrl;
 
 $admin = Setting::PROFILE_TYPE["ADMIN"];
 $staff = Setting::PROFILE_TYPE["STAFF"];
@@ -12,20 +14,25 @@ Route::group(
     [
         "prefix" => "auth",
         "middleware" => ["api"],
-        "profile_types" => [$admin, $staff],
     ],
     function () {
-        Route::post("/basic-auth/login", [BasicAuthLoginCtrl::class, "login"]);
-        Route::post("/common-auth/logout", [
-            CommonAuthLogoutCtrl::class,
-            "logout",
-        ]);
-        Route::get("/common-auth/refresh-token", [
-            CommonAuthCtrl::class,
+        Route::post("/basic-auth/login", [LoginCtrl::class, "login"]);
+        Route::post("/common-auth/logout", [LogoutCtrl::class, "logout"]);
+        Route::post("/common-auth/refresh-token", [
+            RefreshTokenCtrl::class,
             "refreshToken",
         ]);
+    },
+);
+
+Route::group(
+    [
+        "prefix" => "auth",
+        "middleware" => ["api", "auth"],
+    ],
+    function () {
         Route::get("/common-auth/refresh-check", [
-            CommonAuthCtrl::class,
+            RefreshCheckCtrl::class,
             "refreshCheck",
         ]);
     },

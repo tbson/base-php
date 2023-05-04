@@ -7,9 +7,9 @@ use Src\Util\CryptoUtil;
 use Src\Util\ErrorUtil;
 
 /*
- * @module Src\UseCase\Auth\CommonAuth\Logout\CommonAuthLogoutFlow;
+ * @module Src\UseCase\Auth\CommonAuth\Logout\LogoutFlow;
  */
-class CommonAuthLogoutFlow {
+class LogoutFlow {
     private $userService;
     public function __construct(User $userService) {
         $this->userService = $userService;

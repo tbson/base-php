@@ -3,33 +3,33 @@
 namespace Src\UseCase\Auth\BasicAuth\Login;
 
 use Illuminate\Http\Request;
-use Src\UseCase\Auth\BasicAuth\Login\BasicAuthLoginValidator;
-use Src\UseCase\Auth\BasicAuth\Login\BasicAuthLoginPresenter;
 use Src\Service\Account\AccountService;
 use Src\Service\Account\UserService;
-use Src\UseCase\Auth\BasicAuth\Login\BasicAuthLoginFlow;
+use Src\UseCase\Auth\BasicAuth\Login\LoginFlow;
+use Src\UseCase\Auth\BasicAuth\Login\LoginValidator;
+use Src\UseCase\Auth\BasicAuth\Login\LoginPresenter;
 
 /**
- * Class BasicAuthLoginCtrl
- * @package Src\UseCase\Auth\BasicAuth\Login\BasicAuthLoginCtrl
+ * Class LoginCtrl
+ * @package Src\UseCase\Auth\BasicAuth\Login\LoginCtrl
  */
-class BasicAuthLoginCtrl {
+class LoginCtrl {
     public function login(Request $request) {
         $data = $request->all();
-        [$status, $result] = BasicAuthLoginValidator::validateLogin($data);
+        [$status, $result] = LoginValidator::validateLogin($data);
         if ($status === "error") {
             return response()->json($result, 400);
         }
         $username = $result["username"];
         $password = $result["password"];
-        $flow = new BasicAuthLoginFlow(new AccountService(), new UserService());
+        $flow = new LoginFlow(new AccountService(), new UserService());
 
         [$status, $result] = $flow->login($username, $password);
         if ($status === "error") {
             return response()->json($result, 400);
         }
         [$user, $token] = $result;
-        $response = BasicAuthLoginPresenter::presentLogin($user, $token);
+        $response = LoginPresenter::presentLogin($user, $token);
 
         return response()->json($response);
     }

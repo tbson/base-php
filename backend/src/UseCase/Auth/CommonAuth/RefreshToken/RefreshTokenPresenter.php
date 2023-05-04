@@ -1,12 +1,13 @@
 <?php
 
-namespace Src\UseCase\Auth\BasicAuth\Login;
+namespace Src\UseCase\Auth\CommonAuth\RefreshToken;
 
-/*
- * @module Src\UseCase\Auth\BasicAuth\Login\BasicAuthLoginPresenter;
+/**
+ * Class RefreshTokenPresenter
+ * @package Src\UseCase\Auth\CommonAuth\RefreshToken
  */
-class BasicAuthLoginPresenter {
-    public static function presentLogin($user, $token) {
+class RefreshTokenPresenter {
+    public static function presentRefreshToken($user, $token) {
         return [
             "access_token" => $token,
             "user" => [
