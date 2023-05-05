@@ -14,7 +14,7 @@ use Src\UseCase\Auth\BasicAuth\ChangePwd\ChangePwdPresenter;
  */
 class ChangePwdCtrl {
     public function changePwd(Request $request) {
-        $user = $request->user;
+        $user = $request->get("user");
         $data = $request->all();
         [$status, $result] = ChangePwdValidator::validateChangePwd($data);
         if ($status === "error") {

@@ -1,15 +1,19 @@
 <?php
 namespace Src\Service\Config;
-
+use Src\Interface\Config\Variable;
 use Src\Service\Config\Schema\VariableSchema;
 use Src\Service\DbService;
 
 /**
  * @module Src\Service\Config\VariableService;
  */
-class VariableService {
+class VariableService implements Variable {
     private static function getNotFoundMsg() {
         return __("Variable not found");
+    }
+
+    public static function getSchema() {
+        return VariableSchema::class;
     }
 
     public static function getVariable($conditions) {

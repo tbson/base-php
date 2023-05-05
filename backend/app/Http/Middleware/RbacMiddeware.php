@@ -30,7 +30,6 @@ class RbacMiddeware {
 
         $userId = $result["user_id"];
         $tokenPemIds = $result["pems"];
-
         $pemData = RouterUtil::getPemData($request->route());
         $conditions = ["module" => $pemData["module"], "action" => $pemData["action"]];
         [$status, $pem] = PemService::getPem($conditions);
@@ -46,7 +45,7 @@ class RbacMiddeware {
         if ($status === "error") {
             return self::onDeny(403);
         }
-        $request->merge(["user" => $user]);
+        $request = $request->merge(["user" => $user]);
         return self::onAllow($request, $next);
     }
 

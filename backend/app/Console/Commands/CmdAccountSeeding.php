@@ -9,8 +9,7 @@ use Src\Service\Role\Schema\GroupSchema;
 use Src\Service\Role\Schema\PemSchema;
 use Src\Setting;
 
-class CmdAccountSeeding extends Command
-{
+class CmdAccountSeeding extends Command {
     /**
      * The name and signature of the console command.
      *
@@ -28,8 +27,7 @@ class CmdAccountSeeding extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
-    {
+    public function handle() {
         DB::transaction(function () {
             $adminProfile = Setting::PROFILE_TYPE["ADMIN"];
             $staffProfile = Setting::PROFILE_TYPE["STAFF"];
@@ -44,19 +42,19 @@ class CmdAccountSeeding extends Command
                 ]);
                 $pems = PemSchema::whereJsonContains(
                     "profile_types",
-                    $group->profile_type
+                    $group->profile_type,
                 )->get();
-                $group->pem()->attach($pems);
+                $group->pems()->attach($pems);
 
                 if ($group->profile_type == $adminProfile) {
                     $admin_group_ids = array_merge(
                         $admin_group_ids,
-                        $pems->pluck("id")->toArray()
+                        $pems->pluck("id")->toArray(),
                     );
                 } elseif ($group->profile_type == $staffProfile) {
                     $staff_group_ids = array_merge(
                         $staff_group_ids,
-                        $pems->pluck("id")->toArray()
+                        $pems->pluck("id")->toArray(),
                     );
                 }
             }

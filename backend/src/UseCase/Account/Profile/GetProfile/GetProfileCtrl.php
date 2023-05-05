@@ -14,7 +14,7 @@ use Src\UseCase\Account\Profile\GetProfile\GetProfilePresenter;
  */
 class GetProfileCtrl {
     public function getProfile(Request $request) {
-        $user = $request->user;
+        $user = $request->get("user");
 
         $flow = new GetProfileFlow(new UserService());
 

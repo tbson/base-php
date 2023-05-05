@@ -39,5 +39,12 @@ class VariableSchema extends Model {
         "type" => "required|integer",
     ];
 
+    public static $updateRules = [
+        "uid" => "string|unique:variables",
+        "value" => "string",
+        "description" => "string",
+        "type" => "integer",
+    ];
+
     public static $messages = [];
 }
