@@ -6,11 +6,11 @@ use Src\UseCase\Account\Profile\GetProfile\GetProfileCtrl;
 
 Route::group(
     [
-        "prefix" => "auth",
+        "prefix" => "account",
         "middleware" => ["api", "auth"],
     ],
     function () {
-        Route::put("/account/profile", [UpdateProfileCtrl::class, "UpdateProfile"]);
-        Route::get("/account/profile", [GetProfileCtrl::class, "GetProfile"]);
+        Route::get("/profile", [GetProfileCtrl::class, "GetProfile"]);
+        Route::put("/profile", [UpdateProfileCtrl::class, "UpdateProfile"]);
     },
 );
