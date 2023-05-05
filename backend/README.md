@@ -87,3 +87,31 @@ Logic flow: Controller -> Validator -> Flow -> Presenter
 
 Utility function that reuse many place in code base such as date, string processing.
 Do not interact with DB or external service, that's service's job.
+
+# Functionalitys need to implement
+
+## API endpoint:
+
+1. Basic Auth Login
+2. Common Auth Logout
+3. Basic Auth Change PWD
+4. Basic Auth Request Reset PWD
+5. Basic Auth Confirm Reset PWD
+6. Common Auth Refresh Check
+7. Common Auth Refresh Token
+8. OTP Send
+9. OTP Verify
+10. Account Get Profile
+11. Account Update Profile
+12. Variable Get List
+13. Variable Get Detail
+14. Variable Create
+15. Variable Update
+16. Variable Delete
+17. Variable Delete List
+
+API documentation: [https://documenter.getpostman.com/view/119810/2s93eWzsuH](https://documenter.getpostman.com/view/119810/2s93eWzsuH)
+## Command
+
+1. account-seeding -> backend/app/Console/Commands/CmdAccountSeeding.php -> generate account of all group for testing.
+2. sync-all-pems -> backend/app/Console/Commands/CmdSyncAllPems.php -> generate and assign default groups all needed permissions.
