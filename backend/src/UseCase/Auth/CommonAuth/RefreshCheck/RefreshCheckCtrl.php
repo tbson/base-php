@@ -7,6 +7,6 @@ use Src\Util\ResUtil;
 
 class RefreshCheckCtrl {
     public function refreshCheck(Request $request) {
-        return ResUtil::res([]);
+        return ResUtil::res(["ok" => true]);
     }
 }

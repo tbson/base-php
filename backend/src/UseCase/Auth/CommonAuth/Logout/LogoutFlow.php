@@ -25,8 +25,8 @@ class LogoutFlow {
 
         $userId = $result["user_id"];
 
-        $user = $this->userService::getUser(["id" => $userId]);
-        if ($user === null) {
+        [$status, $user] = $this->userService::getUser(["id" => $userId]);
+        if ($status === "error") {
             return ["error", $error];
         }
         $user->token_signature = "";

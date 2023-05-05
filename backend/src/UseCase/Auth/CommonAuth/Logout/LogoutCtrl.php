@@ -17,6 +17,6 @@ class LogoutCtrl {
         $jwtToken = CryptoUtil::getJwtTokenFromHeader($request->headers);
         $flow = new LogoutFlow(new UserService());
         $flow->logout($jwtToken);
-        return ResUtil::res([]);
+        return ResUtil::res(["ok" => true]);
     }
 }
