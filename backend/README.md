@@ -90,6 +90,12 @@ Do not interact with DB or external service, that's service's job.
 
 # Functionalitys need to implement
 
+## Functionalities:
+1. Rund function asynchronously
+2. Get list permissions from routers
+3. Middeware that handles logged in user
+4. Middeware that handles logged in user with proper permissions (RBAC)
+
 ## API endpoint:
 
 1. Basic Auth Login
