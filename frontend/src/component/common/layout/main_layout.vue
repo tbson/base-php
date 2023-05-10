@@ -1,32 +1,73 @@
+<script setup>
+import { ref, onMounted, onUnmounted } from "vue";
+import {
+    Menu as IconMenu,
+    Message,
+    Setting,
+    User,
+    Key,
+    Unlock,
+    CircleCheck,
+    ArrowDown
+} from "@element-plus/icons-vue";
+import { LOGO_TEXT } from "src/const";
+import StorageUtil from "util/storage_util";
+
+const isCollapse = ref(false);
+const name = ref("");
+
+const screen = ref({
+    width: window.innerWidth
+});
+
+const updateScreenSize = () => {
+    screen.value.width = window.innerWidth;
+    isCollapse.value = screen.value.width < 768;
+};
+
+onMounted(() => {
+    const authUser = StorageUtil.getAuthUser();
+    if (authUser) {
+        name.value = authUser.name;
+    }
+    updateScreenSize();
+    window.addEventListener("resize", updateScreenSize);
+});
+
+onUnmounted(() => {
+    window.removeEventListener("resize", updateScreenSize);
+});
+</script>
+
 <template>
     <el-container class="layout-container" style="height: 100vh">
         <el-aside :class="{ 'sidebar-mobile': isCollapse, sidebar: !isCollapse }">
             <div class="flex-container">
-                <div class="logo" v-if="!isCollapse">LOGO</div>
+                <div class="logo" v-if="!isCollapse">{{ LOGO_TEXT }}</div>
                 <div class="logo" v-if="isCollapse">O</div>
             </div>
             <el-scrollbar>
                 <el-menu :default-openeds="['1', '2', '3']" :collapse="isCollapse">
                     <el-menu-item index="1">
-                        <el-icon><setting /></el-icon>
+                        <el-icon><User /></el-icon>
                         <template #title>Profile</template>
                     </el-menu-item>
                     <el-menu-item index="2">
-                        <el-icon><setting /></el-icon>
+                        <el-icon><Setting /></el-icon>
                         <template #title>Variable</template>
                     </el-menu-item>
                     <el-sub-menu index="3">
                         <template #title>
-                            <el-icon><message /></el-icon>
-                            <span>Navigator One</span>
+                            <el-icon><CircleCheck /></el-icon>
+                            <span>Role</span>
                         </template>
                         <el-menu-item index="3-1">
-                            <el-icon><setting /></el-icon>
-                            <template #title>Option 1</template>
+                            <el-icon><Unlock /></el-icon>
+                            <template #title>Group</template>
                         </el-menu-item>
                         <el-menu-item index="3-2">
-                            <el-icon><setting /></el-icon>
-                            <template #title>Option 2</template>
+                            <el-icon><Key /></el-icon>
+                            <template #title>Permission</template>
                         </el-menu-item>
                     </el-sub-menu>
                 </el-menu>
@@ -34,7 +75,7 @@
         </el-aside>
 
         <el-container>
-            <el-header class="header" style="font-size: 12px">
+            <el-header class="header" style="font-size: 14px">
                 <el-row>
                     <el-col :span="12" style="text-align: left">
                         <div class="flex-container">
@@ -50,9 +91,11 @@
                     </el-col>
                     <el-col :span="12" style="text-align: right">
                         <div class="toolbar">
-                            <span style="margin-right: 8px">Tom</span>
+                            <span style="margin-right: 8px">{{ name }}</span>
                             <el-dropdown>
-                                <el-icon style="margin-top: 1px"><setting /></el-icon>
+                                <el-icon style="margin-top: 1px" :size="30"
+                                    ><ArrowDown
+                                /></el-icon>
                                 <template #dropdown>
                                     <el-dropdown-menu>
                                         <el-dropdown-item>Profile</el-dropdown-item>
@@ -71,31 +114,6 @@
         </el-container>
     </el-container>
 </template>
-
-<script setup>
-import { ref, onMounted, onUnmounted } from "vue";
-import { Menu as IconMenu, Message, Setting } from "@element-plus/icons-vue";
-
-const isCollapse = ref(false);
-
-const screen = ref({
-    width: window.innerWidth
-});
-
-const updateScreenSize = () => {
-    screen.value.width = window.innerWidth;
-    isCollapse.value = screen.value.width < 768;
-};
-
-onMounted(() => {
-    updateScreenSize();
-    window.addEventListener("resize", updateScreenSize);
-});
-
-onUnmounted(() => {
-    window.removeEventListener("resize", updateScreenSize);
-});
-</script>
 
 <style scoped>
 .layout-container .flex-container {

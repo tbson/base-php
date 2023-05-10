@@ -14,6 +14,7 @@ class LoginPresenter {
                 "name" => $user->name,
                 "email" => $user->email,
                 "mobile" => $user->mobile,
+                "profile_type" => $user->profile_type,
             ],
         ];
     }

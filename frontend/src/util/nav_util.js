@@ -7,12 +7,12 @@ export default class NavUtil {
     /**
      * navigateTo.
      *
-     * @param {Navigate} navigate
+     * @param {String} path
+     * @param {Object} params
+     * @param {Query} params
      */
-    static navigateTo(navigate) {
-        return (url = "/") => {
-            navigate(url);
-        };
+    static navigateTo(router) {
+        return (path, query = {}) => router.push({ path, query });
     }
 
     /**
@@ -56,7 +56,7 @@ export default class NavUtil {
             loginUrl = `${loginUrl}?next=${currentUrl}`;
         }
         if (navigate) {
-            NavUtil.navigateTo(navigate)(loginUrl);
+            NavUtil.navigateTo(router)(loginUrl);
         } else {
             window.location.href = loginUrl;
         }

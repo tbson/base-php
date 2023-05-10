@@ -84,6 +84,16 @@ export default class StorageUtil {
     }
 
     /**
+     * setAuthData.
+     *
+     * @param {Object} authObj
+     * @returns {void}
+     */
+    static setAuthData(authData) {
+        StorageUtil.setStorage("auth", authData);
+    }
+
+    /**
      * setToken.
      *
      * @param {string} token
@@ -102,17 +112,17 @@ export default class StorageUtil {
      */
     static getProfileType() {
         const authObj = StorageUtil.getStorageObj("auth");
-        return authObj.profile_type || "";
+        return authObj.user.profile_type || "";
     }
 
     /**
-     * getAuthId.
+     * getAuthUser.
      *
      * @returns {number}
      */
-    static getAuthId() {
+    static getAuthUser() {
         const authObj = StorageUtil.getStorageObj("auth");
-        return authObj.id;
+        return authObj.user;
     }
 
     /**

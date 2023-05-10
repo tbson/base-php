@@ -1,11 +1,22 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import { Unlock } from "@element-plus/icons-vue";
 import LoginForm from "component/auth/login/login_form.vue";
 import ResetPwdDialog from "component/auth/reset_pwd/reset_pwd_dialog.vue";
+import StorageUtil from "util/storage_util";
+import NavUtil from "util/nav_util";
 
+const router = useRouter();
 const loginForm = ref();
 const resetPwdDialog = ref();
+
+onMounted(() => {
+    const authUser = StorageUtil.getAuthUser();
+    if (authUser) {
+        NavUtil.navigateTo(router)("/app/profile");
+    }
+});
 
 function triggerSubmit() {
     loginForm.value.handleSubmit();
@@ -16,12 +27,13 @@ function openResetPwdDialog() {
 }
 
 function handleSubmit(data) {
-    console.log(data);
+    StorageUtil.setAuthData(data);
+    NavUtil.navigateTo(router)("/app/profile");
 }
 </script>
 
 <template>
-    <el-row>
+    <el-row style="margin-top: 20px">
         <el-col :offset="6" :span="12">
             <el-card class="box-card">
                 <template #header>
