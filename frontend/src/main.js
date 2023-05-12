@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 import "element-plus/dist/index.css";
 import "style/main.css";
-import HomePage from "component/home/index.vue";
+import HomePage from "component/home/home_page.vue";
 import LoginPage from "component/auth/login/login_page.vue";
 import ProfilePage from "component/account/profile/profile_page.vue";
 import NotFound from "component/common/not_found.vue";

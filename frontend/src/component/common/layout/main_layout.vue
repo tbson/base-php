@@ -10,12 +10,15 @@ import {
     CircleCheck,
     ArrowDown
 } from "@element-plus/icons-vue";
+import { useRoute } from "vue-router";
 import { LOGO_TEXT } from "src/const";
 import StorageUtil from "util/storage_util";
 
+const route = useRoute();
+const pathName = route.path;
+
 const isCollapse = ref(false);
 const name = ref("");
-
 const screen = ref({
     width: window.innerWidth
 });
@@ -37,6 +40,15 @@ onMounted(() => {
 onUnmounted(() => {
     window.removeEventListener("resize", updateScreenSize);
 });
+
+function processSelectedKey() {
+    // if (pathname.startsWith("/staff")) return "/staff";
+    return pathName;
+}
+
+function handleSelectMenu(index) {
+    console.log(index);
+}
 </script>
 
 <template>
@@ -47,12 +59,16 @@ onUnmounted(() => {
                 <div class="logo" v-if="isCollapse">O</div>
             </div>
             <el-scrollbar>
-                <el-menu :default-openeds="['1', '2', '3']" :collapse="isCollapse">
-                    <el-menu-item index="1">
+                <el-menu
+                    :collapse="isCollapse"
+                    @select="handleSelectMenu"
+                    :default-active="processSelectedKey()"
+                >
+                    <el-menu-item index="/app/profile">
                         <el-icon><User /></el-icon>
                         <template #title>Profile</template>
                     </el-menu-item>
-                    <el-menu-item index="2">
+                    <el-menu-item index="/app/config/variable">
                         <el-icon><Setting /></el-icon>
                         <template #title>Variable</template>
                     </el-menu-item>

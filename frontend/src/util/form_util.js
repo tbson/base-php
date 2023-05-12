@@ -11,17 +11,8 @@ export default class FormUtil {
      * @param {Object} errorDict - {str: str[]}
      */
 
-    static setFormErrors(form = null) {
+    static setFormErrors(form) {
         return (errorDict) => {
-            if ("detail" in errorDict) {
-                ElNotification({
-                    title: "Error",
-                    message: errorDict.detail[0],
-                    type: "error"
-                });
-                delete errorDict.detail;
-                return;
-            }
             form &&
                 form.setFields(
                     Object.entries(errorDict).map(([name, errors]) => ({
@@ -30,6 +21,23 @@ export default class FormUtil {
                     }))
                 );
         };
+    }
+
+    /**
+     * setPopupErrors.
+     *
+     * @param {Object} form - Antd hook instance
+     * @param {Object} errorDict - {str: str[]}
+     */
+
+    static setPopupErrors(errorDict) {
+        if ("detail" in errorDict) {
+            ElNotification({
+                title: "Error",
+                message: errorDict.detail[0],
+                type: "error"
+            });
+        }
     }
 
     /**
