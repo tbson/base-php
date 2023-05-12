@@ -18,7 +18,7 @@ const rules = reactive({
     ]
 });
 
-function handleSubmit() {
+function triggerSubmit() {
     const form = formRef.value;
     form.validate((valid, fields) => {
         if (valid) {
@@ -29,7 +29,7 @@ function handleSubmit() {
     });
 }
 defineExpose({
-    handleSubmit
+    triggerSubmit
 });
 </script>
 
@@ -39,7 +39,7 @@ defineExpose({
         :model="form"
         :rules="rules"
         label-width="120px"
-        @submit.prevent="handleSubmit"
+        @submit.prevent="triggerSubmit"
     >
         <el-form-item label="Email" prop="email">
             <el-input v-model="form.email" type="email" placeholder="Email..." />

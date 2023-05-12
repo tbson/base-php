@@ -16,8 +16,8 @@ function handleToggle({ detail }) {
     open.value = detail.open;
 }
 
-function handleSubmit() {
-    form.value.handleSubmit();
+function triggerSubmit() {
+    form.value.triggerSubmit();
     // open.value = false;
 }
 
@@ -42,7 +42,7 @@ defineExpose({
         <template #footer>
             <span class="dialog-footer">
                 <el-button @click="open = false">Cancel</el-button>
-                <el-button type="primary" @click="handleSubmit">
+                <el-button type="primary" @click="triggerSubmit">
                     Reset password
                 </el-button>
             </span>

@@ -19,14 +19,14 @@ onMounted(() => {
 });
 
 function triggerSubmit() {
-    loginForm.value.handleSubmit();
+    loginForm.value.triggerSubmit();
 }
 
 function openResetPwdDialog() {
     resetPwdDialog.value.toggle(true);
 }
 
-function handleSubmit(data) {
+function handleChange(data) {
     StorageUtil.setAuthData(data);
     NavUtil.navigateTo(router)("/app/profile");
 }
@@ -45,7 +45,7 @@ function handleSubmit(data) {
                     <LoginForm
                         id="login-form"
                         ref="loginForm"
-                        :on-change="handleSubmit"
+                        :on-change="handleChange"
                     />
                     <el-row>
                         <el-col :span="12">
