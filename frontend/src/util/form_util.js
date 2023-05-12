@@ -13,6 +13,9 @@ export default class FormUtil {
 
     static setFormErrors(form) {
         return (errorDict) => {
+            if ("detail" in errorDict) {
+                return FormUtil.setPopupErrors(errorDict);
+            }
             form &&
                 form.setFields(
                     Object.entries(errorDict).map(([name, errors]) => ({

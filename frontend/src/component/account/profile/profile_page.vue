@@ -3,10 +3,12 @@ import { ref, onMounted } from "vue";
 import EventUtil from "util/event_util";
 import RequestUtil from "util/request_util";
 import ProfileDialog from "component/account/profile/profile_dialog.vue";
+import ChangePwdDialog from "component/account/profile/change_pwd_dialog.vue";
 import { urls } from "component/account/config";
 
 const profileData = ref({});
 const profileDialog = ref();
+const changePwdDialog = ref();
 
 onMounted(() => {
     getProfile();
@@ -25,6 +27,10 @@ function getProfile() {
 
 function openProfileDialog() {
     profileDialog.value.toggle(true);
+}
+
+function openChangePwdDialog() {
+    changePwdDialog.value.toggle(true);
 }
 
 function handleChange() {
@@ -61,11 +67,14 @@ function handleChange() {
             </el-descriptions-item>
         </el-descriptions>
         <div class="right-align" style="margin-top: 5px">
-            <el-button type="warning">Change password</el-button>
+            <el-button type="warning" @click="openChangePwdDialog"
+                >Change password</el-button
+            >
             <el-button type="primary" @click="openProfileDialog"
                 >Update profile</el-button
             >
         </div>
     </div>
     <ProfileDialog ref="profileDialog" :on-change="handleChange" />
+    <ChangePwdDialog ref="changePwdDialog" />
 </template>
