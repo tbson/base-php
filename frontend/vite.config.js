@@ -27,6 +27,7 @@ export default defineConfig({
     resolve: {
         alias: {
             src: "/src",
+            store: "/src/store",
             component: "/src/component",
             style: "/src/style",
             util: "/src/util"

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted, defineProps } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import EventUtil from "util/event_util.js";
 import RequestUtil from "util/request_util";
 import FormUtil from "util/form_util.js";

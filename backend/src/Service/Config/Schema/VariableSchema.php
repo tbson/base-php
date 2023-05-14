@@ -40,7 +40,7 @@ class VariableSchema extends Model {
     ];
 
     public static $updateRules = [
-        "uid" => "string|unique:variables",
+        "uid" => "string",
         "value" => "string",
         "description" => "string",
         "type" => "integer",

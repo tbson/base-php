@@ -7,6 +7,7 @@ use Src\Setting;
 use Src\Util\ResUtil;
 use Src\Controller;
 use Src\Util\CtrlUtil;
+use Src\Util\ListUtil;
 use Src\Service\DbService;
 use Src\Service\Config\VariableService;
 use Src\UseCase\Config\Variable\Crud\CrudVariablePresenter;
@@ -34,7 +35,11 @@ class CrudVariableCtrl extends Controller {
         $query = DbService::applyOrder($query, $orderData);
         $result = DbService::applyPaginate($query, $pageSize);
 
-        $response = CtrlUtil::formatPaginate($result);
+        $variableTypeOption = ListUtil::mapTopOptionList(Setting::VARIABLE_TYPE_LABEL);
+        $extra = [
+            "variableTypeOption" => $variableTypeOption,
+        ];
+        $response = CtrlUtil::formatPaginate($result, $extra);
         $response["items"] = CrudVariablePresenter::presentList($response["items"]);
         return ResUtil::res($response);
     }
@@ -43,7 +48,7 @@ class CrudVariableCtrl extends Controller {
         $flow = new CrudVariableFlow(new VariableService());
         [$status, $result] = $flow->retrieve($id);
         if ($status === "error") {
-            return ResUtil::res($result);
+            return ResUtil::err($result);
         }
 
         $item = $result;
@@ -56,13 +61,13 @@ class CrudVariableCtrl extends Controller {
         $attrs = $request->all();
         [$status, $result] = CrudVariableValidator::validate($attrs);
         if ($status === "error") {
-            return ResUtil::res($result);
+            return ResUtil::err($result);
         }
 
         $attrs = $result;
         [$status, $result] = $flow->create($attrs);
         if ($status === "error") {
-            return ResUtil::res($result);
+            return ResUtil::err($result);
         }
 
         $item = $result;
@@ -77,13 +82,13 @@ class CrudVariableCtrl extends Controller {
             Setting::CRUD_ACTION["UPDATE"],
         );
         if ($status === "error") {
-            return ResUtil::res($result);
+            return ResUtil::err($result);
         }
 
         $attrs = $result;
         [$status, $result] = $flow->update($id, $attrs);
         if ($status === "error") {
-            return ResUtil::res($result);
+            return ResUtil::err($result);
         }
 
         $item = $result;
@@ -95,7 +100,7 @@ class CrudVariableCtrl extends Controller {
         $flow = new CrudVariableFlow(new VariableService());
         [$status, $result] = $flow->delete($id);
         if ($status === "error") {
-            return ResUtil::res($result);
+            return ResUtil::err($result);
         }
 
         $response = CrudVariablePresenter::presentDelete();
@@ -107,7 +112,7 @@ class CrudVariableCtrl extends Controller {
         $ids = array_map("intval", explode(",", $ids));
         [$status, $result] = $flow->deleteList($ids);
         if ($status === "error") {
-            return ResUtil::res($result);
+            return ResUtil::err($result);
         }
 
         $response = CrudVariablePresenter::presentDelete();

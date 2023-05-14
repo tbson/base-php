@@ -10,11 +10,13 @@ import {
     CircleCheck,
     ArrowDown
 } from "@element-plus/icons-vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { LOGO_TEXT } from "src/const";
 import StorageUtil from "util/storage_util";
+import NavUtil from "util/nav_util";
 
 const route = useRoute();
+const router = useRouter();
 const pathName = route.path;
 
 const isCollapse = ref(false);
@@ -47,7 +49,7 @@ function processSelectedKey() {
 }
 
 function handleSelectMenu(index) {
-    console.log(index);
+    NavUtil.navigateTo(router)(index);
 }
 </script>
 

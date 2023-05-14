@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref, defineProps, toRaw } from "vue";
+import { reactive, ref, toRaw } from "vue";
 import FormUtil from "util/form_util.js";
 import EventUtil from "util/event_util.js";
 import { urls } from "component/account/config.js";
