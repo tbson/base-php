@@ -4,6 +4,7 @@ import { Delete, Edit, Plus } from "@element-plus/icons-vue";
 import { variableTypeOptionStore } from "store/variable_type_option";
 import EventUtil from "util/event_util";
 import RequestUtil from "util/request_util";
+import Pagination from "component/common/table/pagination.vue";
 import Dialog from "component/config/variable/variable_dialog.vue";
 import { urls, messages } from "component/config/variable/config.js";
 
@@ -117,7 +118,7 @@ function hanldeBulkDelete() {
                 @click="hanldeBulkDelete()"
             />
         </el-col>
-        <el-col :span="12" class="right-align">Pagination</el-col>
+        <el-col :span="12" class="right-align"><Pagination /></el-col>
     </el-row>
     <Dialog ref="dialog" :on-change="handleChange" />
 </template>
