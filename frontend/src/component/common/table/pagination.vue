@@ -17,13 +17,13 @@ function hanldeClick(url) {
 <template>
     <div style="display: flex; justify-content: flex-end; margin-top: 5px">
         <el-button
-            v-if="prev"
+            :disabled="!prev"
             type="primary"
             :icon="ArrowLeft"
             @click="hanldeClick(prev)"
         />
         <el-button
-            v-if="next"
+            :disabled="!next"
             type="primary"
             :icon="ArrowRight"
             @click="hanldeClick(next)"

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watchEffect } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { Delete, Edit, Plus } from "@element-plus/icons-vue";
 import { variableTypeOptionStore } from "store/variable_type_option";
 import EventUtil from "util/event_util";
@@ -11,22 +11,39 @@ import { urls, messages } from "component/config/variable/config.js";
 const store = variableTypeOptionStore();
 const dialog = ref();
 const list = ref([]);
-const links = ref({});
 const ids = ref([]);
+const links = ref({});
 const pagingParam = ref({});
+const searchParam = ref("");
+const filterParam = ref({});
+const sortParam = ref({});
 
 onMounted(() => {
     getList();
 });
 
-// watchEffect(() => {
-//    getList();
-// });
+watch([pagingParam, searchParam, filterParam, sortParam], () => {
+    getList();
+});
+
+function getQueryParams() {
+    const params = {};
+    if (searchParam) {
+        params.search = searchParam.value;
+    }
+
+    return {
+        ...params.value,
+        ...pagingParam.value,
+        ...filterParam.value,
+        ...sortParam.value
+    };
+}
 
 function getList() {
-    console.log("getList");
+    const params = getQueryParams();
     EventUtil.toggleGlobalLoading();
-    RequestUtil.apiCall(urls.crud)
+    RequestUtil.apiCall(urls.crud, params)
         .then((data) => {
             store.setValue(data.extra.variableTypeOption);
             list.value = data.items;
