@@ -85,18 +85,14 @@ function handleLogout() {
                         <el-icon><Setting /></el-icon>
                         <template #title>Variable</template>
                     </el-menu-item>
-                    <el-sub-menu index="3">
+                    <el-sub-menu index="role">
                         <template #title>
                             <el-icon><CircleCheck /></el-icon>
                             <span>Role</span>
                         </template>
-                        <el-menu-item index="3-1">
+                        <el-menu-item index="/app/role/group">
                             <el-icon><Unlock /></el-icon>
                             <template #title>Group</template>
-                        </el-menu-item>
-                        <el-menu-item index="3-2">
-                            <el-icon><Key /></el-icon>
-                            <template #title>Permission</template>
                         </el-menu-item>
                     </el-sub-menu>
                 </el-menu>

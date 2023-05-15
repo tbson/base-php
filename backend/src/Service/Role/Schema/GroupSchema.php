@@ -33,8 +33,8 @@ class GroupSchema extends Model {
     protected $casts = [];
 
     public static $rules = [
-        "profile_type" => "required|integer",
         "title" => "required|string",
+        "profile_type" => "required|integer",
         "default" => "boolean",
     ];
 

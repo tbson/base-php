@@ -13,6 +13,7 @@ import HomePage from "component/home/home_page.vue";
 import LoginPage from "component/auth/login/login_page.vue";
 import ProfilePage from "component/account/profile/profile_page.vue";
 import VariablePage from "component/config/variable/variable_page.vue";
+import GroupPage from "component/role/group/group_page.vue";
 
 const routes = [
     {
@@ -36,6 +37,11 @@ const routes = [
                 path: "config",
                 component: MainLayout,
                 children: [{ path: "variable", component: VariablePage }]
+            },
+            {
+                path: "role",
+                component: MainLayout,
+                children: [{ path: "group", component: GroupPage }]
             }
         ]
     },
