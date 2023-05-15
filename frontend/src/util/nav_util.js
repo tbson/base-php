@@ -1,7 +1,6 @@
 import EventUtil from "util/event_util";
 import StorageUtil from "util/storage_util";
 import RequestUtil from "util/request_util";
-import { PROFILE_TYPE } from "src/const";
 
 export default class NavUtil {
     /**
@@ -28,7 +27,7 @@ export default class NavUtil {
             const payload = {};
             RequestUtil.apiCall(logoutUrl, payload, "post")
                 .then(() => {
-                    NavUtil.cleanAndMoveToLoginPage(navigate);
+                    NavUtil.cleanAndMoveToLoginPage();
                 })
                 .finally(() => {
                     EventUtil.toggleGlobalLoading(false);
@@ -39,26 +38,18 @@ export default class NavUtil {
     /**
      * cleanAndMoveToLoginPage.
      *
-     * @param {Navigate} navigate
      * @returns {void}
      */
-    static cleanAndMoveToLoginPage(navigate) {
-        const currentUrl = window.location.href.split("#")[1];
-        const profileType = StorageUtil.getStorageObj("auth").profile_type;
-        const orgUid = StorageUtil.getStorageObj("auth").org_uid;
+    static cleanAndMoveToLoginPage() {
+        let currentUrl = window.location.href.split("://")[1].split("/");
+        currentUrl.shift();
+        currentUrl = "/" + currentUrl.join("/");
         StorageUtil.removeStorage("auth");
-        let loginUrl =
-            profileType === PROFILE_TYPE.vendor ? "/login" : `/login/${orgUid}`;
-        if (!orgUid) {
-            loginUrl = "/login";
-        }
+        let loginUrl = "/login";
         if (currentUrl) {
             loginUrl = `${loginUrl}?next=${currentUrl}`;
         }
-        if (navigate) {
-            NavUtil.navigateTo(router)(loginUrl);
-        } else {
-            window.location.href = loginUrl;
-        }
+        console.log(loginUrl);
+        window.location.href = loginUrl;
     }
 }

@@ -28,7 +28,8 @@ function openResetPwdDialog() {
 
 function handleChange(data) {
     StorageUtil.setAuthData(data);
-    NavUtil.navigateTo(router)("/app/profile");
+    const nextUrl = window.location.href.split("next=")[1] || "/app/profile";
+    NavUtil.navigateTo(router)(nextUrl);
 }
 </script>
 

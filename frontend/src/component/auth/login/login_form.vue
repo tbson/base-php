@@ -2,7 +2,7 @@
 import { reactive, ref, toRaw } from "vue";
 import FormUtil from "util/form_util.js";
 import EventUtil from "util/event_util.js";
-import { urls } from "component/auth/config.js";
+import { basicAuthUrls } from "component/auth/config.js";
 
 const props = defineProps({
     onChange: Function
@@ -44,7 +44,7 @@ function triggerSubmit() {
     formRefInstance.validate((valid, fields) => {
         if (valid) {
             const payload = toRaw(form);
-            FormUtil.submit(urls.login, payload)
+            FormUtil.submit(basicAuthUrls.login, payload)
                 .then(props.onChange)
                 .catch(FormUtil.setFormErrors(form));
         } else {

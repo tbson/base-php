@@ -11,9 +11,12 @@ import {
     ArrowDown
 } from "@element-plus/icons-vue";
 import { useRoute, useRouter } from "vue-router";
+import RequestUtil from "util/request_util";
+import EventUtil from "util/event_util";
 import { LOGO_TEXT } from "src/const";
 import StorageUtil from "util/storage_util";
 import NavUtil from "util/nav_util";
+import { commonAuthUrls } from "component/auth/config.js";
 
 const route = useRoute();
 const router = useRouter();
@@ -24,11 +27,6 @@ const name = ref("");
 const screen = ref({
     width: window.innerWidth
 });
-
-const updateScreenSize = () => {
-    screen.value.width = window.innerWidth;
-    isCollapse.value = screen.value.width < 768;
-};
 
 onMounted(() => {
     const authUser = StorageUtil.getAuthUser();
@@ -43,6 +41,11 @@ onUnmounted(() => {
     window.removeEventListener("resize", updateScreenSize);
 });
 
+function updateScreenSize() {
+    screen.value.width = window.innerWidth;
+    isCollapse.value = screen.value.width < 768;
+}
+
 function processSelectedKey() {
     // if (pathname.startsWith("/staff")) return "/staff";
     return pathName;
@@ -50,6 +53,14 @@ function processSelectedKey() {
 
 function handleSelectMenu(index) {
     NavUtil.navigateTo(router)(index);
+}
+
+function handleLogout() {
+    EventUtil.toggleGlobalLoading();
+    RequestUtil.apiCall(commonAuthUrls.logout, {}, "post").finally(() => {
+        EventUtil.toggleGlobalLoading(false);
+        NavUtil.cleanAndMoveToLoginPage();
+    });
 }
 </script>
 
@@ -116,8 +127,9 @@ function handleSelectMenu(index) {
                                 /></el-icon>
                                 <template #dropdown>
                                     <el-dropdown-menu>
-                                        <el-dropdown-item>Profile</el-dropdown-item>
-                                        <el-dropdown-item>Logout</el-dropdown-item>
+                                        <el-dropdown-item @click="handleLogout"
+                                            >Logout</el-dropdown-item
+                                        >
                                     </el-dropdown-menu>
                                 </template>
                             </el-dropdown>
