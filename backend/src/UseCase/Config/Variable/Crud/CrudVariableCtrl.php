@@ -18,11 +18,13 @@ use Src\UseCase\Config\Variable\Crud\CrudVariableValidator;
  * @package Src\UseCase\Config\Variable\CrudVariableCtrl
  */
 class CrudVariableCtrl extends Controller {
+    const SEARCH_FIELDS = ["uid", "value", "description"];
     public function list(Request $request) {
         $queryParam = $request->query();
 
         [$searchData, $orderData, $filterData, $pageSize] = CtrlUtil::parseQueryParams(
             $queryParam,
+            self::SEARCH_FIELDS,
         );
 
         $flow = new CrudVariableFlow(new VariableService());

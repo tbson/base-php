@@ -5,6 +5,7 @@ import { variableTypeOptionStore } from "store/variable_type_option";
 import EventUtil from "util/event_util";
 import RequestUtil from "util/request_util";
 import Pagination from "component/common/table/pagination.vue";
+import SearchInput from "component/common/table/search_input.vue";
 import Dialog from "component/config/variable/variable_dialog.vue";
 import { urls, messages } from "component/config/variable/config.js";
 
@@ -14,7 +15,7 @@ const list = ref([]);
 const ids = ref([]);
 const links = ref({});
 const pagingParam = ref({});
-const searchParam = ref("");
+const searchParam = ref({});
 const filterParam = ref({});
 const sortParam = ref({});
 
@@ -28,13 +29,10 @@ watch([pagingParam, searchParam, filterParam, sortParam], () => {
 
 function getQueryParams() {
     const params = {};
-    if (searchParam) {
-        params.search = searchParam.value;
-    }
-
     return {
         ...params.value,
         ...pagingParam.value,
+        ...searchParam.value,
         ...filterParam.value,
         ...sortParam.value
     };
@@ -100,9 +98,14 @@ function hanldeBulkDelete() {
 function handlePaginate(params) {
     pagingParam.value = params;
 }
+
+function handleSearch(params) {
+    searchParam.value = params;
+}
 </script>
 
 <template>
+    <SearchInput :on-change="handleSearch" />
     <el-table
         :data="list"
         style="width: 100%"
