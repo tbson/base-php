@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watchEffect } from "vue";
 import { Delete, Edit, Plus } from "@element-plus/icons-vue";
 import { variableTypeOptionStore } from "store/variable_type_option";
 import EventUtil from "util/event_util";
@@ -11,18 +11,26 @@ import { urls, messages } from "component/config/variable/config.js";
 const store = variableTypeOptionStore();
 const dialog = ref();
 const list = ref([]);
+const links = ref({});
 const ids = ref([]);
+const pagingParam = ref({});
 
 onMounted(() => {
     getList();
 });
 
+// watchEffect(() => {
+//    getList();
+// });
+
 function getList() {
+    console.log("getList");
     EventUtil.toggleGlobalLoading();
     RequestUtil.apiCall(urls.crud)
         .then((data) => {
             store.setValue(data.extra.variableTypeOption);
             list.value = data.items;
+            links.value = data.links;
         })
         .finally(() => {
             EventUtil.toggleGlobalLoading(false);
@@ -71,6 +79,10 @@ function hanldeBulkDelete() {
         })
         .finally(() => EventUtil.toggleGlobalLoading(false));
 }
+
+function handlePaginate(params) {
+    pagingParam.value = params;
+}
 </script>
 
 <template>
@@ -118,7 +130,12 @@ function hanldeBulkDelete() {
                 @click="hanldeBulkDelete()"
             />
         </el-col>
-        <el-col :span="12" class="right-align"><Pagination /></el-col>
+        <el-col :span="12" class="right-align"
+            ><Pagination
+                :next="links.next"
+                :prev="links.prev"
+                :on-change="handlePaginate"
+        /></el-col>
     </el-row>
     <Dialog ref="dialog" :on-change="handleChange" />
 </template>
