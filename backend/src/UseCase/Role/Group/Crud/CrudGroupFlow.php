@@ -27,12 +27,20 @@ class CrudGroupFlow {
     }
 
     public function create($attrs) {
-        return $this->groupService->createGroup($attrs);
+        $pems = $attrs["pems"];
+        [$status, $group] = $this->groupService->createGroup($attrs);
+        $group->pems()->syncWithoutDetaching($pems);
+        return [$status, $group];
     }
 
     public function update($id, $attrs) {
         $conditions = ["id" => $id];
-        return $this->groupService->updateGroup($conditions, $attrs);
+        $pems = $attrs["pems"];
+        [$status, $group] = $this->groupService->updateGroup($conditions, $attrs);
+        if (!$group->default) {
+            $group->pems()->syncWithoutDetaching($pems);
+        }
+        return [$status, $group];
     }
 
     public function delete($id) {

@@ -35,7 +35,13 @@ class GroupSchema extends Model {
     public static $rules = [
         "title" => "required|string",
         "profile_type" => "required|integer",
-        "default" => "boolean",
+        "pems" => "array",
+    ];
+
+    public static $updateRules = [
+        "title" => "string",
+        "profile_type" => "integer",
+        "pems" => "array",
     ];
 
     public static $messages = [];

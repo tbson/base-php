@@ -2,6 +2,7 @@
 import { ref, onMounted, watch } from "vue";
 import { Delete, Edit, Plus, CircleCheck, CircleClose } from "@element-plus/icons-vue";
 import { profileTypeOptionStore } from "store/profile_type_option";
+import { pemTransferOptionStore } from "store/pem_transfer_option";
 import EventUtil from "util/event_util";
 import RequestUtil from "util/request_util";
 import Pagination from "component/common/table/pagination.vue";
@@ -9,7 +10,10 @@ import SearchInput from "component/common/table/search_input.vue";
 import Dialog from "component/role/group/group_dialog.vue";
 import { urls, messages } from "component/role/group/config.js";
 
-const store = profileTypeOptionStore();
+const store = {
+    profileTypeOption: profileTypeOptionStore(),
+    pemTransferOption: pemTransferOptionStore()
+};
 const dialog = ref();
 const list = ref([]);
 const ids = ref([]);
@@ -43,7 +47,10 @@ function getList() {
     EventUtil.toggleGlobalLoading();
     RequestUtil.apiCall(urls.crud, params)
         .then((data) => {
-            store.setValue(data.extra.profileTypeOption);
+            store.profileTypeOption.setValue(data.extra.profileTypeOption);
+            store.pemTransferOption.setValue(
+                data.extra.pemOption.map((i) => ({ key: i.value, label: i.label }))
+            );
             list.value = data.items;
             links.value = data.links;
         })

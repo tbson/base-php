@@ -1,11 +1,15 @@
 <script setup>
 import { reactive, ref, toRaw, onMounted } from "vue";
 import { profileTypeOptionStore } from "store/profile_type_option";
+import { pemTransferOptionStore } from "store/pem_transfer_option";
 import FormUtil from "util/form_util.js";
 import EventUtil from "util/event_util.js";
 import { urls } from "component/role/group/config.js";
 
-const store = profileTypeOptionStore();
+const store = {
+    profileTypeOption: profileTypeOptionStore(),
+    pemTransferOption: pemTransferOptionStore()
+};
 
 const props = defineProps({
     id: Number,
@@ -20,7 +24,7 @@ const focusRef = ref();
 const form = reactive({
     title: props.data.title,
     profile_type: props.data.profile_type,
-    default: props.data.default
+    pems: props.data.pems
 });
 
 const rules = reactive({
@@ -38,9 +42,9 @@ const rules = reactive({
             trigger: ["blur", "change"]
         }
     ],
-    default: [
+    pems: [
         {
-            type: "boolean"
+            type: "array"
         }
     ]
 });
@@ -88,15 +92,19 @@ defineExpose({
                 class="full-width"
             >
                 <el-option
-                    v-for="item in store.value"
+                    v-for="item in store.profileTypeOption.value"
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"
                 />
             </el-select>
         </el-form-item>
-        <el-form-item label="Default" prop="default">
-            <el-switch v-model="form.default" />
+        <el-form-item label="Permissions" prop="pems">
+            <el-transfer
+                v-model="form.pems"
+                :data="store.pemTransferOption.value"
+                :titles="['Source', 'Target']"
+            />
         </el-form-item>
 
         <button type="submit" class="hidden"></button>

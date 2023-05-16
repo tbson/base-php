@@ -10,6 +10,7 @@ use Src\Util\CtrlUtil;
 use Src\Util\ListUtil;
 use Src\Service\DbService;
 use Src\Service\Role\GroupService;
+use Src\Service\Role\PemService;
 use Src\UseCase\Role\Group\Crud\CrudGroupPresenter;
 use Src\UseCase\Role\Group\Crud\CrudGroupValidator;
 
@@ -38,8 +39,10 @@ class CrudGroupCtrl extends Controller {
         $result = DbService::applyPaginate($query, $pageSize);
 
         $profileTypeOption = ListUtil::mapTopOptionList(Setting::PROFILE_TYPE_LABEL);
+        $pemOption = PemService::getPemOptionList();
         $extra = [
             "profileTypeOption" => $profileTypeOption,
+            "pemOption" => $pemOption,
         ];
         $response = CtrlUtil::formatPaginate($result, $extra);
         $response["items"] = CrudGroupPresenter::presentList($response["items"]);

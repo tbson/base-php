@@ -27,6 +27,7 @@ class CrudGroupPresenter {
                 $item->profile_type,
                 "",
             ),
+            "pems" => $item->pems->pluck("id")->toArray(),
             "default" => $item->default ? true : false,
         ];
     }
