@@ -12,7 +12,7 @@ use Src\Util\ErrorUtil;
 class RefreshTokenValidator {
     public static function validateRefreshToken($attrs) {
         $rules = [
-            "token" => "required|string",
+            "access_token" => "required|string",
         ];
         $ruleMessages = [];
 

@@ -29,11 +29,14 @@ class CmdAccountSeeding extends Command {
      */
     public function handle() {
         DB::transaction(function () {
+            $defaultPassword = Setting::DEFAULT_PASSWORD;
+
             $adminProfile = Setting::PROFILE_TYPE["ADMIN"];
             $staffProfile = Setting::PROFILE_TYPE["STAFF"];
 
             $admin_group_ids = [];
             $staff_group_ids = [];
+
             foreach (Setting::PROFILE_TYPE_LABEL as $value => $label) {
                 $group = GroupSchema::create([
                     "profile_type" => $value,
@@ -47,31 +50,23 @@ class CmdAccountSeeding extends Command {
                 $group->pems()->attach($pems);
 
                 if ($group->profile_type == $adminProfile) {
-                    $admin_group_ids = array_merge(
-                        $admin_group_ids,
-                        $pems->pluck("id")->toArray(),
-                    );
+                    $admin_group_ids = [$group->id];
                 } elseif ($group->profile_type == $staffProfile) {
-                    $staff_group_ids = array_merge(
-                        $staff_group_ids,
-                        $pems->pluck("id")->toArray(),
-                    );
+                    $staff_group_ids = [$group->id];
                 }
             }
 
             $admin = UserSeeder::oneAdmin(1);
             $admin->email = "admin@localhost.dev";
-            $admin->password = "Qwerty!@#456";
+            $admin->password = $defaultPassword;
             $admin->group_ids = $admin_group_ids;
-            $admin->is_owner = true;
             $admin->enabled = true;
             $admin->save();
 
             $staff = UserSeeder::oneStaff(2);
             $staff->email = "staff@localhost.dev";
-            $staff->password = "Qwerty!@#456";
+            $staff->password = $defaultPassword;
             $staff->group_ids = $staff_group_ids;
-            $admin->is_owner = false;
             $admin->enabled = true;
             $staff->save();
         });

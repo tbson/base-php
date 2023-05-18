@@ -5,6 +5,7 @@ namespace Src;
  * @module Src\Setting;
  */
 
+define("ENV_DEFAULT_PASSWORD", env("DEFAULT_PASSWORD"));
 define("ENV_JWT_EXPIRATION_PERIOD", intval(env("JWT_EXPIRATION_PERIOD")));
 define("ENV_JWT_REFRESH_PERIOD", intval(env("JWT_REFRESH_PERIOD")));
 define("ENV_OTP_LIFE_TIME", intval(env("OTP_LIFE_TIME")));
@@ -46,6 +47,7 @@ class Setting {
         "DELETE_LIST" => 6,
     ];
 
+    const DEFAULT_PASSWORD = ENV_DEFAULT_PASSWORD;
     const JWT_EXPIRATION_PERIOD = ENV_JWT_EXPIRATION_PERIOD;
     const JWT_REFRESH_PERIOD = ENV_JWT_REFRESH_PERIOD;
     const OTP_LIFE_TIME = ENV_OTP_LIFE_TIME;

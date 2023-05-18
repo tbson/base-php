@@ -17,7 +17,7 @@ class RefreshTokenCtrl {
         if ($status === "error") {
             return ResUtil::err($result);
         }
-        $token = $result["token"];
+        $token = $result["access_token"];
         $flow = new RefreshTokenFlow(new AccountService(), new UserService());
 
         [$status, $result] = $flow->refreshToken($token);
