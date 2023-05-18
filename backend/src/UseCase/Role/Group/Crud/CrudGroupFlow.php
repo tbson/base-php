@@ -38,7 +38,7 @@ class CrudGroupFlow {
         $pems = $attrs["pems"];
         [$status, $group] = $this->groupService->updateGroup($conditions, $attrs);
         if (!$group->default) {
-            $group->pems()->syncWithoutDetaching($pems);
+            $group->pems()->sync($pems);
         }
         return [$status, $group];
     }
