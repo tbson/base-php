@@ -25,7 +25,7 @@ class RbacMiddeware {
         [$status, $result] = CryptoUtil::getJwtTerms($jwtToken);
 
         if ($status !== "ok") {
-            return self::onDeny(403);
+            return self::onDeny(401);
         }
 
         $userId = $result["user_id"];
@@ -38,7 +38,7 @@ class RbacMiddeware {
         }
 
         if (in_array($pem->id, $tokenPemIds) === false) {
-            return self::onDeny(401);
+            return self::onDeny(403);
         }
 
         [$status, $user] = UserService::getUser(["id" => $userId]);
