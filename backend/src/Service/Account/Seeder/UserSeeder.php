@@ -15,11 +15,7 @@ class UserSeeder {
             "email" => "test{$index}@gmail.com",
             "mobile" => "090669651{$index}",
             "password" => "password{$index}",
-            "is_owner" => false,
         ];
-        if ($profileType == Setting::PROFILE_TYPE["ADMIN"]) {
-            $result["is_owner"] = true;
-        }
         return $result;
     }
 

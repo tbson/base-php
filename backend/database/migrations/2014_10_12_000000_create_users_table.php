@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->string("email");
             $table->string("mobile");
             $table->string("password");
-            $table->boolean("is_owner")->default(false);
             $table->boolean("enabled")->default(false);
             $table->json("group_ids")->default(new Expression("(JSON_ARRAY())"));
 

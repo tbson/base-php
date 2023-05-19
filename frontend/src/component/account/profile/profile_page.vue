@@ -4,7 +4,7 @@ import EventUtil from "util/event_util";
 import RequestUtil from "util/request_util";
 import ProfileDialog from "component/account/profile/profile_dialog.vue";
 import ChangePwdDialog from "component/account/profile/change_pwd_dialog.vue";
-import { urls } from "component/account/config";
+import { urls } from "component/account/profile/config";
 
 const profileData = ref({});
 const profileDialog = ref();

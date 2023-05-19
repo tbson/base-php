@@ -27,12 +27,12 @@ class UserSchema extends Authenticatable {
      * @var array<int, string>
      */
     protected $fillable = [
-        "profile_type",
         "name",
         "email",
         "mobile",
         "password",
-        "is_owner",
+        "profile_type",
+        "group_ids",
         "enabled",
     ];
 
@@ -54,11 +54,22 @@ class UserSchema extends Authenticatable {
     ];
 
     public static $rules = [
-        "profile_type" => "required|integer",
         "name" => "required|string",
         "email" => "required|string|email",
         "mobile" => "string",
-        "is_owner" => "boolean",
+        "profile_type" => "required|integer",
+        "password" => "required|string",
+        "group_ids" => "required|array",
+        "enabled" => "boolean",
+    ];
+
+    public static $updateRules = [
+        "name" => "string",
+        "email" => "string|email",
+        "mobile" => "string",
+        "profile_type" => "integer",
+        "password" => "string",
+        "group_ids" => "array",
         "enabled" => "boolean",
     ];
 

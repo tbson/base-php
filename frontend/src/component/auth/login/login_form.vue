@@ -2,7 +2,7 @@
 import { reactive, ref, toRaw } from "vue";
 import FormUtil from "util/form_util.js";
 import EventUtil from "util/event_util.js";
-import { basicAuthUrls } from "component/auth/config.js";
+import { basicAuthUrls } from "component/auth/login/config.js";
 
 const props = defineProps({
     onChange: Function

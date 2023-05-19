@@ -6,6 +6,7 @@ namespace Src\Interface\Account;
  * @package Src\Interface\Account\User
  */
 interface User {
+    public static function getSchema();
     public static function getUser($conditions);
     public static function createUser($attrs);
     public static function updateUser($conditions, $attrs);

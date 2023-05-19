@@ -1,24 +1,26 @@
 <script setup>
-import { ref, onMounted, onUnmounted, defineProps } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import EventUtil from "util/event_util.js";
 import RequestUtil from "util/request_util";
 import FormUtil from "util/form_util.js";
-import ProfileForm from "component/account/profile/profile_form.vue";
-import { urls } from "component/account/profile/config.js";
+import Form from "component/account/profile/profile_form.vue";
+import { urls } from "component/account/profile/account.js";
 
 const props = defineProps({
     onChange: Function
 });
 
+const id = ref(null);
 const open = ref(false);
 const form = ref();
-const profileData = ref({});
+const data = ref({});
 
-const toggleEvent = "TOGGLE_UPDATE_PROFILE_DIALOG";
+const toggleEvent = "TOGGLE_VARIABLE_DIALOG";
 
-function getProfile() {
+function getItem(id) {
     EventUtil.toggleGlobalLoading();
-    return RequestUtil.apiCall(urls.profile)
+    const url = `${urls.crud}${id}`;
+    return RequestUtil.apiCall(url)
         .then((data) => {
             return data;
         })
@@ -30,19 +32,25 @@ function getProfile() {
         });
 }
 
-function toggle(open = true) {
-    EventUtil.event.dispatch(toggleEvent, { open });
+function toggle(open = true, id = null) {
+    EventUtil.event.dispatch(toggleEvent, { open, id });
 }
 
 function handleToggle({ detail }) {
+    id.value = detail.id;
     if (!detail.open) {
         open.value = false;
         return;
     }
-    getProfile().then((data) => {
+    if (detail.id) {
+        getItem(detail.id).then((item) => {
+            open.value = true;
+            data.value = item;
+        });
+    } else {
         open.value = true;
-        profileData.value = data;
-    });
+        data.value = {};
+    }
 }
 
 function triggerSubmit() {
@@ -51,7 +59,7 @@ function triggerSubmit() {
 
 function handleChange(data) {
     open.value = false;
-    props.onChange();
+    props.onChange(id.value, data);
 }
 
 onMounted(() => {
@@ -68,14 +76,12 @@ defineExpose({
 </script>
 
 <template>
-    <el-dialog destroy-on-close v-model="open" title="Update profile" width="60%">
-        <ProfileForm ref="form" :data="profileData" :on-change="handleChange" />
+    <el-dialog destroy-on-close v-model="open" title="User" width="60%">
+        <Form ref="form" :id="id" :data="data" :on-change="handleChange" />
         <template #footer>
             <span class="dialog-footer">
                 <el-button @click="open = false">Cancel</el-button>
-                <el-button type="primary" @click="triggerSubmit">
-                    Update profile
-                </el-button>
+                <el-button type="primary" @click="triggerSubmit"> Submit </el-button>
             </span>
         </template>
     </el-dialog>

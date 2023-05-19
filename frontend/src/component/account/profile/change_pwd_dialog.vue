@@ -4,7 +4,7 @@ import EventUtil from "util/event_util.js";
 import RequestUtil from "util/request_util";
 import FormUtil from "util/form_util.js";
 import ChangePwdForm from "component/account/profile/change_pwd_form.vue";
-import { urls } from "component/account/config.js";
+import { urls } from "component/account/profile/config.js";
 
 const props = defineProps({
     onChange: Function

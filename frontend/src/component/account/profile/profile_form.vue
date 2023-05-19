@@ -2,7 +2,7 @@
 import { reactive, ref, toRaw } from "vue";
 import FormUtil from "util/form_util.js";
 import EventUtil from "util/event_util.js";
-import { urls } from "component/account/config.js";
+import { urls } from "component/account/profile/config.js";
 
 const props = defineProps({
     data: Object,

@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\UseCase\Config\Variable\Crud;
+namespace Src\UseCase\Account\User\Crud;
 
 use Illuminate\Http\Request;
 use Src\Setting;
@@ -9,15 +9,15 @@ use Src\Controller;
 use Src\Util\CtrlUtil;
 use Src\Util\ListUtil;
 use Src\Service\DbService;
-use Src\Service\Config\VariableService;
-use Src\UseCase\Config\Variable\Crud\CrudVariablePresenter;
-use Src\UseCase\Config\Variable\Crud\CrudVariableValidator;
+use Src\Service\Account\UserService;
+use Src\UseCase\Account\User\Crud\CrudUserPresenter;
+use Src\UseCase\Account\User\Crud\CrudUserValidator;
 
 /**
- * Class CrudVariableCtrl
- * @package Src\UseCase\Config\Variable\Crud\CrudVariableCtrl
+ * Class CrudUserCtrl
+ * @package Src\UseCase\Account\User\Crud\CrudUserCtrl
  */
-class CrudVariableCtrl extends Controller {
+class CrudUserCtrl extends Controller {
     const SEARCH_FIELDS = ["uid", "value", "description"];
     public function list(Request $request) {
         $queryParam = $request->query();
@@ -27,7 +27,7 @@ class CrudVariableCtrl extends Controller {
             self::SEARCH_FIELDS,
         );
 
-        $flow = new CrudVariableFlow(new VariableService());
+        $flow = new CrudUserFlow(new UserService());
         $query = $flow->list();
         $searchFields = $searchData["fields"];
         $searchValue = $searchData["value"];
@@ -37,31 +37,31 @@ class CrudVariableCtrl extends Controller {
         $query = DbService::applyOrder($query, $orderData);
         $result = DbService::applyPaginate($query, $pageSize);
 
-        $variableTypeOption = ListUtil::mapTopOptionList(Setting::VARIABLE_TYPE_LABEL);
+        $profileTypeOption = ListUtil::mapTopOptionList(Setting::PROFILE_TYPE_LABEL);
         $extra = [
-            "variableTypeOption" => $variableTypeOption,
+            "profileTypeOption" => $profileTypeOption,
         ];
         $response = CtrlUtil::formatPaginate($result, $extra);
-        $response["items"] = CrudVariablePresenter::presentList($response["items"]);
+        $response["items"] = CrudUserPresenter::presentList($response["items"]);
         return ResUtil::res($response);
     }
 
     public function retrieve(Request $request, int $id) {
-        $flow = new CrudVariableFlow(new VariableService());
+        $flow = new CrudUserFlow(new UserService());
         [$status, $result] = $flow->retrieve($id);
         if ($status === "error") {
             return ResUtil::err($result);
         }
 
         $item = $result;
-        $response = CrudVariablePresenter::presentItem($item);
+        $response = CrudUserPresenter::presentItem($item);
         return ResUtil::res($response);
     }
 
     public function create(Request $request) {
-        $flow = new CrudVariableFlow(new VariableService());
+        $flow = new CrudUserFlow(new UserService());
         $attrs = $request->all();
-        [$status, $result] = CrudVariableValidator::validate($attrs);
+        [$status, $result] = CrudUserValidator::validate($attrs);
         if ($status === "error") {
             return ResUtil::err($result);
         }
@@ -73,13 +73,13 @@ class CrudVariableCtrl extends Controller {
         }
 
         $item = $result;
-        $response = CrudVariablePresenter::presentItem($item);
+        $response = CrudUserPresenter::presentItem($item);
         return ResUtil::res($response);
     }
     public function update(Request $request, $id) {
-        $flow = new CrudVariableFlow(new VariableService());
+        $flow = new CrudUserFlow(new UserService());
         $attrs = $request->all();
-        [$status, $result] = CrudVariableValidator::validate(
+        [$status, $result] = CrudUserValidator::validate(
             $attrs,
             Setting::CRUD_ACTION["UPDATE"],
         );
@@ -94,22 +94,22 @@ class CrudVariableCtrl extends Controller {
         }
 
         $item = $result;
-        $response = CrudVariablePresenter::presentItem($item);
+        $response = CrudUserPresenter::presentItem($item);
         return ResUtil::res($response);
     }
 
     public function delete(Request $request, $id) {
-        $flow = new CrudVariableFlow(new VariableService());
+        $flow = new CrudUserFlow(new UserService());
         [$status, $result] = $flow->delete($id);
         if ($status === "error") {
             return ResUtil::err($result);
         }
 
-        $response = CrudVariablePresenter::presentDelete();
+        $response = CrudUserPresenter::presentDelete();
         return ResUtil::res($response);
     }
     public function deleteList(Request $request) {
-        $flow = new CrudVariableFlow(new VariableService());
+        $flow = new CrudUserFlow(new UserService());
         $ids = $request->input("ids");
         $ids = array_map("intval", explode(",", $ids));
         [$status, $result] = $flow->deleteList($ids);
@@ -117,7 +117,7 @@ class CrudVariableCtrl extends Controller {
             return ResUtil::err($result);
         }
 
-        $response = CrudVariablePresenter::presentDelete();
+        $response = CrudUserPresenter::presentDelete();
         return ResUtil::res($response);
     }
 }

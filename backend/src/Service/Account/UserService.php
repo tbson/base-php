@@ -17,6 +17,10 @@ class UserService implements User {
         return __("User not found");
     }
 
+    public static function getSchema() {
+        return UserSchema::class;
+    }
+
     public static function getUser($conditions) {
         return DbService::getItem(
             UserSchema::class,
